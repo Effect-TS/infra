@@ -18,12 +18,12 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "/dev/nvme0n1p2";
     fsType = "btrfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/695f63b2-2847-47f1-840e-f7d5fa37ec93";
+    device = "/dev/disk/by-uuid/4cdd5804-d112-4e27-92ae-13bf7fd57f1e";
     fsType = "ext2";
   };
 

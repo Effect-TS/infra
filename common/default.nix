@@ -23,20 +23,16 @@
       # the main difference with installing them in the default profile,
       # `/nix/var/nix/profiles/default`)
       systemPackages = with pkgs; [
-        pkgs.git
-        pkgs.vim
+        git
+        vim
       ];
     };
 
     nix = {
-      # Additional text appended to `nix.conf`
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
-
       settings = {
         # Automatically optimise the Nix store
         auto-optimise-store = true;
+        experimental-features = ["nix-command" "flakes"];
         # Perform builds in a sandboxed environment
         # See https://nixos.org/manual/nixos/stable/options.html#opt-nix.settings.sandbox
         sandbox = true;

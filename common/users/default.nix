@@ -5,6 +5,17 @@
 }: {
   users = {
     users = {
+      root = {
+        openssh = {
+          authorizedKeys = {
+            keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9KP6DOk19QDQ/AKMDWyVeE7Nu2KzH3pKS/z33dNRfs"
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEzPT600TtIVU+Ch+sbkB2GuJb+ZScNkOHKhPb6Q8AHv ma@matechs.com"
+            ];
+          };
+        };
+      };
+
       maxbrown = {
         extraGroups = ["wheel"];
 
@@ -31,17 +42,6 @@
         openssh = {
           authorizedKeys = {
             keys = [
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEzPT600TtIVU+Ch+sbkB2GuJb+ZScNkOHKhPb6Q8AHv ma@matechs.com"
-            ];
-          };
-        };
-      };
-
-      root = {
-        openssh = {
-          authorizedKeys = {
-            keys = [
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9KP6DOk19QDQ/AKMDWyVeE7Nu2KzH3pKS/z33dNRfs"
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEzPT600TtIVU+Ch+sbkB2GuJb+ZScNkOHKhPb6Q8AHv ma@matechs.com"
             ];
           };
