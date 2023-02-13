@@ -4,6 +4,10 @@
       url = "github:nixos/nixpkgs/nixos-22.11";
     };
 
+    nixpkgs-unstable = {
+      url = "github:NixOS/nixpkgs/nixos-unstable";
+    };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,6 +24,8 @@
     deploy-rs,
     home-manager,
     nixpkgs,
+    nixpkgs-unstable,
+    ...
   }: let
     # Helper for generating a nixosSystem configuration
     mkNixOsSystem = import "${inputs.self}/lib/mkNixOsSystem.nix";
@@ -53,7 +59,7 @@
     # NixOS configurations
     nixosConfigurations = {
       # On actual machine:
-      #   sudo nixos-rebuild switch --flake .#devbox
+      #   nixos-rebuild switch --flake .#devbox
       # On other machine:
       #   deploy --targets .#devbox
       # On other machine with dry activation:
@@ -68,17 +74,6 @@
         ];
         version = "22.11";
       };
-      # devbox = nixpkgs.lib.nixosSystem {
-      #   system = "x86_64-linux";
-      #   specialArgs = {
-      #     inherit inputs;
-      #     common = self.common;
-      #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      #   };
-      #   modules = [
-      #     ./hosts/devbox/configuration.nix
-      #   ];
-      # };
     };
 
     deploy = {
