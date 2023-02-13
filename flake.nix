@@ -8,13 +8,22 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-22.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
     self,
     deploy-rs,
+    home-manager,
     nixpkgs,
   }: let
+    # Helper for generating a nixosSystem configuration
+    mkNixOsSystem = import "${inputs.self}/lib/mkNixOsSystem.nix";
+
     # Helper generating outputs for each desired system
     forAllSystems = nixpkgs.lib.genAttrs [
       "x86_64-darwin"
@@ -29,34 +38,47 @@
         inherit system;
       });
   in {
-    # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
+    # Formatters to use by system for `nix fmt`
     formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
 
+    # Shell environments for each system
     devShells = forAllSystems (system: {
       default = nixpkgsFor.${system}.mkShell {
         buildInputs = with nixpkgsFor.${system}; [
-          deploy-rs
+          deploy-rs.defaultPackage.${system}
         ];
       };
     });
 
+    # NixOS configurations
     nixosConfigurations = {
       # On actual machine:
       #   sudo nixos-rebuild switch --flake .#devbox
       # On other machine:
       #   deploy --targets .#devbox
-      devbox = nixpkgs.lib.nixosSystem {
+      # On other machine with dry activation:
+      #   deploy --targets .#devbox --dry-activate
+      devbox = mkNixOsSystem {
+        inherit inputs;
+        hostname = "devbox";
         system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          common = self.common;
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        };
-        modules = [
-          ./hosts/devbox/configuration.nix
+        users = [
+          {name = "maxwellbrown";}
+          {name = "mikearnaldi";}
         ];
+        version = "22.11";
       };
+      # devbox = nixpkgs.lib.nixosSystem {
+      #   system = "x86_64-linux";
+      #   specialArgs = {
+      #     inherit inputs;
+      #     common = self.common;
+      #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      #   };
+      #   modules = [
+      #     ./hosts/devbox/configuration.nix
+      #   ];
+      # };
     };
 
     deploy = {
