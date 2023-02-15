@@ -18,3 +18,4 @@ jobs:
           fetch-depth: 0
       - uses: cachix/install-nix-action@v19
       - run: nix flake check
+      - run: nix fmt
