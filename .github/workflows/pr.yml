@@ -19,3 +19,4 @@ jobs:
       - uses: cachix/install-nix-action@v19
       - run: nix flake check
       - run: nix fmt
+      - run: nix develop --command deploy --targets .#devbox --dry-activate
