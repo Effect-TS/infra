@@ -7,7 +7,6 @@
     age
     curl
     dig
-    git
     jq
     moreutils
     unzip
