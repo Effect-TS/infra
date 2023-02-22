@@ -2,16 +2,20 @@ keys:
   # Personal SSH
   - &admin_maxwellbrown age1usc2072gec0plj2q866m0uyeh2rly60xnxts4c3xxh50cwygte8s8avj8a
   # Host SSH
+  - &host_devbox age1cd8stpd83v0zwfk7ke80nag65mxvxgc8rfjx86a4rk35wevymfwq747zwx
 creation_rules:
   - path_regex: hosts/common/secrets\.ya?ml$
     key_groups:
       - age:
           - *admin_maxwellbrown
+          - *host_devbox
   - path_regex: hosts/common/users/maxwellbrown/secrets\.ya?ml$
     key_groups:
       - age:
           - *admin_maxwellbrown
+          - *host_devbox
   - path_regex: home/maxwellbrown/common/secrets\.ya?ml$
     key_groups:
       - age:
           - *admin_maxwellbrown
+          - *host_devbox
