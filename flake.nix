@@ -4,8 +4,16 @@
       url = "github:nixos/nixpkgs/nixos-22.11";
     };
 
+    nixpkgs-master = {
+      url = "github:NixOS/nixpkgs/master";
+    };
+
     nixpkgs-unstable = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
+    };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
     };
 
     deploy-rs = {
@@ -17,46 +25,60 @@
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-colors = {
+      url = "github:misterio77/nix-colors";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
     self,
+    nixpkgs,
+    nixpkgs-master,
+    nixpkgs-unstable,
+    nixos-hardware,
     deploy-rs,
     home-manager,
-    nixpkgs,
-    nixpkgs-unstable,
+    nix-colors,
+    sops-nix,
     ...
   }: let
-    # Helper for generating a nixosSystem configuration
     mkNixOsSystem = import "${inputs.self}/lib/mkNixOsSystem.nix";
 
-    # Helper generating outputs for each desired system
-    forAllSystems = nixpkgs.lib.genAttrs [
+    supportedSystems = [
       "x86_64-darwin"
       "x86_64-linux"
       "aarch64-darwin"
       "aarch64-linux"
     ];
 
-    # Import nixpkgs' package set for each system.
-    nixpkgsFor = forAllSystems (system:
-      import nixpkgs {
-        inherit system;
-      });
-  in {
-    # Formatters to use by system for `nix fmt`
-    formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-    # Shell environments for each system
-    devShells = forAllSystems (system: {
-      default = nixpkgsFor.${system}.mkShell {
-        buildInputs = with nixpkgsFor.${system}; [
-          deploy-rs.defaultPackage.${system}
-        ];
-      };
+    pkgsFor = system: nixpkgs.legacyPackages.${system};
+
+    inherit (self) outputs;
+    specialArgs = {inherit inputs outputs;};
+  in {
+    homeManagerModules = import "${self}/modules/home-manager";
+
+    formatter = forAllSystems (
+      system: let
+        pkgs = pkgsFor system;
+      in
+        pkgs.alejandra
+    );
+
+    devShells = forAllSystems (system: let
+      pkgs = pkgsFor system;
+    in {
+      default = pkgs.callPackage "${self}/shell.nix" {inherit pkgs;};
     });
 
-    # NixOS configurations
     nixosConfigurations = {
       # On actual machine:
       #   nixos-rebuild switch --flake .#devbox
@@ -64,21 +86,13 @@
       #   deploy --targets .#devbox
       # On other machine with dry activation:
       #   deploy --targets .#devbox --dry-activate
-      devbox = mkNixOsSystem {
-        inherit inputs;
-        hostname = "devbox";
-        system = "x86_64-linux";
-        users = [
-          {name = "maxwellbrown";}
-          {name = "mikearnaldi";}
-        ];
-        version = "22.11";
+      devbox = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = ["${self}/hosts/devbox"];
       };
     };
 
     deploy = {
-      sshUser = "root";
-
       nodes = {
         devbox = {
           hostname = "142.132.148.217";
