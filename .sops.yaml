@@ -1,0 +1,17 @@
+keys:
+  # Personal SSH
+  - &admin_maxwellbrown age1usc2072gec0plj2q866m0uyeh2rly60xnxts4c3xxh50cwygte8s8avj8a
+  # Host SSH
+creation_rules:
+  - path_regex: hosts/common/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
+  - path_regex: hosts/common/users/maxwellbrown/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
+  - path_regex: home/maxwellbrown/common/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
