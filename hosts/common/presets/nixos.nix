@@ -17,6 +17,7 @@
     ../global/openssh.nix
 
     ../users/maxwellbrown
+    ../users/mikearnaldi
   ];
 
   boot = {
