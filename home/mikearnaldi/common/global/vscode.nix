@@ -2,7 +2,7 @@
   imports = [
     "${fetchTarball {
       url = "https://github.com/msteen/nixos-vscode-server/tarball/master";
-      sha256 = "1vgq7141mv67r7xgdpgg54hy41kbhlgp3870kyrh6z5fn4zyb74p";
+      sha256 = "0ahgyd2swkapimvf70ah2y55wpn2hdh1wymfh6492xrkv5x91sqz";
     }}/modules/vscode-server/home.nix"
   ];
 
