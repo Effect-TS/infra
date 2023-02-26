@@ -116,11 +116,6 @@ in {
           strict_env = true;
           warn_timeout = "12h";
         };
-        whitelist = {
-          prefix = [
-            "${config.home.homeDirectory}/Code/github.com"
-          ];
-        };
       };
     };
 

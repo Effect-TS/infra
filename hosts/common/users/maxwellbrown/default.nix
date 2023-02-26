@@ -23,7 +23,7 @@
         };
         passwordFile = config.sops.secrets.maxwellbrown-password.path;
         shell = pkgs.zsh;
-        extraGroups = ["wheel"];
+        extraGroups = ["wheel" "docker"];
       };
     };
   };
