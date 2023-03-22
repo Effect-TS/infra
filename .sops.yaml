@@ -4,6 +4,11 @@ keys:
   # Host SSH
   - &host_devbox age1cd8stpd83v0zwfk7ke80nag65mxvxgc8rfjx86a4rk35wevymfwq747zwx
 creation_rules:
+  - path_regex: hosts/devbox/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
+          - *host_devbox
   - path_regex: hosts/common/secrets\.ya?ml$
     key_groups:
       - age:

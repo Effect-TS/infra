@@ -35,4 +35,21 @@
       max-jobs = 8;
     };
   };
+
+  services = {
+    github-runner = {
+      enable = true;
+      ephemeral = true;
+      url = "https://github.com/Effect-TS";
+      tokenFile = config.sops.secrets.github-pat.path;
+    };
+  };
+
+  sops = {
+    secrets = {
+      github-pat = {
+        sopsFile = ./secrets.yaml;
+      };
+    };
+  };
 }
