@@ -3,11 +3,13 @@
   inputs,
   lib,
   modulesPath,
+  pkgs,
   ...
 }: {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
     ../common/presets/nixos.nix
+    ../common/users/github-runner
     ./hardware-configuration.nix
   ];
 
@@ -40,8 +42,12 @@
     github-runner = {
       enable = true;
       ephemeral = true;
-      url = "https://github.com/Effect-TS";
       tokenFile = config.sops.secrets.github-pat.path;
+      url = "https://github.com/Effect-TS";
+      user = "github-runner";
+      extraPackages = with pkgs; [
+        config.virtualisation.docker.package
+      ];
     };
   };
 
@@ -49,6 +55,16 @@
     secrets = {
       github-pat = {
         sopsFile = ./secrets.yaml;
+      };
+    };
+  };
+
+  systemd = {
+    services = {
+      github-runner = {
+        serviceConfig = {
+          SupplementaryGroups = ["docker"];
+        };
       };
     };
   };
