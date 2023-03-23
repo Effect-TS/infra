@@ -42,6 +42,7 @@
     github-runner = {
       enable = true;
       ephemeral = true;
+      extraLabels = ["devbox"];
       tokenFile = config.sops.secrets.github-pat.path;
       url = "https://github.com/Effect-TS";
       user = "github-runner";
