@@ -1,7 +1,0 @@
-{...}: {
-  virtualisation = {
-    docker = {
-      enable = true;
-    };
-  };
-}
