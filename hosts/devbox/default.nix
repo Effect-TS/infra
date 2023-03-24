@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     ./github-runner.nix
     ./k3s.nix
+    ./nginx.nix
   ];
 
   networking = {

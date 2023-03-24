@@ -23,6 +23,12 @@
     # `boot.initrd.kernelModules`.
     kernelModules = ["kvm-amd"];
 
+    # Parameters added to the kernel command line.
+    kernelParams = [
+      "cgroup_memory=1"
+      "cgroup_enable=memory"
+    ];
+
     loader = {
       grub = {
         # Whether or not to enable the GNU GRUB boot loader.
