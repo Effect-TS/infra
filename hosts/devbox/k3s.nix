@@ -21,6 +21,15 @@
     };
   };
 
+  systemd = {
+    services = {
+      k3s = {
+        wants = ["containerd.service"];
+        after = ["containerd.service"];
+      };
+    };
+  };
+
   virtualisation = {
     containerd = {
       enable = true;
