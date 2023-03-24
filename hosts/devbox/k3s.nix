@@ -33,18 +33,18 @@
   virtualisation = {
     containerd = {
       enable = true;
-      settings = let
-        fullCNIPlugins = pkgs.buildEnv {
-          name = "full-cni";
-          paths = with pkgs; [
-            cni-plugins
-            cni-plugin-flannel
-          ];
-        };
-      in {
-        plugins."io.containerd.grpc.v1.cri".cni = {
-          bin_dir = "${fullCNIPlugins}/bin";
-          conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+      settings = {
+        version = 2;
+        plugins = {
+          "io.containerd.grpc.v1.cri" = {
+            cni = {
+              bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
+                mkdir -p $out
+                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+              ''}";
+              conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+            };
+          };
         };
       };
     };
