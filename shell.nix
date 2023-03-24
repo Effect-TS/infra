@@ -19,7 +19,6 @@ in
 
         nativeBuildInputs = [
           git
-          # nix
           nix
           nil
           alejandra
@@ -27,7 +26,6 @@ in
           home-manager
           # https://discourse.nixos.org/t/how-to-run-nixos-rebuild-target-host-from-darwin/9488/3
           nixos-rebuild
-          # sops-nix
           age
           sops
           ssh-to-age
