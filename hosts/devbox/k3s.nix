@@ -17,7 +17,7 @@
       enable = true;
       role = "server";
       extraFlags = toString [
-        "--disable traefik --flannel-backend=host-gw --container-runtime-endpoint unix:///run/containerd/containerd.sock"
+        "--flannel-backend=host-gw --container-runtime-endpoint unix:///run/containerd/containerd.sock"
       ];
     };
   };
