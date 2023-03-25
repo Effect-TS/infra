@@ -7,7 +7,7 @@
 
   networking = {
     firewall = {
-      allowedTCPPorts = [6443];
+      allowedTCPPorts = [80 443 6443];
       trustedInterfaces = ["cni0"];
     };
   };
