@@ -8,6 +8,7 @@
     curl
     dig
     jq
+    kubectl
     moreutils
     unzip
     yq
