@@ -14,6 +14,5 @@
         ]
       }
     }
-  },
-  "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix"
+  }
 }

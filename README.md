@@ -1,12 +1,17 @@
-# NixOS Configurations <!-- omit in toc -->
+# Effect Infrastructure <!-- omit in toc -->
 
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
 - [Directory Structure](#directory-structure)
   - [NixOS](#nixos)
-  - [Home Manager](#home-manager)
-  - [Modules](#modules)
+    - [Home Manager](#home-manager)
+    - [Modules](#modules)
+  - [Terraform](#terraform)
+    - [GitHub](#github)
 - [Secret Management](#secret-management)
+  - [Updating Secrets](#updating-secrets)
+  - [NixOS](#nixos-1)
+  - [Terraform](#terraform-1)
   - [Adding a Public Key](#adding-a-public-key)
 
 ## Getting Started
@@ -18,11 +23,13 @@ This project works best if the following tools are installed:
 - [Nix](https://nixos.org/download.html)
 - [direnv](https://direnv.net/)
 
+If you use `nix` and `direnv` on your host machine, then all required tooling and packages will be automatically installed for you in your development shell.
+
 ## Directory Structure
 
-The directory structure of this project is optimized for sharing configuration as much as possible.
-
 ### NixOS
+
+The directory structure of this project is optimized for sharing configuration as much as possible.
 
 The `/hosts` directory contains all systems that are managed by NixOS. Each host has its own directory (with the same name as the machine's hostname).
 
@@ -32,7 +39,7 @@ In addition, the `/hosts` directory contains a `/common` subdirectory. This dire
 - `/common/presets` -> presets that are applied to specific host types (i.e. `nixos`, `darwin`, `desktop`, etc.)
 - `/common/users` -> user-specific configuration that is shared between hosts
 
-### Home Manager
+#### Home Manager
 
 The `/home` directory contains per-user, per-host Home Manager configurations. The directory hierarchy corresponds to the user-specific Home Manager configurations for a particular host.
 
@@ -45,15 +52,39 @@ In addition, the `/home` directory contains a `/common` subdirectory. This direc
 - `/common/global` -> global configuration that is shared between all hosts
 - `/common/presets` -> presets that are applied to specific host types (i.e. `nixos`, `darwin`, `desktop`, etc.)
 
-### Modules
+#### Modules
 
 The `/modules` directory contains shared NixOS and Home Manager modules.
 
+### Terraform
+
+TODO
+
+#### GitHub
+
+TODO
+
 ## Secret Management
 
-The project uses [`sops-nix`](https://github.com/Mic92/sops-nix) for provisioning secrets. The `sops-nix` tool allows us to store secrets in a Git repository and decrypt them at build time.
+This project makes use of [Mozilla SOPS (Secrets OPerationS)](https://github.com/mozilla/sops)
 
-The global `sops` configuration can be found in the root of the repository in the `.sops.yaml` file.
+The [`.sops.yaml`](./.sops.yaml) file at the root of the repository defines creation rules for secrets to be encrypted with `sops`. Any files matching the defined creation rule paths will be encrypted with the specified public keys.
+
+### Updating Secrets
+
+To update secret files after making changes to the `.sops.yaml` file, run the snippet below:
+
+```bash
+find . -regex '.*secrets\.ya?ml' | xargs -i sops updatekeys -y {}
+```
+
+### NixOS
+
+The project uses [`sops-nix`](https://github.com/Mic92/sops-nix) for automatically decrypting and injecting secrets into our NixOS configurations.
+
+### Terraform
+
+The project uses the [`carlpett/sops`] Terraform provider for automatically decrypting and injecting secrets into our Terraform configurations.
 
 ### Adding a Public Key
 

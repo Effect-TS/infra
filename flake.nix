@@ -48,8 +48,6 @@
     sops-nix,
     ...
   }: let
-    mkNixOsSystem = import "${inputs.self}/lib/mkNixOsSystem.nix";
-
     supportedSystems = [
       "x86_64-darwin"
       "x86_64-linux"
@@ -60,11 +58,12 @@
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
     pkgsFor = system: nixpkgs.legacyPackages.${system};
+    unstablePkgsFor = system: nixpkgs-unstable.legacyPackages.${system};
 
     inherit (self) outputs;
     specialArgs = {inherit inputs outputs;};
   in {
-    homeManagerModules = import "${self}/modules/home-manager";
+    homeManagerModules = import "${self}/nixos/modules/home-manager";
 
     formatter = forAllSystems (
       system: let
@@ -74,7 +73,7 @@
     );
 
     devShells = forAllSystems (system: let
-      pkgs = pkgsFor system;
+      pkgs = unstablePkgsFor system;
     in {
       default = pkgs.callPackage "${self}/shell.nix" {inherit pkgs;};
     });
@@ -83,26 +82,12 @@
       # On actual machine:
       #   nixos-rebuild switch --flake .#devbox
       # On other machine:
-      #   deploy --targets .#devbox
+      #   nixos-rebuild --build-host user@host --target-host user@host --use-remote-sudo switch --flake .#devbox
       # On other machine with dry activation:
-      #   deploy --targets .#devbox --dry-activate
+      #   nixos-rebuild --build-host user@host --target-host user@host --use-remote-sudo dry-activate --flake .#devbox
       devbox = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules = ["${self}/hosts/devbox"];
-      };
-    };
-
-    deploy = {
-      nodes = {
-        devbox = {
-          hostname = "142.132.148.217";
-          profiles = {
-            system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.devbox;
-            };
-          };
-          remoteBuild = true;
-        };
+        modules = ["${self}/nixos/hosts/devbox"];
       };
     };
   };

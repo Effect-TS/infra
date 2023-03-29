@@ -17,17 +17,18 @@ in
         # Enable experimental features without having to specify the argument
         NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
 
-        nativeBuildInputs = [
-          git
-          nix
-          nil
+        buildInputs = [
+          age
           alejandra
           deploy-rs
+          findutils
+          git
           home-manager
-          # https://discourse.nixos.org/t/how-to-run-nixos-rebuild-target-host-from-darwin/9488/3
+          nix
+          nil
           nixos-rebuild
-          age
           sops
           ssh-to-age
+          terraform
         ];
       }
