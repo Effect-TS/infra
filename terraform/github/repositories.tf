@@ -36,7 +36,9 @@ locals {
     html = {
       description = ""
     }
-    # TODO: infra
+    infra = {
+      description = "Infrastructure relevant to the Effect organization"
+    }
     io = {
       description = "Effect's core runtime, a fiber-based implementation of structured concurrency"
     }

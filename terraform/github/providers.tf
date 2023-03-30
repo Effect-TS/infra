@@ -7,6 +7,6 @@ data "sops_file" "secrets" {
 provider "github" {
   owner          = "Effect-TS"
   token          = data.sops_file.secrets.data["github_token"]
-  read_delay_ms  = 500
-  write_delay_ms = 500
+  read_delay_ms  = 100
+  write_delay_ms = 100
 }
