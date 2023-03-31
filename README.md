@@ -68,6 +68,12 @@ terraform init
 terraform plan
 ```
 
+To lock provider versions for different operating systems / architectures:
+
+```bash
+terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=linux_arm64 -platform=darwin_arm64
+```
+
 ## Secret Management
 
 This project makes use of [Mozilla SOPS (Secrets OPerationS)](https://github.com/mozilla/sops)

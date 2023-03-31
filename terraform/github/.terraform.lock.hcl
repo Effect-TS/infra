@@ -5,6 +5,9 @@ provider "registry.terraform.io/carlpett/sops" {
   version     = "0.7.2"
   constraints = "0.7.2"
   hashes = [
+    "h1:+A1/RJ3eNVQHDFHjol70EfC5Yh9e78WMXxh1uoxlAYQ=",
+    "h1:3Bw0Dms7NNi0bgH9kdWcSapc9hBKQy9yFMwdxivR83c=",
+    "h1:eetjYKFBQb6nbgxjehD/gzzAmH2ru94ha2tEzXNiNy8=",
     "h1:nWrLW+9JjGLwfss4T7pTaE+JiZlBJQGoYxt4pDe5OE8=",
     "zh:43f218054ea3a72c9756bf989aeebb9d0f23b66fd08e9fb4ae75d4f921295e82",
     "zh:57fd326388042a6b7ecd60f740f81e5ef931546c4f068f054e7df34acf65d190",
@@ -20,7 +23,10 @@ provider "registry.terraform.io/integrations/github" {
   version     = "5.18.3"
   constraints = "5.18.3"
   hashes = [
+    "h1:EKpGchrcouicFulbwG00s3NmXWsDDnlhffWqnGANSQQ=",
     "h1:WbZvLB2qXKVoh4BvOOwFfEds+SZQrkINfSAWPnWFxGo=",
+    "h1:Z/0vjFX80YzM3Oeq0mBbn4XYwb1POggjsu3RVQcbjNc=",
+    "h1:rv3mwpUeJ0n13sY+KZMI25WAVCSeipX4n8JMWKD1XcE=",
     "zh:050b37d96628cb7451137755929ca8d21ea546bc46d11a715652584070e83ff2",
     "zh:053051061f1b7f7673b0ceffac1f239ba28b0e5b375999206fd39976e85d9f2b",
     "zh:0c300a977ca66d0347ed62bb116fd8fc9abb376a554d4c192d14f3ea71c83500",
