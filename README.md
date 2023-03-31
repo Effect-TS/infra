@@ -58,11 +58,15 @@ The `/modules` directory contains shared NixOS and Home Manager modules.
 
 ### Terraform
 
-TODO
+For infrastructure that is unable to be maintained by Nix (i.e. external services such as GitHub), we leverage HashiCorp Terraform.
 
 #### GitHub
 
-TODO
+```bash
+cd terraform/github
+terraform init
+terraform plan
+```
 
 ## Secret Management
 
