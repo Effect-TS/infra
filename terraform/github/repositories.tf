@@ -38,6 +38,7 @@ locals {
     }
     infra = {
       description = "Infrastructure relevant to the Effect organization"
+      visibility  = "private"
     }
     io = {
       description = "Effect's core runtime, a fiber-based implementation of structured concurrency"
@@ -129,7 +130,7 @@ resource "github_repository" "repository" {
   squash_merge_commit_message = "BLANK"
   squash_merge_commit_title   = "PR_TITLE"
   topics                      = try(each.value.topics, [])
-  visibility                  = "public"
+  visibility                  = try(each.value.visibility, "public")
 
   dynamic "pages" {
     for_each = can(each.value.disable_pages) ? [] : [1]
