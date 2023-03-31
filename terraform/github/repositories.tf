@@ -22,23 +22,27 @@ locals {
       description = "A set of ESlint and TypeScript rules to work with Effect"
     }
     examples = {
-      description = "A repository of examples showing how to use Effect"
+      description   = "A repository of examples showing how to use Effect"
+      disable_pages = true
     }
     # express = {
     #   description = "Express integration with Effect"
     # }
     fastify = {
-      description = "Fastify integration with Effect"
+      description   = "Fastify integration with Effect"
+      disable_pages = true
     }
     # figlet = {
     #   description = "An implementation of a FIGlet font parser and renderer built with Effect"
     # }
     html = {
-      description = ""
+      description   = ""
+      disable_pages = true
     }
     infra = {
-      description = "Infrastructure relevant to the Effect organization"
-      visibility  = "private"
+      description   = "Infrastructure relevant to the Effect organization"
+      disable_pages = true
+      visibility    = "private"
     }
     io = {
       description = "Effect's core runtime, a fiber-based implementation of structured concurrency"
@@ -54,11 +58,13 @@ locals {
       topics      = ["functional-programming", "pattern-matching", "typescript"]
     }
     misc = {
-      description = ""
+      description   = ""
+      disable_pages = true
     }
     node = {
-      description = ""
-      topics      = ["functional", "node"]
+      description   = ""
+      disable_pages = true
+      topics        = ["functional", "node"]
     }
     opentelemetry = {
       description = "OpenTelemetry integration with Effect"
@@ -67,7 +73,8 @@ locals {
     #   description = ""
     # }
     platform = {
-      description = "Unified interfaces for common platform-specific services"
+      description   = "Unified interfaces for common platform-specific services"
+      disable_pages = true
     }
     printer = {
       description = "An easy to use, extensible pretty-printer for rendering documents"
@@ -80,19 +87,23 @@ locals {
       topics      = ["batching", "caching", "functional", "pipelining", "query"]
     }
     remix-plugin = {
-      description = ""
+      description   = ""
+      disable_pages = true
     }
     rpc = {
-      description = ""
+      description   = ""
+      disable_pages = true
     }
     scala-playground = {
-      description = "A Scala playground for the Effect maintainers"
+      description   = "A Scala playground for the Effect maintainers"
+      disable_pages = true
     }
     schema = {
       description = "Modeling the schema of data structures as first-class values"
     }
     sqlite = {
-      description = ""
+      description   = ""
+      disable_pages = true
     }
     stm = {
       description = "An implementation of software transactional memory built with Effect"
@@ -104,7 +115,8 @@ locals {
       description = ""
     }
     vite-plugin = {
-      description = ""
+      description   = ""
+      disable_pages = true
     }
     website = {
       description   = "Source code for Effect's documentation website"
