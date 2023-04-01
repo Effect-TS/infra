@@ -11,6 +11,7 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../global/nix/nixos.nix
+    ../global/docker.nix
     ../global/home-manager.nix
     ../global/locale.nix
     ../global/oom-killer.nix
