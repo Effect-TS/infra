@@ -1,6 +1,7 @@
 keys:
   # Personal SSH
   - &admin_maxwellbrown age1usc2072gec0plj2q866m0uyeh2rly60xnxts4c3xxh50cwygte8s8avj8a
+  - &admin_mikearnaldi age15umcap7zkzq5g32zykcywjk0l6cwldxqk7e46t2ynkkwy0eghuas5rs6t7
   # Host SSH
   - &host_devbox age1cd8stpd83v0zwfk7ke80nag65mxvxgc8rfjx86a4rk35wevymfwq747zwx
 creation_rules:
@@ -8,4 +9,5 @@ creation_rules:
     key_groups:
       - age:
           - *admin_maxwellbrown
+          - *admin_mikearnaldi
           - *host_devbox
