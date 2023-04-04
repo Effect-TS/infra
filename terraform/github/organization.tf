@@ -1,5 +1,6 @@
 locals {
   owners = [
+    "effect-bot",
     "gcanti",
     "IMax153",
     "mikearnaldi",

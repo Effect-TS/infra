@@ -175,13 +175,18 @@ resource "github_branch_default" "main" {
 }
 
 resource "github_branch_protection" "main" {
-  for_each = github_repository.repository
+  for_each = {
+    for repository in github_repository.repository :
+    repository.name => repository.node_id if repository.visibility == "public"
+  }
 
-  repository_id           = each.value.node_id
+  repository_id           = each.value
   pattern                 = local.default_branch
   blocks_creations        = true
   enforce_admins          = true
   required_linear_history = true
 
-  required_pull_request_reviews {}
+  required_pull_request_reviews {
+    required_approving_review_count = 0
+  }
 }

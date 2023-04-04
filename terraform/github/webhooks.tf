@@ -1,9 +1,12 @@
 resource "github_repository_webhook" "discord" {
-  for_each = github_repository.repository
+  for_each = {
+    for repository in github_repository.repository :
+    repository.name => repository.visibility if repository.visibility == "public"
+  }
 
-  repository = each.value.name
+  repository = each.key
 
-  active = each.value.visibility == "public"
+  active = true
   events = ["*"]
 
   configuration {
