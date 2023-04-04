@@ -7,7 +7,9 @@
     - [Home Manager](#home-manager)
     - [Modules](#modules)
   - [Terraform](#terraform)
+    - [Bootstrapping](#bootstrapping)
     - [GitHub](#github)
+  - [Troubleshooting](#troubleshooting)
 - [Secret Management](#secret-management)
   - [Updating Secrets](#updating-secrets)
   - [NixOS](#nixos-1)
@@ -60,6 +62,14 @@ The `/modules` directory contains shared NixOS and Home Manager modules.
 
 For infrastructure that is unable to be maintained by Nix (i.e. external services such as GitHub), we leverage HashiCorp Terraform.
 
+#### Bootstrapping
+
+You can provision the infrastructure in AWS required to host Terraform state using the [`boostrap.sh`](./terraform/scripts/bootstrap.sh) script:
+
+```bash
+./terraform/scripts/bootstrap.sh --bucket <bucket-name> --region <aws-region> --table <dynamodb-table>
+```
+
 #### GitHub
 
 ```bash
@@ -67,6 +77,8 @@ cd terraform/github
 terraform init
 terraform plan
 ```
+
+### Troubleshooting
 
 To lock provider versions for different operating systems / architectures:
 

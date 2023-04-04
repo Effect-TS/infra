@@ -20,6 +20,7 @@ in
         buildInputs = [
           age
           alejandra
+          awscli2
           deploy-rs
           findutils
           git
@@ -27,6 +28,7 @@ in
           nix
           nil
           nixos-rebuild
+          pre-commit
           sops
           ssh-to-age
           terraform
