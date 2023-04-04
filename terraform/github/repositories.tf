@@ -19,7 +19,8 @@ locals {
       topics      = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
     }
     eslint-plugin = {
-      description = "A set of ESlint and TypeScript rules to work with Effect"
+      description   = "A set of ESlint and TypeScript rules to work with Effect"
+      disable_pages = true
     }
     examples = {
       description   = "A repository of examples showing how to use Effect"
@@ -51,11 +52,13 @@ locals {
     #   description = ""
     # }
     language-service = {
-      description = ""
+      description   = ""
+      disable_pages = true
     }
     match = {
-      description = "Functional pattern matching with the full power of TypeScript"
-      topics      = ["functional-programming", "pattern-matching", "typescript"]
+      description   = "Functional pattern matching with the full power of TypeScript"
+      topics        = ["functional-programming", "pattern-matching", "typescript"]
+      disable_pages = true
     }
     misc = {
       description   = ""
@@ -77,7 +80,8 @@ locals {
       disable_pages = true
     }
     printer = {
-      description = "An easy to use, extensible pretty-printer for rendering documents"
+      description   = "An easy to use, extensible pretty-printer for rendering documents"
+      disable_pages = true
     }
     # process = {
     #   description = "A simple library for interacting with external processes and command-line programs via Effect"

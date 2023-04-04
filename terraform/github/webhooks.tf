@@ -3,7 +3,7 @@ resource "github_repository_webhook" "discord" {
 
   repository = each.value.name
 
-  active = true
+  active = each.value.visibility == "public"
   events = ["*"]
 
   configuration {
