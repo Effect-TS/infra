@@ -183,7 +183,6 @@ resource "github_branch_protection" "main" {
   repository_id           = each.value
   pattern                 = local.default_branch
   enforce_admins          = true
-  lock_branch             = true
   required_linear_history = true
 
   required_status_checks {
