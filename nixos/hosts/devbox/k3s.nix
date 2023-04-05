@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment = {
     systemPackages = [
-      pkgs.k3s
+      pkgs.unstable.k3s
     ];
   };
 
