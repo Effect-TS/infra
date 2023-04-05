@@ -7,7 +7,7 @@
 
   networking = {
     firewall = {
-      allowedTCPPorts = [80 443 6443];
+      allowedTCPPorts = [443 6443];
       trustedInterfaces = ["cni0"];
     };
   };
@@ -17,7 +17,10 @@
       enable = true;
       role = "server";
       extraFlags = toString [
-        "--flannel-backend=host-gw --container-runtime-endpoint unix:///run/containerd/containerd.sock"
+        "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
+        "--flannel-backend host-gw"
+        "--kube-apiserver-arg 'authorization-mode=RBAC'"
+        "--secrets-encryption"
       ];
     };
   };
