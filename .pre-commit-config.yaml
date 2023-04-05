@@ -1,9 +1,9 @@
 ---
-# TODO: manage with https://github.com/cachix/pre-commit-hooks.nix
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks.git
     rev: v4.4.0
     hooks:
+      # - id: no-commit-to-branch
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-json

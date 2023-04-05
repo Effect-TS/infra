@@ -182,9 +182,14 @@ resource "github_branch_protection" "main" {
 
   repository_id           = each.value
   pattern                 = local.default_branch
-  blocks_creations        = true
   enforce_admins          = true
+  lock_branch             = true
   required_linear_history = true
+
+  required_status_checks {
+    strict   = true
+    contexts = null
+  }
 
   required_pull_request_reviews {
     required_approving_review_count = 0

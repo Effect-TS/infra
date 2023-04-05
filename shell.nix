@@ -21,14 +21,16 @@ in
           age
           alejandra
           awscli2
-          deploy-rs
           findutils
           git
           home-manager
+          kubectl
+          kubernetes-helm
           nix
           nil
           nixos-rebuild
           pre-commit
+          python310Packages.pre-commit-hooks
           sops
           ssh-to-age
           terraform

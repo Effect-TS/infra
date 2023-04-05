@@ -27,7 +27,7 @@ This project works best if the following tools are installed:
 
 If you use `nix` and `direnv` on your host machine, then all required tooling and packages will be automatically installed for you in your development shell.
 
-In addition, this project uses [`pre-commit`](https://pre-commit.com/). To ensure the hooks are installed in your project, make sure to run:
+In addition, this project uses [`pre-commit`](https://pre-commit.com/). If you are not using Nix + `direnv`, you can install the Git hooks manually in your project by installing `pre-commit` and running:
 
 ```bash
 pre-commit install
@@ -124,8 +124,4 @@ We use `age` to encrypt secrets. To obtain an `age` public key, you can use the 
 nix run nixpkgs#ssh-to-age -- ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
 ```
 
-Then add the `age` public key to the `.sops.yaml` file, apply it to the desired key groups, and then re-encrypt the secret files:
-
-```bash
-sops updatekeys ./**/secrets.yaml
-```
+Then add the `age` public key to the `.sops.yaml` file, apply it to the desired key groups, and then re-encrypt the secret files (see [Updating Secrets](#updating-secrets)).
