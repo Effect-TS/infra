@@ -43,7 +43,6 @@
         push = {
           autoSetupRemote = true;
         };
-
       };
 
       lfs = {
