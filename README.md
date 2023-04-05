@@ -27,6 +27,12 @@ This project works best if the following tools are installed:
 
 If you use `nix` and `direnv` on your host machine, then all required tooling and packages will be automatically installed for you in your development shell.
 
+In addition, this project uses [`pre-commit`](https://pre-commit.com/). To ensure the hooks are installed in your project, make sure to run:
+
+```bash
+pre-commit install
+```
+
 ## Directory Structure
 
 ### NixOS
