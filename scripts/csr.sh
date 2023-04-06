@@ -21,8 +21,6 @@ declare -r WHITE="\e[1;37m"
 declare SUBCOMMAND
 # The username to give to the user in Kubernetes
 declare USERNAME
-# The email of the user which will be used as the FQDN in the certificate signing request
-declare EMAIL
 # The group that will be used as the organization name in the certificate signing request.
 declare GROUP
 # The number of milliseconds before the certificate signing request expires
@@ -33,13 +31,11 @@ function usage() {
 Generates a new certificate signing request or downloads an accepted certificate signing request.
 
 Usage:
-  ./csr.sh generate --username <string> --email <string> --group <string> [--expiration <milliseconds>]
+  ./csr.sh generate --username <string> --group <string> [--expiration <milliseconds>]
   ./csr.sh download --username <string>
 
 Options:
   --username      The username to give to the user in Kubernetes.
-  --email         The email of the user which will be used as the FQDN in the certificate signing request.
-  --group         The group that will be used as the organization name in the certificate signing request.
   --expiration    The number of milliseconds before the certificate signing request expires (default: 86400).
 EOF
 }
@@ -84,11 +80,6 @@ function parse_generate_subcommand() {
     case "${1}" in
       --username)
         USERNAME="${2}"
-        shift 2
-        ;;
-
-      --email)
-        EMAIL="${2}"
         shift 2
         ;;
 
@@ -144,12 +135,6 @@ function validate_generate_subcommand() {
     exit 1
   fi
 
-  if [[ ! -v EMAIL ]]; then
-    error "[ERROR]: Must provide the '--username' argument\n"
-    usage
-    exit 1
-  fi
-
   if [[ ! -v GROUP ]]; then
     error "[ERROR]: Must provide the '--username' argument\n"
     usage
@@ -167,8 +152,7 @@ function validate_download_subcommand() {
 
 function generate_csr_config() {
   local username="${1}"
-  local email="${2}"
-  local group="${3}"
+  local group="${2}"
   cat <<EOF > "${username}.csr.cnf"
 [ req ]
 default_bits = 4096
@@ -176,7 +160,7 @@ prompt = no
 default_md = sha256
 distinguished_name = dn
 [ dn ]
-CN = ${email}
+CN = ${username}
 O = ${group}
 [ v3_ext ]
 authorityKeyIdentifier=keyid,issuer:always
@@ -229,7 +213,7 @@ function main() {
     generate)
       info "${WHITE}Creating a new certificate signing request...${RESET}"
       info "${CYAN}Generating certificate signing request configuration${RESET}"
-      generate_csr_config "${USERNAME}" "${EMAIL}" "${GROUP}"
+      generate_csr_config "${USERNAME}" "${GROUP}"
       info "${CYAN}Generating certificate signing request private key${RESET}"
       generate_private_key "${USERNAME}"
       info "${CYAN}Generating certificate signing request${RESET}"
