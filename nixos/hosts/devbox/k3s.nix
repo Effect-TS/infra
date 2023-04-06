@@ -19,7 +19,7 @@
       extraFlags = toString [
         "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
         "--flannel-backend host-gw"
-        "--kube-apiserver-arg 'authorization-mode=RBAC'"
+        "--kube-apiserver-arg 'authorization-mode=RBAC,Webhook'"
         "--secrets-encryption"
       ];
     };

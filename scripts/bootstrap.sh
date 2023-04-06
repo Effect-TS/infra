@@ -46,7 +46,7 @@ function info() {
 }
 
 function error() {
-  log "${RED}${1}${RESET}"
+  info "${RED}${1}${RESET}"
 }
 
 function parse_arguments() {

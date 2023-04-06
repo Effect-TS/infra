@@ -70,7 +70,7 @@ For infrastructure that is unable to be maintained by Nix (i.e. external service
 
 #### Bootstrapping
 
-You can provision the infrastructure in AWS required to host Terraform state using the [`boostrap.sh`](./terraform/scripts/bootstrap.sh) script:
+You can provision the infrastructure in AWS required to host Terraform state using the [`boostrap.sh`](./scripts/bootstrap.sh) script:
 
 ```bash
 ./terraform/scripts/bootstrap.sh --bucket <bucket-name> --region <aws-region> --table <dynamodb-table>
