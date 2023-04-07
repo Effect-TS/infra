@@ -1,4 +1,16 @@
+# MacOS
 .DS_Store
+
+# direnv
 .direnv
-.terraform
+
+# Helm
+charts
+
+# NixOS
 result
+
+# Terraform
+.terraform
+terraform.tfstate
+terraform.tfstate.*

@@ -35,4 +35,20 @@ in
           ssh-to-age
           terraform
         ];
+
+        KUSTOMIZE_PLUGIN_HOME = pkgs.buildEnv {
+          name = "kustomize-plugins";
+          paths = [
+            kustomize-sops
+          ];
+          postBuild = ''
+            mv $out/lib/* $out
+            rm -r $out/lib
+          '';
+          pathsToLink = ["/lib"];
+        };
+
+        shellHook = ''
+          pre-commit install
+        '';
       }

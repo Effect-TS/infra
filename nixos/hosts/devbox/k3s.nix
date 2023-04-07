@@ -25,6 +25,16 @@
     };
   };
 
+  sops = {
+    secrets = {
+      private_registries = {
+        path = "/etc/rancher/k3s/registries.yaml";
+        restartUnits = ["containerd.service"];
+        sopsFile = ./secrets.yaml;
+      };
+    };
+  };
+
   systemd = {
     services = {
       k3s = {

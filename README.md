@@ -103,7 +103,8 @@ The [`.sops.yaml`](./.sops.yaml) file at the root of the repository defines crea
 To update secret files after making changes to the `.sops.yaml` file, run the snippet below:
 
 ```bash
-find . -regex '.*secrets\.ya?ml' | xargs -i sops updatekeys -y {}
+find . -regex $(yq -r '[.creation_rules[] | "./" + .path_regex] | join("\\|")' "$(pwd)/.sops.yaml") | \
+xargs -i sops updatekeys -y {}
 ```
 
 ### NixOS

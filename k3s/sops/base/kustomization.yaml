@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: sops
+
+resources:
+  - ./namespace.yaml
+
+helmCharts:
+  - name: sops-secrets-operator
+    repo: https://isindir.github.io/sops-secrets-operator
+    version: 0.12.5
+    releaseName: sops
+    namespace: sops
+    includeCRDs: true
+    valuesInline:
+      extraEnv:
+        - name: SOPS_AGE_KEY_FILE
+          value: /var/lib/sops/age-secret-key.txt
+      secretsAsFiles:
+        - name: age-secret-key
+          mountPath: /var/lib/sops
+          secretName: age-secret-key
+...
