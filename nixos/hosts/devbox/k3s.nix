@@ -29,7 +29,7 @@
     secrets = {
       private_registries = {
         path = "/etc/rancher/k3s/registries.yaml";
-        restartUnits = ["containerd.service"];
+        restartUnits = ["containerd.service" "k3s.service"];
         sopsFile = ./secrets.yaml;
       };
     };
