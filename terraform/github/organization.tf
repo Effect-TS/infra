@@ -14,6 +14,7 @@ locals {
     "qlonik",
     "r-cyr",
     "sledorze",
+    "steida",
     "tim-smart",
     "tstelzer",
     "wesselvdv"
