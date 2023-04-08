@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   environment = {
     systemPackages = [
       pkgs.unstable.k3s
@@ -27,8 +31,15 @@
 
   sops = {
     secrets = {
-      private_registries = {
-        path = "/etc/rancher/k3s/registries.yaml";
+      ghcr_username = {
+        restartUnits = ["containerd.service" "k3s.service"];
+        sopsFile = ./secrets.yaml;
+      };
+      ghcr_password = {
+        restartUnits = ["containerd.service" "k3s.service"];
+        sopsFile = ./secrets.yaml;
+      };
+      ghcr_basic_auth = {
         restartUnits = ["containerd.service" "k3s.service"];
         sopsFile = ./secrets.yaml;
       };
@@ -57,6 +68,22 @@
                 ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+            };
+            registry = {
+              mirrors = {
+                "ghcr.io" = {
+                  endpoint = ["https://ghcr.io"];
+                };
+              };
+              configs = {
+                "ghcr.io" = {
+                  auth = {
+                    username = config.sops.secrets.ghcr_username;
+                    password = config.sops.secrets.ghcr_password;
+                    auth = config.sops.secrets.ghcr_basic_auth;
+                  };
+                };
+              };
             };
           };
         };

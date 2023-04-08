@@ -7,6 +7,9 @@ subjects:
   - kind: User
     name: maxwellbrown
     apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: mikearnaldi
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: cluster-admin
