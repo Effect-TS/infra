@@ -21,4 +21,3 @@ jobs:
       - run: nix flake check
       - run: nix fmt
       # - run: nix develop --command deploy --targets .#devbox --dry-activate
-...

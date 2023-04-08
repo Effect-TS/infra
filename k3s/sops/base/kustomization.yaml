@@ -22,4 +22,3 @@ helmCharts:
         - name: age-secret-key
           mountPath: /var/lib/sops
           secretName: age-secret-key
-...

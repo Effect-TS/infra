@@ -26,4 +26,3 @@ creation_rules:
       - age:
           - *admin_maxwellbrown
           - *admin_mikearnaldi
-...
