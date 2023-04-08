@@ -1,0 +1,16 @@
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerSet
+metadata:
+  name: github-actions-runner
+spec:
+  replicas: 2
+  organization: Effect-TS
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: github-actions-runner
+  serviceName: github-actions-runner
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: github-actions-runner

@@ -6,6 +6,7 @@ namespace: actions-runner-system
 
 resources:
   - ../../base
+  - ./resources/runnerset.yaml
 
 generators:
   - ./generators/secrets-generator.yaml

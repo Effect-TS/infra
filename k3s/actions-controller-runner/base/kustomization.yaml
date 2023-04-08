@@ -10,7 +10,7 @@ resources:
 helmCharts:
   - name: actions-runner-controller
     repo: https://actions-runner-controller.github.io/actions-runner-controller
-    version: v0.23.1
+    version: v0.23.0
     releaseName: actions-runner-controller
     namespace: actions-runner-system
     includeCRDs: true
