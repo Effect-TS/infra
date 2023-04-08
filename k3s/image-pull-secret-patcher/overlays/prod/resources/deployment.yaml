@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-pull-secret-patcher
+  labels:
+    name: image-pull-secret-patcher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: image-pull-secret-patcher
+  template:
+    metadata:
+      labels:
+        name: image-pull-secret-patcher
+    spec:
+      automountServiceAccountToken: true
+      serviceAccountName: image-pull-secret-patcher
+      containers:
+        - name: image-pull-secret-patcher
+          image: quay.io/titansoft/imagepullsecret-patcher:v0.14
+          resources:
+            requests:
+              cpu: 0.1
+              memory: 15Mi
+            limits:
+              cpu: 0.2
+              memory: 30Mi
+          env:
+            - name: CONFIG_FORCE
+              value: 'true'
+            - name: CONFIG_DEBUG
+              value: 'false'
+            - name: CONFIG_DOCKERCONFIGJSONPATH
+              value: /var/lib/image-pull-secret-patcher/.dockerconfigjson
+          volumeMounts:
+            - name: dockerconfig
+              mountPath: /var/lib/image-pull-secret-patcher
+              readOnly: true
+      volumes:
+        - name: dockerconfig
+          secret:
+            secretName: image-pull-secret
