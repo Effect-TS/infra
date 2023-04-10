@@ -23,8 +23,8 @@ declare SUBCOMMAND
 declare USERNAME
 # The group that will be used as the organization name in the certificate signing request.
 declare GROUP
-# The number of milliseconds before the certificate signing request expires
-declare EXPIRATION="86400"
+# The number of seconds before the certificate signing request expires
+declare EXPIRATION=$((60 * 60 * 24 * 365))
 
 function usage() {
   cat <<EOF
@@ -36,7 +36,7 @@ Usage:
 
 Options:
   --username      The username to give to the user in Kubernetes.
-  --expiration    The number of milliseconds before the certificate signing request expires (default: 86400).
+  --expiration    The number of seconds before the certificate signing request expires (defaults to one year).
 EOF
 }
 
