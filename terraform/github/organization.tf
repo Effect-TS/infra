@@ -1,26 +1,3 @@
-locals {
-  owners = [
-    "effect-bot",
-    "gcanti",
-    "IMax153",
-    "mikearnaldi",
-    "schickling"
-  ]
-  members = [
-    "0x706b",
-    "mattiamanzati",
-    "patroza",
-    "pigoz",
-    "qlonik",
-    "r-cyr",
-    "sledorze",
-    "steida",
-    "tim-smart",
-    "tstelzer",
-    "wesselvdv"
-  ]
-}
-
 resource "github_organization_settings" "effect_ts" {
   name             = "Effect"
   description      = "A set of libraries to write better TypeScript"
@@ -55,14 +32,14 @@ resource "github_organization_settings" "effect_ts" {
 }
 
 resource "github_membership" "owner" {
-  for_each = toset(local.owners)
+  for_each = toset(var.organization_owners)
 
   username = each.value
   role     = "admin"
 }
 
 resource "github_membership" "member" {
-  for_each = toset(local.members)
+  for_each = toset(var.organization_members)
 
   username = each.value
   role     = "member"

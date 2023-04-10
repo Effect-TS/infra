@@ -1,8 +1,12 @@
+locals {
+  webhook_repositories = toset([
+    for name, config in var.repositories :
+    name if config.visibility == "public"
+  ])
+}
+
 resource "github_repository_webhook" "discord" {
-  for_each = {
-    for repository in github_repository.repository :
-    repository.name => repository.visibility if repository.visibility == "public"
-  }
+  for_each = local.webhook_repositories
 
   repository = each.key
 
