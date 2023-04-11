@@ -12,6 +12,7 @@ variable "repositories" {
   description = "The Effect-TS organization repositories whose configuration should be managed"
   type = map(object({
     description       = optional(string, ""),
+    collaborators     = optional(list(object({ username = string, permission = string })), [])
     homepage_url      = optional(string)
     topics            = optional(list(string), []),
     visibility        = optional(string, "public")

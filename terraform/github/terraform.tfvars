@@ -16,11 +16,18 @@ repositories = {
     homepage_url = "https://effect-ts.github.io/cli"
   }
   data = {
-    description  = "Custom built data types leveraged by the Effect ecosystem"
-    homepage_url = "https://effect-ts.github.io/data"
+    description   = "Custom built data types leveraged by the Effect ecosystem"
+    collaborators = [{ username = "enricopolanski", permission = "push" }]
+    homepage_url  = "https://effect-ts.github.io/data"
   }
   effect = {
-    description  = "A fully-fledged functional effect system for TypeScript with a rich standard library"
+    description = "A fully-fledged functional effect system for TypeScript with a rich standard library"
+    collaborators = [
+      { username = "DenisFrezzato", permission = "push" },
+      { username = "isthatcentered", permission = "push" },
+      { username = "remiguittaut", permission = "push" },
+      { username = "rzeigler", permission = "push" },
+    ]
     homepage_url = "https://effect-ts.github.io/effect"
     topics       = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
   }
@@ -36,7 +43,12 @@ repositories = {
   #   description = "Express integration with Effect"
   # }
   fastify = {
-    description  = "Fastify integration with Effect"
+    description = "Fastify integration with Effect"
+    collaborators = [
+      { username = "antoine-coulon", permission = "push" },
+      { username = "jbmusso", permission = "push" },
+      { username = "tarrsalah", permission = "push" }
+    ]
     enable_pages = false
   }
   # figlet = {
@@ -63,10 +75,11 @@ repositories = {
     enable_pages = false
   }
   match = {
-    description  = "Functional pattern matching with the full power of TypeScript"
-    homepage_url = "https://effect-ts.github.io/match"
-    topics       = ["functional-programming", "pattern-matching", "typescript"]
-    enable_pages = false
+    description   = "Functional pattern matching with the full power of TypeScript"
+    collaborators = [{ username = "tim-smart", permission = "maintain" }]
+    homepage_url  = "https://effect-ts.github.io/match"
+    topics        = ["functional-programming", "pattern-matching", "typescript"]
+    enable_pages  = false
   }
   misc = {
     description  = ""
@@ -119,8 +132,9 @@ repositories = {
     homepage_url = "https://effect-ts.github.io/schema"
   }
   sqlite = {
-    description  = ""
-    enable_pages = false
+    description   = ""
+    collaborators = [{ username = "lokhmakov", permission = "maintain" }]
+    enable_pages  = false
   }
   stm = {
     description  = "An implementation of software transactional memory built with Effect"
@@ -140,6 +154,7 @@ repositories = {
   }
   website = {
     description       = "Source code for Effect's documentation website"
+    collaborators     = [{ username = "wpoosanguansit", permission = "push" }]
     homepage_url      = "https://www.effect.website"
     enable_changesets = false
     enable_pages      = false

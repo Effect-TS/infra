@@ -10,7 +10,7 @@ resource "github_repository" "repository" {
   has_downloads               = true
   has_issues                  = true
   has_projects                = true
-  has_wiki                    = true
+  has_wiki                    = each.value.visibility == "public"
   homepage_url                = try(each.value.homepage_url, "")
   squash_merge_commit_message = "BLANK"
   squash_merge_commit_title   = "PR_TITLE"
@@ -61,5 +61,20 @@ resource "github_branch_protection" "main" {
 
   required_pull_request_reviews {
     required_approving_review_count = 0
+  }
+}
+
+resource "github_repository_collaborators" "collaborators" {
+  for_each = var.repositories
+
+  repository = each.key
+
+  dynamic "user" {
+    for_each = each.value.collaborators
+
+    content {
+      username   = user.value.username
+      permission = user.value.permission
+    }
   }
 }
