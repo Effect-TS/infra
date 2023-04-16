@@ -171,6 +171,7 @@ organization_owners = [
 
 organization_members = [
   "0x706b",
+  "aniravi24",
   "mattiamanzati",
   "patroza",
   "pigoz",
