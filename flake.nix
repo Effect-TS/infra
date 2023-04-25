@@ -90,6 +90,11 @@
         modules = ["${self}/nixos/hosts/devbox"];
       };
 
+      k3s-host-01 = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = ["${self}/nixos/hosts/k3s/host-01"];
+      };
+
       k3s-host-02 = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules = ["${self}/nixos/hosts/k3s/host-02"];
