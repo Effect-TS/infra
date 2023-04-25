@@ -99,6 +99,11 @@
         inherit specialArgs;
         modules = ["${self}/nixos/hosts/k3s/host-02"];
       };
+
+      k3s-host-03 = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = ["${self}/nixos/hosts/k3s/host-03"];
+      };
     };
   };
 }
