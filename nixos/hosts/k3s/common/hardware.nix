@@ -6,10 +6,6 @@
   modulesPath,
   ...
 }: {
-  imports = [
-    "${modulesPath}/installer/scan/not-detected.nix"
-  ];
-
   inherit fileSystems;
 
   # Use GRUB2 as the boot loader - don't use `systemd-boot` because Hetzner uses
