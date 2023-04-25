@@ -3,6 +3,30 @@
   pkgs,
   ...
 }: let
+  hardwareConfig = {
+    bootLoaderDevices = [
+      "/dev/disk/by-id/nvme-KXG60ZNV512G_TOSHIBA_Y9ES11F9T9LM"
+      "/dev/disk/by-id/nvme-KXG60ZNV512G_TOSHIBA_Y9ES11FKT9LM"
+    ];
+
+    fileSystems = {
+      "/" = {
+        device = "zroot/root/nixos";
+        fsType = "zfs";
+      };
+
+      "/boot/efi" = {
+        device = "/dev/disk/by-uuid/09AE-4AEE";
+        fsType = "vfat";
+      };
+
+      "/home" = {
+        device = "zroot/home";
+        fsType = "zfs";
+      };
+    };
+  };
+
   networkingConfig = {
     hostName = "host-02";
     hostId = "bbb7d16a";
@@ -20,32 +44,10 @@
   };
 in {
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    (import ../common/hardware.nix hardwareConfig)
     (import ../common/networking.nix networkingConfig)
+    ../common/nixos.nix
   ];
-
-  # Use GRUB2 as the boot loader.
-  # We don't use systemd-boot because Hetzner uses BIOS legacy boot.
-  boot = {
-    loader = {
-      grub = {
-        enable = true;
-        efiSupport = false;
-        devices = [
-          "/dev/disk/by-id/nvme-KXG60ZNV512G_TOSHIBA_Y9ES11F9T9LM"
-          "/dev/disk/by-id/nvme-KXG60ZNV512G_TOSHIBA_Y9ES11FKT9LM"
-        ];
-        copyKernels = true;
-      };
-
-      systemd-boot = {
-        enable = false;
-      };
-
-      supportedFilesystems = ["zfs"];
-    };
-  };
 
   users = {
     users = {

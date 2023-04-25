@@ -1,11 +1,12 @@
 {
+  defaultGateway,
+  defaultGatewayIPv6,
   hostName,
   hostId,
   networkInterface,
   ipv4Address,
   ipv6Address,
-  defaultGateway,
-  defaultGatewayIPv6,
+  lib,
   vlan,
   vlanPrivateIPv4,
   vlanBroadcastIPv4,
@@ -56,6 +57,6 @@
     nameservers = ["1.1.1.1" "8.8.8.8"];
 
     # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
-    useDHCP = false;
+    useDHCP = lib.mkDefault false;
   };
 }
