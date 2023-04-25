@@ -59,9 +59,9 @@ repositories = {
     enable_pages = false
   }
   infra = {
-    description  = "Infrastructure relevant to the Effect organization"
-    visibility   = "private"
-    enable_pages = false
+    description       = "Infrastructure relevant to the Effect organization"
+    enable_changesets = false
+    enable_pages      = false
   }
   io = {
     description  = "Effect's core runtime, a fiber-based implementation of structured concurrency"
@@ -120,8 +120,7 @@ repositories = {
     enable_pages = false
   }
   rpc = {
-    description  = ""
-    enable_pages = false
+    description = ""
   }
   scala-playground = {
     description  = "A Scala playground for the Effect maintainers"
