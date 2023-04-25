@@ -3,7 +3,6 @@
   config,
   fileSystems,
   lib,
-  modulesPath,
   ...
 }: {
   inherit fileSystems;
