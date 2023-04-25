@@ -42,6 +42,11 @@
     };
 
     localCommands = ''
+      # Check if the link already exists, remove it if so
+      if ip link show ${vlan} >/dev/null 2>&1; then
+        ip link set dev ${vlan} down
+        ip link delete ${vlan}
+      fi
       ip link add link ${networkInterface} name ${vlan} type vlan id 4000
       ip link set ${vlan} mtu 1400
       ip link set dev ${vlan} up
