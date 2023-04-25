@@ -31,8 +31,9 @@
         enable = false;
       };
 
-      supportedFilesystems = ["zfs"];
     };
+
+    supportedFilesystems = ["zfs"];
   };
 
   hardware = {
