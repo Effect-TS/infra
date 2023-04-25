@@ -47,8 +47,8 @@
 in {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
-    (import ../common/hardware.nix {inherit config lib;} // hardwareConfig)
-    (import ../common/networking.nix {inherit lib;} // networkingConfig)
+    (import ../common/hardware.nix ({inherit config lib;} // hardwareConfig))
+    (import ../common/networking.nix ({inherit lib;} // networkingConfig))
     ../common/nixos.nix
   ];
 
