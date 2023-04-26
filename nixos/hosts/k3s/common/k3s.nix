@@ -21,7 +21,7 @@
       extraFlags = toString [
         "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
         "--flannel-backend host-gw"
-        "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
+        # "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
         "--secrets-encryption"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
