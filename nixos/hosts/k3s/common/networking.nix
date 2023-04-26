@@ -9,8 +9,6 @@
   lib,
   vlan,
   vlanPrivateIPv4,
-  vlanBroadcastIPv4,
-  k3sPrivateIPv4,
   ...
 }: {
   networking = {
@@ -52,8 +50,7 @@
       ip link add link ${networkInterface} name ${vlan} type vlan id 4000
       ip link set ${vlan} mtu 1400
       ip link set dev ${vlan} up
-      ip addr add ${vlanPrivateIPv4}/24 brd ${vlanBroadcastIPv4} dev ${vlan}
-      ip addr add ${k3sPrivateIPv4}/8 dev ${vlan}
+      ip addr add ${vlanPrivateIPv4}/8 dev ${vlan}
     '';
 
     nameservers = ["1.1.1.1" "8.8.8.8"];

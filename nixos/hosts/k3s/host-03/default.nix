@@ -47,10 +47,7 @@
     defaultGatewayIPv6 = "fe80::1";
 
     vlan = "vlan4000";
-    vlanPrivateIPv4 = "192.168.100.3";
-    vlanBroadcastIPv4 = "192.168.100.255";
-
-    k3sPrivateIPv4 = "10.0.0.3";
+    vlanPrivateIPv4 = "10.0.0.3";
   };
 in {
   imports = [

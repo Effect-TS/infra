@@ -20,7 +20,8 @@
       role = "server";
       extraFlags = toString [
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
-        "--flannel-backend=none"
+        "--flannel-backend=host-gw"
+        "--flannel-iface=vlan4000"
         "--secrets-encryption"
         # "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
