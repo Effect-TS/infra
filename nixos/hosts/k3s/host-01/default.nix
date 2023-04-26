@@ -67,9 +67,11 @@ in {
     };
   };
 
-  packages = with pkgs; [
-    openiscsi
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+       openiscsi
+    ];
+  };
 
   sops = {
     age = {
