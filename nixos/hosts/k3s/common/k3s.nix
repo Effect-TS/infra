@@ -21,10 +21,10 @@
       extraFlags = toString [
         "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
         "--flannel-backend host-gw"
+        "--secrets-encryption"
         # "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
         "--kube-apiserver-arg 'node-ip=${nodeIPv4}'"
-        "--kube-apiserver-arg 'flannel-iface=vlan4000'"
-        "--secrets-encryption"
+        "--kubelet-arg 'flannel-iface=vlan4000'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
       inherit clusterInit serverAddr;
