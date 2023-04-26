@@ -23,7 +23,7 @@
         "--flannel-backend=host-gw"
         "--flannel-iface=vlan4000"
         "--secrets-encryption"
-        # "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
+        "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
       inherit clusterInit serverAddr;
