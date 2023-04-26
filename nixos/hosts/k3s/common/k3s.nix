@@ -19,7 +19,6 @@
       package = pkgs.unstable.k3s;
       role = "server";
       extraFlags = toString [
-        "--node-ip ${nodeIPv4}"
         "--flannel-iface vlan4000"
         "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
         "--flannel-backend host-gw"
