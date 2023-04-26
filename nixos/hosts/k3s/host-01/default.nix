@@ -48,7 +48,6 @@
 
     vlan = "vlan4000";
     vlanPrivateIPv4 = "10.0.0.1";
-    vlanBroadcastIPv4 = "192.168.100.255";
   };
 in {
   imports = [
