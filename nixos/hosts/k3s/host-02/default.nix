@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   modulesPath,
   pkgs,
@@ -29,6 +30,10 @@
     };
   };
 
+  k3sConfig = {
+    serverAddr = "https://192.168.100.1:6443";
+  };
+
   networkingConfig = {
     hostName = "host-02";
     hostId = "bbb7d16a";
@@ -46,11 +51,38 @@
   };
 in {
   imports = [
+    inputs.sops-nix.nixosModules.sops
+
     "${modulesPath}/installer/scan/not-detected.nix"
     (import ../common/hardware.nix ({inherit config lib;} // hardwareConfig))
+    (import ../common/k3s.nix ({inherit config lib pkgs;} // k3sConfig))
     (import ../common/networking.nix ({inherit lib;} // networkingConfig))
     ../common/nixos.nix
   ];
+
+
+  services = {
+    openssh = {
+      enable = true;
+      permitRootLogin = "prohibit-password";
+    };
+  };
+
+  sops = {
+    age = {
+      generateKey = true;
+      keyFile = "/var/lib/sops-nix/key.txt";
+      sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    };
+  };
+
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system = {
+    stateVersion = "22.11"; # Did you read the comment?
+  };
 
   users = {
     users = {
@@ -68,20 +100,5 @@ in {
         };
       };
     };
-  };
-
-  services = {
-    openssh = {
-      enable = true;
-      permitRootLogin = "prohibit-password";
-    };
-  };
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system = {
-    stateVersion = "22.11"; # Did you read the comment?
   };
 }

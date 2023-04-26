@@ -5,6 +5,9 @@ keys:
   - &admin_mikearnaldi age15umcap7zkzq5g32zykcywjk0l6cwldxqk7e46t2ynkkwy0eghuas5rs6t7
   # Hosts
   - &host_devbox age1cd8stpd83v0zwfk7ke80nag65mxvxgc8rfjx86a4rk35wevymfwq747zwx
+  - &k3s_host_01 age1wcqtzx6a3rf5up966q2xzxtxdr0w8nmrhkhy08ua4ekgsge4vusq26ucd0
+  - &k3s_host_02 age1syzt8ets29d50xm5nj37vqf0tqtj4x8f239n7hty55jn3pjdg3aqztzq0m
+  - &k3s_host_03 age1qucde5ph4ltj7j2na22d9vnh80fhhnrl905ch046z8qhhz2a8chsw3rn7t
   # K3s
   - &k3s_sops_operator age1pwu309yva6z9qs5z4n5dytns3jze850das6y2qntqq5yc8wzc52sk4nufy
 creation_rules:
@@ -15,6 +18,14 @@ creation_rules:
           - *admin_maxwellbrown
           - *admin_mikearnaldi
           - *k3s_sops_operator
+  - path_regex: nixos/hosts/k3s/.*/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
+          - *admin_mikearnaldi
+          - *k3s_host_01
+          - *k3s_host_02
+          - *k3s_host_03
   - path_regex: nixos/.*/secrets\.ya?ml$
     key_groups:
       - age:
