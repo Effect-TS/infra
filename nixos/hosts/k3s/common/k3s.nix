@@ -19,12 +19,12 @@
       package = pkgs.unstable.k3s;
       role = "server";
       extraFlags = toString [
+        "--node-ip ${nodeIPv4}"
+        "--flannel-iface vlan4000"
         "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
         "--flannel-backend host-gw"
         "--secrets-encryption"
         # "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
-        "--kubelet-arg 'node-ip=${nodeIPv4}'"
-        "--kubelet-arg 'flannel-iface=vlan4000'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
       inherit clusterInit serverAddr;
