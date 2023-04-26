@@ -65,6 +65,11 @@ in {
       enable = true;
       permitRootLogin = "prohibit-password";
     };
+    kubernetes = {
+      apiserver = {
+        allowPrivileged = true;
+      };
+    };
   };
 
   environment = {
