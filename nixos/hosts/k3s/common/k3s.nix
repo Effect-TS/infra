@@ -19,8 +19,8 @@
       package = pkgs.unstable.k3s;
       role = "server";
       extraFlags = toString [
-        "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
-        "--flannel-backend host-gw"
+        "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
+        "--flannel-backend=host-gw"
         "--secrets-encryption"
         # "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
