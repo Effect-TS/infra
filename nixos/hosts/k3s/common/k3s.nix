@@ -53,6 +53,15 @@
         after = ["containerd.service"];
       };
     };
+
+    mounts = [{
+      what = "/dev/zvol/zroot/longhorn-ext4";
+      type = "ext4";
+      where = "/var/lib/longhorn";
+      wantedBy = [ "kubernetes.target" ];
+      requiredBy = [ "kubernetes.target" ];
+      options = "noatime,discard";
+    }];
   };
 
   virtualisation = {
