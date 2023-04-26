@@ -60,13 +60,16 @@ in {
     ../common/nixos.nix
   ];
 
-
   services = {
     openssh = {
       enable = true;
       permitRootLogin = "prohibit-password";
     };
   };
+
+  packages = with pkgs; [
+    openiscsi
+  ];
 
   sops = {
     age = {
