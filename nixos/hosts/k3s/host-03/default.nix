@@ -31,6 +31,7 @@
   };
 
   k3sConfig = {
+    nodeIPv4 = networkingConfig.vlanPrivateIPv4;
     serverAddr = "https://192.168.100.1:6443";
   };
 

@@ -2,6 +2,7 @@
   clusterInit ? false,
   config,
   lib,
+  nodeIPv4,
   pkgs,
   serverAddr ? "",
   ...
@@ -9,7 +10,6 @@
   networking = {
     firewall = {
       allowedTCPPorts = [2379 2380 6443 10250];
-      trustedInterfaces = ["cni0"];
     };
   };
 
@@ -22,6 +22,8 @@
         "--container-runtime-endpoint unix:///run/containerd/containerd.sock"
         "--flannel-backend host-gw"
         # "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
+        "--kube-apiserver-arg 'node-ip=${nodeIPv4}'"
+        "--kube-apiserver-arg 'flannel-iface=vlan4000'"
         "--secrets-encryption"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;

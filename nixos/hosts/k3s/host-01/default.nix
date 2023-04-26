@@ -32,6 +32,7 @@
 
   k3sConfig = {
     clusterInit = true;
+    nodeIPv4 = networkingConfig.vlanPrivateIPv4;
   };
 
   networkingConfig = {
