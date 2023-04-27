@@ -67,7 +67,7 @@ in {
     };
     openiscsi = {
       enable = true;
-      name = "host-03";
+      name = "iqn.2020-08.org.linux-iscsi.initiatorhost:host-03";
     };
     kubernetes = {
       apiserver = {
