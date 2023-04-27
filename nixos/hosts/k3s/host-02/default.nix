@@ -67,6 +67,7 @@ in {
     };
     openiscsi = {
       enable = true;
+      name = "host-02";
     };
     kubernetes = {
       apiserver = {
