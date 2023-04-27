@@ -54,7 +54,17 @@
       };
     };
 
-    mounts = [{
+    openiscsi = {
+      enable = true
+    }
+
+    kubernetes = {
+      apiserver = {
+        allowPrivileged = true;
+      };
+    };
+
+    automounts = [{
       what = "/dev/zvol/zroot/longhorn-ext4";
       type = "ext4";
       where = "/var/lib/longhorn";
