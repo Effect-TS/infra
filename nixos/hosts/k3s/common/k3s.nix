@@ -60,7 +60,6 @@
       where = "/var/lib/longhorn";
       wantedBy = [ "kubernetes.target" ];
       requiredBy = [ "kubernetes.target" ];
-      options = "noatime,discard";
     }];
   };
 
