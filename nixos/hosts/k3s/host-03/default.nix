@@ -65,6 +65,9 @@ in {
       enable = true;
       permitRootLogin = "prohibit-password";
     };
+    openiscsi = {
+      enable = true;
+    };
     kubernetes = {
       apiserver = {
         allowPrivileged = true;
