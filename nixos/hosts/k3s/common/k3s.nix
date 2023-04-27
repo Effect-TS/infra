@@ -55,8 +55,8 @@
     };
 
     openiscsi = {
-      enable = true
-    }
+      enable = true;
+    };
 
     kubernetes = {
       apiserver = {
