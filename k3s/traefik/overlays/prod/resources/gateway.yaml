@@ -1,0 +1,59 @@
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: traefik-external
+  annotations:
+    cert-manager.io/cluster-issuer: effectful-issuer
+spec:
+  gatewayClassName: traefik-external
+  listeners:
+    - name: effectful-co
+      port: 443
+      protocol: HTTPS
+      hostname: '*.effectful.co'
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: effectful-co-external-tls
+            kind: Secret
+            group: core
+    - name: effect-website
+      port: 443
+      protocol: HTTPS
+      hostname: '*.effect.website'
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: effect-website-external-tls
+            kind: Secret
+            group: core
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: traefik-internal
+  annotations:
+    cert-manager.io/cluster-issuer: effectful-issuer
+spec:
+  gatewayClassName: traefik-internal
+  listeners:
+    - name: effectful-co
+      port: 443
+      protocol: HTTPS
+      hostname: '*.k3s.effectful.co'
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: effectful-co-external-tls
+            kind: Secret
+            group: core
