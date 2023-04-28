@@ -5,11 +5,13 @@ metadata:
   name: traefik-external
   labels:
     app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik-external
 spec:
   minReadySeconds: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: traefik
+      app.kubernetes.io/instance: traefik-external
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
@@ -23,6 +25,7 @@ spec:
         prometheus.io/port: '9100'
       labels:
         app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik-external
     spec:
       serviceAccountName: traefik
       securityContext:
@@ -114,11 +117,13 @@ metadata:
   name: traefik-internal
   labels:
     app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik-internal
 spec:
   minReadySeconds: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: traefik
+      app.kubernetes.io/instance: traefik-internal
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
@@ -132,6 +137,7 @@ spec:
         prometheus.io/port: '9100'
       labels:
         app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik-internal
     spec:
       serviceAccountName: traefik
       securityContext:
