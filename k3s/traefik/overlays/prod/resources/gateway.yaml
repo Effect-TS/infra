@@ -9,7 +9,7 @@ spec:
   gatewayClassName: traefik-external
   listeners:
     - name: effectful-co
-      port: 443
+      port: 8443
       protocol: HTTPS
       hostname: '*.effectful.co'
       allowedRoutes:
@@ -22,7 +22,7 @@ spec:
             kind: Secret
             group: core
     - name: effect-website
-      port: 443
+      port: 8443
       protocol: HTTPS
       hostname: '*.effect.website'
       allowedRoutes:
@@ -45,7 +45,7 @@ spec:
   gatewayClassName: traefik-internal
   listeners:
     - name: effectful-co
-      port: 443
+      port: 8443
       protocol: HTTPS
       hostname: '*.k3s.effectful.co'
       allowedRoutes:
