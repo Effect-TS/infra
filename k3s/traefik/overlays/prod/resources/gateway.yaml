@@ -3,7 +3,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: wildcard-effectful-co
-  namespace: traefik
 spec:
   dnsNames:
     - '*.effectful.co'
@@ -39,7 +38,6 @@ spec:
         certificateRefs:
           - name: wildcard-effectful-co
             kind: Secret
-            group: core
     - name: effect-website
       port: 8000
       protocol: HTTP
@@ -87,4 +85,3 @@ spec:
         certificateRefs:
           - name: wildcard-effectful-co
             kind: Secret
-            group: core
