@@ -4,7 +4,7 @@ kind: Gateway
 metadata:
   name: traefik-external
   annotations:
-    cert-manager.io/cluster-issuer: effectful-issuer
+    cert-manager.io/cluster-issuer: effectful-cluster-issuer
 spec:
   gatewayClassName: traefik-external
   listeners:
@@ -54,7 +54,7 @@ kind: Gateway
 metadata:
   name: traefik-internal
   annotations:
-    cert-manager.io/cluster-issuer: effectful-issuer
+    cert-manager.io/cluster-issuer: effectful-cluster-issuer
 spec:
   gatewayClassName: traefik-internal
   listeners:
