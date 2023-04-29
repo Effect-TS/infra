@@ -13,3 +13,4 @@ resources:
   - ./resources/gateway.yaml
   - ./resources/service.yaml
   - ./resources/daemonset.yaml
+  - ./resources/issuers.yaml
