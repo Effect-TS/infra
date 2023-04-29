@@ -12,6 +12,19 @@ spec:
     name: letsencrypt-effectful-co
   secretName: wildcard-effectful-co
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-k3s-effectful-co
+spec:
+  dnsNames:
+    - '*.k3s.effectful.co'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-effectful-co
+  secretName: wildcard-k3s-effectful-co
+---
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: Gateway
 metadata:
@@ -83,5 +96,5 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: wildcard-effectful-co
+          - name: wildcard-k3s-effectful-co
             kind: Secret
