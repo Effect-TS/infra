@@ -15,6 +15,19 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: wildcard-effect-website
+spec:
+  dnsNames:
+    - '*.effect.website'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-effectful-co
+  secretName: wildcard-effect-website
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: wildcard-k3s-effectful-co
 spec:
   dnsNames:
@@ -68,9 +81,8 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: effect-website-external-tls
+          - name: wildcard-effect-website
             kind: Secret
-            group: core
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
