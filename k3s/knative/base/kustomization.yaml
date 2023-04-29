@@ -5,6 +5,5 @@ kind: Kustomization
 namespace: knative
 
 resources:
-  - ./serving-crds.yaml
   - ./serving-core.yaml
   - ./kourier.yaml
