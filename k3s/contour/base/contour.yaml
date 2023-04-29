@@ -29,8 +29,8 @@ data:
     #   xds-server-type: contour
     #
     # Specify the Gateway API configuration.
-    # gateway:
-    #   controllerName: projectcontour.io/gateway-controller
+    gateway:
+      controllerName: projectcontour.io/gateway-controller
     #
     # should contour expect to be running inside a k8s cluster
     # incluster: true

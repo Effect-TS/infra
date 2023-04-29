@@ -1,14 +1,4 @@
 ---
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: contour
-  namespace: projectcontour
-data:
-  contour.yaml: |
-    gateway:
-      controllerName: projectcontour.io/gateway-controller
----
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
