@@ -2,8 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: traefik
+namespace: projectcontour
 
 resources:
-  - https://projectcontour.io/quickstart/contour.yaml
-  - ./namespace.yaml
+  - ./contour.yaml
