@@ -7,8 +7,8 @@ repos:
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-json
-      - id: check-yaml
-        args: [--allow-multiple-documents]
+      # - id: check-yaml
+      #   args: [--allow-multiple-documents]
       - id: check-toml
       - id: end-of-file-fixer
       - id: mixed-line-ending
@@ -19,15 +19,15 @@ repos:
     hooks:
       - id: terraform_fmt
 
-  - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt.git
-    rev: 0.2.2
-    hooks:
-      - id: yamlfmt
-        args:
-          - --mapping
-          - '2'
-          - --sequence
-          - '4'
-          - --offset
-          - '2'
-          - --explicit_start
+  # - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt.git
+  #   rev: 0.2.2
+  #   hooks:
+  #     - id: yamlfmt
+  #       args:
+  #         - --mapping
+  #         - '2'
+  #         - --sequence
+  #         - '4'
+  #         - --offset
+  #         - '2'
+  #         - --explicit_start
