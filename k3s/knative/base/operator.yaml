@@ -17,7 +17,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: operator-webhook-certs
-
+  namespace: default
   labels:
     app.kubernetes.io/component: webhook
     operator.knative.dev/release: v1.10.0
@@ -44,7 +44,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: operator-webhook
-
+  namespace: default
   labels:
     operator.knative.dev/release: v1.10.0
     app.kubernetes.io/component: operator-webhook
@@ -172,7 +172,7 @@ metadata:
     app.kubernetes.io/version: 1.10.0
     app.kubernetes.io/name: knative-operator
   name: operator-webhook
-
+  namespace: default
 spec:
   ports:
     # Define metrics and profiling for them to be accessible within service meshes.
@@ -2053,7 +2053,7 @@ spec:
       clientConfig:
         service:
           name: operator-webhook
-
+          namespace: default
           path: /resource-conversion
 ---
 # Copyright 2021 The Knative Authors
@@ -4000,7 +4000,7 @@ spec:
       clientConfig:
         service:
           name: operator-webhook
-
+          namespace: default
           path: /resource-conversion
 ---
 # Copyright 2020 The Knative Authors
@@ -4722,7 +4722,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: knative-operator
-
+  namespace: default
   labels:
     operator.knative.dev/release: v1.10.0
     app.kubernetes.io/version: 1.10.0
@@ -4758,6 +4758,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: knative-operator
+    namespace: default
 ---
 # TODO: Consider restriction of non-aggregated role to knativeeventing namespaces.
 apiVersion: rbac.authorization.k8s.io/v1
@@ -4775,6 +4776,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: knative-operator
+    namespace: default
 ---
 # Copyright 2022 The Knative Authors
 #
@@ -4793,7 +4795,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-
+  namespace: default
   name: knative-operator-webhook
   labels:
     eventing.knative.dev/release: devel
@@ -4908,7 +4910,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: operator-webhook
-
+  namespace: default
   labels:
     operator.knative.dev/release: v1.10.0
     app.kubernetes.io/version: 1.10.0
@@ -4931,7 +4933,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-
+  namespace: default
   name: operator-webhook
   labels:
     eventing.knative.dev/release: devel
@@ -4940,7 +4942,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: operator-webhook
-
+    namespace: default
 roleRef:
   kind: Role
   name: knative-operator-webhook
@@ -4961,6 +4963,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: operator-webhook
+    namespace: default
 ---
 # Copyright 2020 The Knative Authors
 #
@@ -4991,6 +4994,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: knative-operator
+    namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -5007,6 +5011,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: knative-operator
+    namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -5023,6 +5028,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: knative-operator
+    namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -5039,6 +5045,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: knative-operator
+    namespace: default
 ---
 # Copyright 2019 The Knative Authors
 #
@@ -5058,7 +5065,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: config-logging
-
+  namespace: default
   labels:
     operator.knative.dev/release: v1.10.0
     app.kubernetes.io/version: 1.10.0
@@ -5122,7 +5129,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: config-observability
-
+  namespace: default
   labels:
     operator.knative.dev/release: v1.10.0
     app.kubernetes.io/version: 1.10.0
@@ -5226,7 +5233,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: knative-operator
-
+  namespace: default
   labels:
     operator.knative.dev/release: v1.10.0
     app.kubernetes.io/name: knative-operator
