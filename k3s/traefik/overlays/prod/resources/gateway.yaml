@@ -54,7 +54,7 @@ kind: Gateway
 metadata:
   name: traefik-internal
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-effectful-co-staging
+    cert-manager.io/cluster-issuer: letsencrypt-effectful-co
 spec:
   gatewayClassName: traefik-internal
   listeners:
