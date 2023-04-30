@@ -18,6 +18,9 @@ spec:
         label:
           istio: istio-external
         k8s:
+          hpaSpec:
+            minReplicas: 2
+            maxReplicas: 5
           service:
             type: NodePort
       - name: istio-internal
@@ -25,5 +28,8 @@ spec:
         label:
           istio: istio-internal
         k8s:
+          hpaSpec:
+            minReplicas: 2
+            maxReplicas: 5
           service:
             type: ClusterIP
