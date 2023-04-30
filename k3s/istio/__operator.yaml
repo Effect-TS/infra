@@ -1,0 +1,27 @@
+---
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  components:
+    pilot:
+      k8s:
+        hpaSpec:
+          maxReplicas: 5
+          minReplicas: 2
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: false
+      - name: istio-external
+        enabled: true
+        label:
+          istio: istio-external
+        k8s:
+          service:
+            type: NodePort
+      - name: istio-internal
+        enabled: true
+        label:
+          istio: istio-internal
+        k8s:
+          service:
+            type: ClusterIP

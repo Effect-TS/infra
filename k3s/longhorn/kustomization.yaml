@@ -2,8 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: knative-serving
+namespace: longhorn-system
 
 resources:
-  - ./serving-core.yaml
-  - ./kourier.yaml
+  - ./longhorn.yaml
+  - ./istio.yaml
