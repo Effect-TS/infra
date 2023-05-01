@@ -33,7 +33,7 @@
 
     };
 
-    supportedFilesystems = ["zfs"];
+    supportedFilesystems = ["zfs" "nfs"];
   };
 
   hardware = {
