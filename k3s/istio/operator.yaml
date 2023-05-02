@@ -23,6 +23,16 @@ spec:
             maxReplicas: 5
           service:
             type: NodePort
+      - name: knative
+        enabled: true
+        label:
+          istio: knative
+        k8s:
+          hpaSpec:
+            minReplicas: 2
+            maxReplicas: 5
+          service:
+            type: ClusterIP
       - name: istio-internal
         enabled: true
         label:
