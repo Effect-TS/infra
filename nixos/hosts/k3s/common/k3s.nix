@@ -13,7 +13,7 @@
 
   networking = {
     firewall = {
-      allowedTCPPorts = [2379 2380 6443 10250];
+      allowedTCPPorts = [2379 2380 6443 10250 6789];
     };
   };
 
