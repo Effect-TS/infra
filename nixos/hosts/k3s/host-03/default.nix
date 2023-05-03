@@ -19,7 +19,7 @@
       };
 
       "/boot/efi" = {
-        device = "/dev/disk/by-uuid/8385-E29B";
+        device = "/dev/disk/by-uuid/66C4-CACD";
         fsType = "vfat";
       };
 
