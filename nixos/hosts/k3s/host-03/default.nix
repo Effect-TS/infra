@@ -60,6 +60,16 @@ in {
     ../common/nixos.nix
   ];
 
+  environment = {
+    etc = {
+      "mdadm.conf" = {
+        text = ''
+          MAILADDR root
+        '';
+      };
+    };
+  };
+
   services = {
     openssh = {
       enable = true;
