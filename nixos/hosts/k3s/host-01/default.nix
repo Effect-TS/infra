@@ -133,7 +133,7 @@ in {
     wireguard = {
       interfaces = {
         wg0 = {
-          ips = [ "${vlanPrivateIPv4}/16" ];
+          ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
           listenPort = 51820;
           postSetup = ''
             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
