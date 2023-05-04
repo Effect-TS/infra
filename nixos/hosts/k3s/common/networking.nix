@@ -1,4 +1,5 @@
 {
+  pkgs,
   defaultGateway,
   defaultGatewayIPv6,
   hostName,
