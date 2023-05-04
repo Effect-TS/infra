@@ -129,8 +129,19 @@ in {
         wg0 = {
           ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
           listenPort = 51820;
-          privateKeyFile = "/root/wireguard-keys/private";
+          postSetup = ''
+            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
+          '';
+          postShutdown = ''
+            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
+          '';
           peers = [
+            {
+              publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
+              allowedIPs = ["0.1.0.0/16"];
+              endpoint = "167.235.103.220:51820";
+              persistentKeepalive = 25;
+            }
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
               allowedIPs = ["0.1.0.0/16"];
