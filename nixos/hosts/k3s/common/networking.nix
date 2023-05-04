@@ -71,6 +71,10 @@
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
               allowedIPs = [];
             }
+            {
+              publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
+              allowedIPs = [];
+            }
           ];
         };
       };
