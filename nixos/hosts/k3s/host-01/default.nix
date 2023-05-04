@@ -19,7 +19,7 @@
       };
 
       "/boot/efi" = {
-        device = "/dev/disk/by-uuid/1440-76B1";
+        device = "/dev/disk/by-uuid/CC28-2324";
         fsType = "vfat";
       };
 
