@@ -41,6 +41,40 @@
       };
     };
 
+    nat = {
+      enable = true;
+      externalInterface = "${networkInterface}";
+      internalInterfaces = [ "wg0" ];
+    };
+
+    firewall = {
+      allowedUDPPorts = [51820];
+      allowedTCPPorts = [2379 2380 6443 10250];
+      trustedInterfaces = [];
+    };
+
+    wireguard = {
+      interfaces = {
+        wg0 = {
+          ips = [ "10.100.0.1/24" ];
+          listenPort = 51820;
+          postSetup = ''
+            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o ${networkInterface} -j MASQUERADE
+          '';
+          postShutdown = ''
+            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o ${networkInterface} -j MASQUERADE
+          '';
+          privateKeyFile = "/root/wireguard-keys/private";
+          peers = [
+            {
+              publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
+              allowedIPs = [];
+            }
+          ];
+        };
+      };
+    };
+
     # localCommands = ''
     #   # Check if the link already exists, remove it if so
     #   # if ip link show ${vlan} >/dev/null 2>&1; then

@@ -11,13 +11,6 @@
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
   ];
 
-  networking = {
-    firewall = {
-      allowedTCPPorts = [2379 2380 6443 10250];
-      trustedInterfaces = [];
-    };
-  };
-
   services = {
     k3s = {
       enable = true;
