@@ -7,8 +7,8 @@
   ipv4Address,
   ipv6Address,
   lib,
-  vlan,
-  vlanPrivateIPv4,
+  # vlan,
+  # vlanPrivateIPv4,
   ...
 }: {
   networking = {
@@ -41,17 +41,17 @@
       };
     };
 
-    localCommands = ''
-      # Check if the link already exists, remove it if so
-      # if ip link show ${vlan} >/dev/null 2>&1; then
-      #   ip link set dev ${vlan} down
-      #   ip link delete ${vlan}
-      # fi
-      # ip link add link ${networkInterface} name ${vlan} type vlan id 4000
-      # ip link set ${vlan} mtu 1400
-      # ip link set dev ${vlan} up
-      # ip addr add ${vlanPrivateIPv4}/8 dev ${vlan}
-    '';
+    # localCommands = ''
+    #   # Check if the link already exists, remove it if so
+    #   # if ip link show ${vlan} >/dev/null 2>&1; then
+    #   #   ip link set dev ${vlan} down
+    #   #   ip link delete ${vlan}
+    #   # fi
+    #   # ip link add link ${networkInterface} name ${vlan} type vlan id 4000
+    #   # ip link set ${vlan} mtu 1400
+    #   # ip link set dev ${vlan} up
+    #   # ip addr add ${vlanPrivateIPv4}/8 dev ${vlan}
+    # '';
 
     nameservers = ["1.1.1.1" "8.8.8.8"];
 
