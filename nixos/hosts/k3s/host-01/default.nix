@@ -120,7 +120,7 @@ in {
   networking = {
     nat = {
       enable = true;
-      externalInterface = "${networkInterface}";
+      externalInterface = "${networkingConfig.networkInterface}";
       internalInterfaces = [ "wg0" ];
     };
 
