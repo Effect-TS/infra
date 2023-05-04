@@ -14,7 +14,7 @@
   networking = {
     firewall = {
       allowedTCPPorts = [2379 2380 6443 10250];
-      trustedInterfaces = ["vlan4000"];
+      trustedInterfaces = [];
     };
   };
 
