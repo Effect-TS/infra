@@ -17,7 +17,7 @@
       kernelModules = [];
     };
 
-    kernelModules = ["kvm-amd"];
+    kernelModules = ["kvm-amd" "ceph"];
 
     loader = {
       grub = {
