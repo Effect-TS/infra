@@ -45,6 +45,8 @@
     ipv6Address = "2a01:4f8:2200:141e::1";
     defaultGateway = "167.235.103.193";
     defaultGatewayIPv6 = "fe80::1";
+
+    vlanPrivateIPv4 = "0.1.0.2";
   };
 in {
   imports = [

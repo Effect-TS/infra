@@ -8,7 +8,7 @@
   ipv6Address,
   lib,
   # vlan,
-  # vlanPrivateIPv4,
+  vlanPrivateIPv4,
   ...
 }: {
   networking = {
@@ -56,13 +56,13 @@
     wireguard = {
       interfaces = {
         wg0 = {
-          ips = [ "10.100.0.1/24" ];
+          ips = [ "${vlanPrivateIPv4}/16" ];
           listenPort = 51820;
           postSetup = ''
-            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o ${networkInterface} -j MASQUERADE
+            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 0.1.0.0/16 -o ${networkInterface} -j MASQUERADE
           '';
           postShutdown = ''
-            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o ${networkInterface} -j MASQUERADE
+            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 0.1.0.0/16 -o ${networkInterface} -j MASQUERADE
           '';
           privateKeyFile = "/root/wireguard-keys/private";
           peers = [
