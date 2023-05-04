@@ -135,6 +135,7 @@ in {
           postShutdown = ''
             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
           '';
+          privateKeyFile = "/root/wireguard-keys/private";
           peers = [
             {
               publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
