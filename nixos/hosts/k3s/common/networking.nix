@@ -69,19 +69,19 @@
           peers = [
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
-              allowedIPs = ["0.1.0.1/16"];
+              allowedIPs = ["0.1.0.0/16"];
               endpoint = "213.239.207.149:51820";
               persistentKeepalive = 25;
             }
             {
               publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
-              allowedIPs = ["0.2.0.1/16"];
+              allowedIPs = ["0.2.0.0/16"];
               endpoint = "167.235.103.220:51820";
               persistentKeepalive = 25;
             }
             {
               publicKey = "9/wGoxeVz8F3yXqx1KYapmHRgvV0OkKeLBSthYvc1nw=";
-              allowedIPs = ["0.3.0.1/16"];
+              allowedIPs = ["0.3.0.0/16"];
               endpoint = "65.109.94.140:51820";
               persistentKeepalive = 25;
             }
