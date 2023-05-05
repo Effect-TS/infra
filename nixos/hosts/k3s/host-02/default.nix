@@ -32,7 +32,7 @@
 
   k3sConfig = {
     nodeIPv4 = networkingConfig.vlanPrivateIPv4;
-    serverAddr = "https://10.0.0.1:6443";
+    serverAddr = "https://0.1.0.1:6443";
   };
 
   networkingConfig = {
