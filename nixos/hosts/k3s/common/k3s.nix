@@ -25,6 +25,7 @@
         "--flannel-iface=${networkingConfig.networkInterface}"
         "--disable=coredns"
         "--secrets-encryption"
+        "--node-ip=${networkingConfig.vlanPrivateIPv4}"
         "--node-external-ip=${networkingConfig.ipv4Address}"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
