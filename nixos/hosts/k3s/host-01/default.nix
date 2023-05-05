@@ -135,12 +135,6 @@ in {
         gw0 = {
           ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
           listenPort = 51820;
-          postSetup = ''
-            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
-          '';
-          postShutdown = ''
-            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
-          '';
           privateKeyFile = "/root/wireguard-keys/private";
           peers = [
             {
