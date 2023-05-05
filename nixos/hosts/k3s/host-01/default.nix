@@ -118,12 +118,6 @@ in {
   };
 
   networking = {
-    nat = {
-      enable = true;
-      externalInterface = "${networkingConfig.networkInterface}";
-      internalInterfaces = [ "gw0" ];
-    };
-
     firewall = {
       allowedUDPPorts = [51820];
       allowedTCPPorts = [2379 2380 6443 10250];
