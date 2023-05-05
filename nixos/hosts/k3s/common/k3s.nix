@@ -3,7 +3,6 @@
   config,
   lib,
   nodeIPv4,
-  nodePublicIPv4,
   pkgs,
   serverAddr ? "",
   ...
@@ -24,7 +23,6 @@
         "--disable=coredns"
         "--secrets-encryption"
         "--node-ip=${nodeIPv4}"
-        "--node-external-ip=${nodePublicIPv4}"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
