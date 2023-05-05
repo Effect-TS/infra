@@ -121,7 +121,7 @@ in {
     nat = {
       enable = true;
       externalInterface = "${networkingConfig.networkInterface}";
-      internalInterfaces = [ "wg0" ];
+      internalInterfaces = [ "gw0" ];
     };
 
     firewall = {
@@ -132,7 +132,7 @@ in {
 
     wireguard = {
       interfaces = {
-        wg0 = {
+        gw0 = {
           ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
           listenPort = 51820;
           postSetup = ''
@@ -143,10 +143,6 @@ in {
           '';
           privateKeyFile = "/root/wireguard-keys/private";
           peers = [
-            {
-              publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
-              allowedIPs = ["0.1.0.0/16"];
-            }
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
               allowedIPs = ["0.1.0.0/16"];
