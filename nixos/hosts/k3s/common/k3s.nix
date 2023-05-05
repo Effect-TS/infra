@@ -29,13 +29,13 @@
     };
   };
 
-  sops = {
-    secrets = {
-      k3s-server-token = {
-        sopsFile = ./secrets.yaml;
-      };
-    };
-  };
+  # sops = {
+  #   secrets = {
+  #     k3s-server-token = {
+  #       sopsFile = ./secrets.yaml;
+  #     };
+  #   };
+  # };
 
   systemd = {
     services = {
