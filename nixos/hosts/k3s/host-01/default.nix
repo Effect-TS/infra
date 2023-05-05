@@ -139,11 +139,11 @@ in {
           peers = [
             {
               publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
-              allowedIPs = ["0.1.0.2/32"];
+              allowedIPs = ["0.1.0.0/16"];
             }
             {
               publicKey = "9/wGoxeVz8F3yXqx1KYapmHRgvV0OkKeLBSthYvc1nw=";
-              allowedIPs = ["0.1.0.3/32"];
+              allowedIPs = ["0.1.0.0/16"];
             }
           ];
         };
