@@ -124,22 +124,22 @@ in {
       trustedInterfaces = [];
     };
 
-    # wireguard = {
-    #   interfaces = {
-    #     gw0 = {
-    #       ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
-    #       listenPort = 51820;
-    #       privateKeyFile = "/root/wireguard-keys/private";
-    #       peers = [
-    #         {
-    #           publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
-    #           allowedIPs = ["0.1.0.0/16"];
-    #           endpoint = "213.239.207.149:51820";
-    #           persistentKeepalive = 25;
-    #         }
-    #       ];
-    #     };
-    #   };
-    # };
+    wireguard = {
+      interfaces = {
+        gw0 = {
+          ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
+          listenPort = 51820;
+          privateKeyFile = "/root/wireguard-keys/private";
+          peers = [
+            {
+              publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
+              allowedIPs = ["0.1.0.0/16"];
+              endpoint = "213.239.207.149:51820";
+              persistentKeepalive = 25;
+            }
+          ];
+        };
+      };
+    };
   };
 }

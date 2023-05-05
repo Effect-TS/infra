@@ -138,7 +138,7 @@ in {
           privateKeyFile = "/root/wireguard-keys/private";
           peers = [
             {
-              publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
+              publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
               allowedIPs = ["0.1.0.0/16"];
             }
             {
