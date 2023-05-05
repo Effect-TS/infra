@@ -127,7 +127,7 @@ in {
     wireguard = {
       interfaces = {
         gw0 = {
-          ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
+          ips = [ "${networkingConfig.vlanPrivateIPv4}" ];
           listenPort = 51820;
           privateKeyFile = "/root/wireguard-keys/private";
           peers = [

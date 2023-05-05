@@ -127,17 +127,17 @@ in {
     wireguard = {
       interfaces = {
         gw0 = {
-          ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
+          ips = [ "${networkingConfig.vlanPrivateIPv4}" ];
           listenPort = 51820;
           privateKeyFile = "/root/wireguard-keys/private";
           peers = [
             {
               publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
-              allowedIPs = ["0.1.0.0/16"];
+              allowedIPs = ["0.1.0.2/32"];
             }
             {
               publicKey = "9/wGoxeVz8F3yXqx1KYapmHRgvV0OkKeLBSthYvc1nw=";
-              allowedIPs = ["0.1.0.0/16"];
+              allowedIPs = ["0.1.0.3/32"];
             }
           ];
         };
