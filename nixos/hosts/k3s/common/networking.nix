@@ -47,12 +47,6 @@
     # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
     useDHCP = lib.mkDefault false;
 
-    nat = {
-      enable = true;
-      externalInterface = "${networkInterface}";
-      internalInterfaces = [ "gw0" ];
-    };
-
     firewall = {
       allowedUDPPorts = [51820];
       allowedTCPPorts = [2379 2380 6443 10250];
@@ -65,12 +59,6 @@
           ips = [ "${vlanPrivateIPv4}" ];
           listenPort = 51820;
           privateKeyFile = "/root/wireguard-keys/private";
-          postSetup = ''
-            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 0.1.0.0/16 -o ${networkInterface} -j MASQUERADE
-          '';
-          postShutdown = ''
-            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 0.1.0.0/16 -o ${networkInterface} -j MASQUERADE
-          '';
           peers = [
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
