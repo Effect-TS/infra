@@ -2,13 +2,14 @@
   clusterInit ? false,
   config,
   lib,
-  nodeIPv4,
+  networkConfig,
   pkgs,
   serverAddr ? "",
   ...
 }: {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
+    pkgs.wireguard-tools
   ];
 
   services = {
@@ -19,11 +20,12 @@
       extraFlags = toString [
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
         "--disable=traefik"
-        "--flannel-backend=host-gw"
-        "--flannel-iface=gw0"
+        "--flannel-backend=wireguard-native"
+        "--flannel-iface=${networkingConfig.networkInterface}"
         "--disable=coredns"
         "--secrets-encryption"
-        "--node-ip=${nodeIPv4}"
+        "--node-ip=${networkingConfig.ipv4Address}"
+        "--node-external-ip=${networkingConfig.vlanPrivateIPv4}"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;

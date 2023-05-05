@@ -31,8 +31,7 @@
   };
 
   k3sConfig = {
-    nodeIPv4 = networkingConfig.vlanPrivateIPv4;
-    serverAddr = "https://0.1.0.1:6443";
+    serverAddr = "https://213.239.207.149:6443";
   };
 
   networkingConfig = {
@@ -56,7 +55,7 @@ in {
 
     "${modulesPath}/installer/scan/not-detected.nix"
     (import ../common/hardware.nix ({inherit config lib;} // hardwareConfig))
-    (import ../common/k3s.nix ({inherit config lib pkgs;} // k3sConfig))
+    (import ../common/k3s.nix ({inherit config lib pkgs networkingConfig;} // k3sConfig))
     (import ../common/networking.nix ({inherit lib pkgs config;} // networkingConfig))
     ../common/nixos.nix
   ];

@@ -32,7 +32,6 @@
 
   k3sConfig = {
     clusterInit = true;
-    nodeIPv4 = networkingConfig.vlanPrivateIPv4;
   };
 
   networkingConfig = {
@@ -54,7 +53,7 @@ in {
 
     "${modulesPath}/installer/scan/not-detected.nix"
     (import ../common/hardware.nix ({inherit config lib;} // hardwareConfig))
-    (import ../common/k3s.nix ({inherit config lib pkgs;} // k3sConfig))
+    (import ../common/k3s.nix ({inherit config lib pkgs networkingConfig;} // k3sConfig))
     (import ../common/networking.nix ({inherit lib pkgs config;} // networkingConfig))
     ../common/nixos.nix
   ];
