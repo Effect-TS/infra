@@ -2,7 +2,7 @@
   clusterInit ? false,
   config,
   lib,
-  networkConfig,
+  networkingConfig,
   pkgs,
   serverAddr ? "",
   ...
