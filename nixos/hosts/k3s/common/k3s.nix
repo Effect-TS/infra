@@ -19,7 +19,7 @@
       extraFlags = toString [
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
         "--disable=traefik"
-        "--disable=flannel"
+        "--flannel-backend=none"
         "--disable=coredns"
         "--secrets-encryption"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
