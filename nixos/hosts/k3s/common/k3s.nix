@@ -19,7 +19,8 @@
       extraFlags = toString [
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
         "--disable=traefik"
-        "--flannel-backend=none"
+        "--flannel-backend=host-gw"
+        "--flannel-iface=gw0"
         "--disable=coredns"
         "--secrets-encryption"
         "--node-ip=${nodeIPv4}"

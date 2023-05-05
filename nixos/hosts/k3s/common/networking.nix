@@ -54,12 +54,6 @@
     # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
     useDHCP = lib.mkDefault false;
 
-    nat = {
-      enable = true;
-      externalInterface = "${networkInterface}";
-      internalInterfaces = ["gw0"];
-    };
-
     firewall = {
       allowedUDPPorts = [51820];
       allowedTCPPorts = [2379 2380 6443 10250];
@@ -72,28 +66,22 @@
           ips = ["${vlanPrivateIPv4}"];
           listenPort = 51820;
           privateKeyFile = "${config.sops.secrets."wireguard/${hostName}".path}";
-          postSetup = ''
-            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 0.1.0.0/16 -o ${networkInterface} -j MASQUERADE
-          '';
-          postShutdown = ''
-            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 0.1.0.0/16 -o ${networkInterface} -j MASQUERADE
-          '';
           peers = [
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
-              allowedIPs = ["0.1.0.1/32"];
+              allowedIPs = ["0.1.0.1/16"];
               endpoint = "213.239.207.149:51820";
               persistentKeepalive = 25;
             }
             {
               publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
-              allowedIPs = ["0.1.0.2/32"];
+              allowedIPs = ["0.2.0.1/16"];
               endpoint = "167.235.103.220:51820";
               persistentKeepalive = 25;
             }
             {
               publicKey = "9/wGoxeVz8F3yXqx1KYapmHRgvV0OkKeLBSthYvc1nw=";
-              allowedIPs = ["0.1.0.3/32"];
+              allowedIPs = ["0.3.0.1/16"];
               endpoint = "65.109.94.140:51820";
               persistentKeepalive = 25;
             }
