@@ -8,7 +8,7 @@
   ipv4Address,
   ipv6Address,
   lib,
-  # vlan,
+  wireguardPrivateKeyPath,
   vlanPrivateIPv4,
   ...
 }: {
@@ -58,7 +58,7 @@
         gw0 = {
           ips = [ "${vlanPrivateIPv4}" ];
           listenPort = 51820;
-          privateKeyFile = "/root/wireguard-keys/private";
+          privateKeyFile = "${wireguardPrivateKeyPath}";
           peers = [
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";

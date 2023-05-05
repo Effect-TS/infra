@@ -47,6 +47,8 @@
     defaultGatewayIPv6 = "fe80::1";
 
     vlanPrivateIPv4 = "0.1.0.1";
+
+    wireguardPrivateKeyPath = config.sops.secrets."wireguard/host-01".path;
   };
 in {
   imports = [
@@ -88,6 +90,11 @@ in {
   sops = {
     age = {
       sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    };
+    secrets = {
+      "wireguard/host-01" = {
+        sopsFile = ./secrets.yaml;
+      };
     };
   };
 
