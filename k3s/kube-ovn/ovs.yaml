@@ -37,7 +37,8 @@ spec:
         - name: openvswitch
           image: "kubeovn/kube-ovn:v1.12.0"
           imagePullPolicy: IfNotPresent
-          command: ["/kube-ovn/start-ovs.sh"]
+          command:
+            - "/kube-ovn/start-ovs.sh"
           securityContext:
             runAsUser: 0
             privileged: false
@@ -76,6 +77,9 @@ spec:
               mountPropagation: HostToContainer
             - mountPath: /lib/modules
               name: host-modules
+              readOnly: true
+            - mountPath: /nix
+              name: host-nix
               readOnly: true
             - mountPath: /var/run/openvswitch
               name: host-run-ovs
@@ -130,7 +134,10 @@ spec:
       volumes:
         - name: host-modules
           hostPath:
-            path: /lib/modules
+            path: /run/current-system/kernel-modules/lib/modules
+        - name: host-nix
+          hostPath:
+            path: /nix
         - name: host-run-ovs
           hostPath:
             path: /run/openvswitch
