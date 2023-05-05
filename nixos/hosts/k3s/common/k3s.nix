@@ -73,7 +73,7 @@
                 cp ${builtins.path {
                   path = ./kube-ovn;
                   name = "kube-ovn";
-                }} $out
+                }} $out/kube-ovn
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
