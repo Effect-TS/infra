@@ -10,6 +10,7 @@
   lib,
   wireguardPrivateKeyPath,
   vlanPrivateIPv4,
+  config,
   ...
 }: {
   sops = {
