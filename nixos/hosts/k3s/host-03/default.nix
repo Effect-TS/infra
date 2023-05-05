@@ -116,4 +116,30 @@ in {
       };
     };
   };
+
+  networking = {
+    firewall = {
+      allowedUDPPorts = [51820];
+      allowedTCPPorts = [2379 2380 6443 10250];
+      trustedInterfaces = [];
+    };
+
+    wireguard = {
+      interfaces = {
+        wg0 = {
+          ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
+          listenPort = 51820;
+          privateKeyFile = "/root/wireguard-keys/private";
+          peers = [
+            {
+              publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
+              allowedIPs = ["0.1.0.0/16"];
+              endpoint = "213.239.207.149:51820";
+              persistentKeepalive = 25;
+            }
+          ];
+        };
+      };
+    };
+  };
 }

@@ -116,4 +116,48 @@ in {
       };
     };
   };
+
+  networking = {
+    nat = {
+      enable = true;
+      externalInterface = "${networkingConfig.networkInterface}";
+      internalInterfaces = [ "wg0" ];
+    };
+
+    firewall = {
+      allowedUDPPorts = [51820];
+      allowedTCPPorts = [2379 2380 6443 10250];
+      trustedInterfaces = [];
+    };
+
+    wireguard = {
+      interfaces = {
+        wg0 = {
+          ips = [ "${networkingConfig.vlanPrivateIPv4}/16" ];
+          listenPort = 51820;
+          postSetup = ''
+            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
+          '';
+          postShutdown = ''
+            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 0.1.0.0/16 -o ${networkingConfig.networkInterface} -j MASQUERADE
+          '';
+          privateKeyFile = "/root/wireguard-keys/private";
+          peers = [
+            {
+              publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
+              allowedIPs = ["0.1.0.0/16"];
+            }
+            {
+              publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
+              allowedIPs = ["0.1.0.0/16"];
+            }
+            {
+              publicKey = "9/wGoxeVz8F3yXqx1KYapmHRgvV0OkKeLBSthYvc1nw=";
+              allowedIPs = ["0.1.0.0/16"];
+            }
+          ];
+        };
+      };
+    };
+  };
 }
