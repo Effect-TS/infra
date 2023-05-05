@@ -67,9 +67,13 @@
         plugins = {
           "io.containerd.grpc.v1.cri" = {
             cni = {
-              bin_dir = "${"/cni/nix" ''
+              bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
                 mkdir -p $out
                 ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+                cp ${builtins.path {
+                  path = ./kube-ovn;
+                  name = "kube-ovn";
+                }} $out
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
