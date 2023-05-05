@@ -50,7 +50,7 @@
     firewall = {
       allowedUDPPorts = [51820];
       allowedTCPPorts = [2379 2380 6443 10250];
-      trustedInterfaces = [];
+      trustedInterfaces = ["gw0"];
     };
 
     wireguard = {
