@@ -93,7 +93,7 @@ in {
     };
     secrets = {
       "wireguard/host-01" = {
-        sopsFile = ./secrets.yaml;
+        sopsFile = ../common/secrets.yaml;
       };
     };
   };
