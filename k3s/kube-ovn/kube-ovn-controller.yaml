@@ -65,10 +65,10 @@ spec:
             - --default-logical-gateway=false
             - --default-u2o-interconnection=false
             - --default-exclude-ips=
-            - --node-switch-cidr=100.64.0.0/16
-            - --service-cluster-ip-range=10.96.0.0/12
+            - --node-switch-cidr=0.2.0.0/16
+            - --service-cluster-ip-range=10.43.0.0/16
             - --network-type=geneve
-            - --default-interface-name=
+            - --default-interface-name=gw0
             - --default-exchange-link-name=false
             - --default-vlan-id=100
             - --ls-dnat-mod-dl-dst=true
@@ -103,7 +103,7 @@ spec:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: OVN_DB_IPS
-              value: 172.17.0.2
+              value: 0.1.0.1
             - name: POD_IPS
               valueFrom:
                 fieldRef:

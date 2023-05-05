@@ -69,7 +69,7 @@
             cni = {
               bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
                 mkdir -p $out
-                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* /cni/custom/* $out
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };

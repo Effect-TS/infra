@@ -66,11 +66,11 @@ spec:
           args:
             - --enable-mirror=false
             - --encap-checksum=true
-            - --service-cluster-ip-range=10.96.0.0/12
-            - --iface=
+            - --service-cluster-ip-range=10.43.0.0/16
+            - --iface=gw0
             - --dpdk-tunnel-iface=br-phy
             - --network-type=geneve
-            - --default-interface-name=
+            - --default-interface-name=gw0
             - --cni-conf-name=01-kube-ovn.conflist
             - --logtostderr=false
             - --alsologtostderr=true
@@ -103,8 +103,11 @@ spec:
             - name: DBUS_SYSTEM_BUS_ADDRESS
               value: "unix:path=/host/var/run/dbus/system_bus_socket"
           volumeMounts:
-            - name: host-modules
-              mountPath: /lib/modules
+            - mountPath: /lib/modules
+              name: host-modules
+              readOnly: true
+            - mountPath: /nix
+              name: host-nix
               readOnly: true
             - name: shared-dir
               mountPath: /var/lib/kubelet/pods
@@ -133,6 +136,9 @@ spec:
               name: localtime
             - mountPath: /tmp
               name: tmp
+            - mountPath: /nix
+              name: host-nix
+              readOnly: true
           livenessProbe:
             failureThreshold: 3
             initialDelaySeconds: 30
@@ -158,9 +164,12 @@ spec:
       nodeSelector:
         kubernetes.io/os: "linux"
       volumes:
+        - name: host-nix
+          hostPath:
+            path: /nix
         - name: host-modules
           hostPath:
-            path: /lib/modules
+            path: /run/current-system/kernel-modules/lib/modules
         - name: shared-dir
           hostPath:
             path: /var/lib/kubelet/pods
@@ -175,10 +184,10 @@ spec:
             path: /run/ovn
         - name: cni-conf
           hostPath:
-            path: /etc/cni/net.d
+            path: /var/lib/rancher/k3s/agent/etc/cni/net.d
         - name: cni-bin
           hostPath:
-            path: /opt/cni/bin
+            path: /cni/custom
         - name: host-ns
           hostPath:
             path: /var/run/netns
