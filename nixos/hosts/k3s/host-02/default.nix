@@ -91,11 +91,6 @@ in {
     age = {
       sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     };
-    secrets = {
-      "wireguard/host-02" = {
-        sopsFile = ../common/secrets.yaml;
-      };
-    };
   };
 
   # This value determines the NixOS release with which your system is to be

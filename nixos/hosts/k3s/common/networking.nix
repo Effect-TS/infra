@@ -12,6 +12,13 @@
   vlanPrivateIPv4,
   ...
 }: {
+  sops = {
+    secrets = {
+      "wireguard/${hostName}" = {
+        sopsFile = ../common/secrets.yaml;
+      };
+    };
+  };
   networking = {
     inherit hostName hostId;
 
@@ -58,7 +65,7 @@
         gw0 = {
           ips = [ "${vlanPrivateIPv4}" ];
           listenPort = 51820;
-          privateKeyFile = "${wireguardPrivateKeyPath}";
+          privateKeyFile = "${config.sops.secrets."wireguard/${hostName}".path}";
           peers = [
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
