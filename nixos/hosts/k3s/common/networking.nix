@@ -8,7 +8,6 @@
   ipv4Address,
   ipv6Address,
   lib,
-  wireguardPrivateKeyPath,
   vlanPrivateIPv4,
   config,
   ...
