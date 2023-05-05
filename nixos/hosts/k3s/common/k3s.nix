@@ -24,8 +24,7 @@
         "--flannel-iface=${networkingConfig.networkInterface}"
         "--disable=coredns"
         "--secrets-encryption"
-        "--node-ip=${networkingConfig.ipv4Address}"
-        "--node-external-ip=${networkingConfig.vlanPrivateIPv4}"
+        "--node-external-ip=${networkingConfig.ipv4Address}"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
