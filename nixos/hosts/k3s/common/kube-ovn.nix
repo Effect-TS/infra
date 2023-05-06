@@ -37,9 +37,4 @@ buildGoModule rec {
     license = licenses.asl20;
     platforms = platforms.linux;
   };
-
-  postBuild = ''
-    echo "The store path is: $out"
-    ln -sf /var/lib/rancher/k3s/data/current/bin/kube-ovn $out
-  '';
 }
