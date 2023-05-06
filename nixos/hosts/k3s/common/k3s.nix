@@ -20,9 +20,7 @@
       extraFlags = toString [
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
         "--disable=traefik"
-        "--flannel-backend=wireguard-native"
-        "--flannel-external-ip"
-        "--flannel-iface=${networkingConfig.networkInterface}"
+        "--flannel-backend=none"
         "--disable=coredns"
         "--secrets-encryption"
         "--node-ip=${networkingConfig.vlanPrivateIPv4}"
