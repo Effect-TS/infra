@@ -123,9 +123,6 @@ spec:
               name: localtime
             - mountPath: /tmp
               name: tmp
-            - mountPath: /nix
-              name: host-nix
-              readOnly: true
           livenessProbe:
             failureThreshold: 3
             initialDelaySeconds: 30
