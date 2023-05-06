@@ -14,9 +14,7 @@ buildGoModule rec {
     sha256 = "vFgrBnwVcHbkdUqN1oCUTPbKlDFGZ8dBLQ4Umw/4a2E=";
   };
 
-  proxyVendor = true;
-
-  vendorSha256 = null;
+  vendorSha256 = lib.fakeSha256;
 
   doCheck = false;
 
@@ -28,10 +26,6 @@ buildGoModule rec {
     "-X github.com/kubeovn/kube-ovn/versions.VERSION=v${version}"
     "-X github.com/kubeovn/kube-ovn/versions.BUILDDATE=2023-05-06_10:08:08"
   ];
-
-  preBuild = ''
-    export GOPROXY=on
-  '';
 
   meta = with lib; {
     description = "A Bridge between SDN and Cloud Native (Project under CNCF)";
