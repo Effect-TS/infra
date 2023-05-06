@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
@@ -36,6 +36,7 @@ spec:
         imagePullPolicy: IfNotPresent
         command:
         - kube-proxy
+        - --cluster-cidr=10.16.0.0/16
         - --kubeconfig=/run/kubeconfig
         securityContext:
           privileged: true
@@ -46,7 +47,7 @@ spec:
           name: kubeconfig
       volumes:
       - hostPath:
-          path: /etc/kubernetes/kubelet.conf
+          path: /etc/rancher/k3s/k3s.yaml
         name: kubeconfig
       - hostPath:
           path: /var/run/dbus
