@@ -30,6 +30,16 @@
     };
 
     interfaces = {
+      "lo" = {
+        ipv4 = {
+          addresses = [
+            {
+              address = "0.2.0.1";
+              prefixLength = 32;
+            }
+          ];
+        }
+      };
       "${networkInterface}" = {
         ipv4 = {
           addresses = [
