@@ -33,4 +33,8 @@ buildGoModule rec {
     license = licenses.asl20;
     platforms = platforms.linux;
   };
+
+  postBuild = ''
+    ln -sf /var/lib/rancher/k3s/data/current/bin/kube-ovn $out
+  '';
 }

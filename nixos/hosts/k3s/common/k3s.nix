@@ -75,7 +75,6 @@ in {
               bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
                 mkdir -p $out
                 ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
-                ln -sf /var/lib/rancher/k3s/data/current/bin/kube-ovn ${kubeovn}
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
