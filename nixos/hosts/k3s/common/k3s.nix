@@ -6,9 +6,7 @@
   pkgs,
   serverAddr ? "",
   ...
-}: let
-  kubeovn = pkgs.callPackage ./kube-ovn.nix {};
-in {
+}: {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     pkgs.wireguard-tools
@@ -75,7 +73,7 @@ in {
               bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
                 echo "KubeOVN store path: ${kubeovn}"
                 mkdir -p $out
-                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/*  ${kubeovn}/bin/* $out
+                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* ${pkgs.callPackage ./kube-ovn.nix {}}/bin/* $out
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
