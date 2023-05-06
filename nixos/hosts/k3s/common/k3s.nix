@@ -22,7 +22,6 @@
         "--disable=traefik"
         "--flannel-backend=none"
         "--disable=coredns"
-        "--disable-kube-proxy"
         "--secrets-encryption"
         "--node-ip=${networkingConfig.vlanPrivateIPv4}"
         "--node-external-ip=${networkingConfig.ipv4Address}"
