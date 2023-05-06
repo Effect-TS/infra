@@ -38,7 +38,7 @@
               prefixLength = 32;
             }
           ];
-        }
+        };
       };
       "${networkInterface}" = {
         ipv4 = {
