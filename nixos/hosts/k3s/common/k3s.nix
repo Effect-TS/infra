@@ -68,12 +68,14 @@
       settings = {
         version = 2;
         plugins = {
-          "io.containerd.grpc.v1.cri" = {
+          "io.containerd.grpc.v1.cri" = let
+            kubeovn = pkgs.callPackage ./kube-ovn.nix {};
+          in {
             cni = {
               bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
                 echo "KubeOVN store path: ${kubeovn}"
                 mkdir -p $out
-                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* ${pkgs.callPackage ./kube-ovn.nix {}}/bin/* $out
+                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* ${kubeovn}/bin/* $out
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
