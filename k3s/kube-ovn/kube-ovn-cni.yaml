@@ -43,19 +43,6 @@ spec:
       serviceAccountName: ovn
       hostNetwork: true
       hostPID: true
-      initContainers:
-        - name: install-cni
-          image: "kubeovn/kube-ovn:v1.12.0"
-          imagePullPolicy: IfNotPresent
-          command: ["/kube-ovn/install-cni.sh"]
-          securityContext:
-            runAsUser: 0
-            privileged: true
-          volumeMounts:
-            - mountPath: /opt/cni/bin
-              name: cni-bin
-            - mountPath: /usr/local/bin
-              name: local-bin
       containers:
         - name: cni-server
           image: "kubeovn/kube-ovn:v1.12.0"
@@ -185,9 +172,6 @@ spec:
         - name: cni-conf
           hostPath:
             path: /var/lib/rancher/k3s/agent/etc/cni/net.d
-        - name: cni-bin
-          hostPath:
-            path: /cni/custom
         - name: host-ns
           hostPath:
             path: /var/run/netns
@@ -209,6 +193,3 @@ spec:
         - name: tmp
           hostPath:
             path: /tmp
-        - name: local-bin
-          hostPath:
-            path: /usr/local/bin
