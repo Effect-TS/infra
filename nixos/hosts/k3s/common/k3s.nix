@@ -6,7 +6,9 @@
   pkgs,
   serverAddr ? "",
   ...
-}: {
+}: let
+  kubeovn = pkgs.callPackage ./kube-ovn.nix {};
+in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     pkgs.wireguard-tools
@@ -70,7 +72,10 @@
         plugins = {
           "io.containerd.grpc.v1.cri" = {
             cni = {
-              bin_dir = "/cni/bin";
+              bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
+                mkdir -p $out
+                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* ${kubeovn} $out
+              ''}";;
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
           };

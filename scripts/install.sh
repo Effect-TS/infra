@@ -123,18 +123,23 @@ set -u -x
 nix-channel --add https://nixos.org/channels/nixos-22.11 nixpkgs
 nix-channel --update
 
+nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages ]"
+
+nixos-generate-config --root /mnt
+
 # Our SSH keys:
 # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPsBd6asppvftBGAxsu2MutHRiFKQIsyMakAheN/2GzK"
 # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEzPT600TtIVU+Ch+sbkB2GuJb+ZScNkOHKhPb6Q8AHv ma@matechs.com"
+
 
 RESCUE_INTERFACE="eth0"
 INTERFACE_DEVICE_PATH="/devices/pci0000:00/0000:00:01.2/0000:02:00.2/0000:20:08.0/0000:29:00.0/net/eth0"
 NIXOS_INTERFACE="enp41s0"
 
-IP_V4="213.239.207.149"
-IP_V6="2a01:4f8:a0:8485::1"
+IP_V4="65.109.94.140"
+IP_V6="2a01:4f9:3051:48cd::1"
 
-DEFAULT_GATEWAY="213.239.207.129"
+DEFAULT_GATEWAY="65.109.94.129"
 
 cat > /mnt/etc/nixos/configuration.nix <<EOF
 { config, pkgs, ... }:
@@ -151,29 +156,29 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
   boot.loader.grub = {
     enable = true;
     efiSupport = false;
-    devices = ["/dev/disk/by-id/nvme-SAMSUNG_MZVL2512HCJQ-00B00_S675NX0T570867" "/dev/disk/by-id/nvme-SAMSUNG_MZVL2512HCJQ-00B00_S675NX0T570972"];
+    devices = ["/dev/disk/by-id/nvme-SAMSUNG_MZVL2512HCJQ-00B00_S675NE0T501629" "/dev/disk/by-id/nvme-SAMSUNG_MZVL2512HCJQ-00B00_S675NE0T501620"];
     copyKernels = true;
   };
   boot.supportedFilesystems = [ "zfs" ];
 
-  networking.hostName = "host-01";
-  networking.hostId = "0572b6a9";
+  networking.hostName = "host-03";
+  networking.hostId = "6f23484f";
 
   # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
   networking.useDHCP = false;
   networking.interfaces."enp41s0".ipv4.addresses = [
     {
-      address = "213.239.207.149";
+      address = "65.109.94.140";
       prefixLength = 24;
     }
   ];
   networking.interfaces."enp41s0".ipv6.addresses = [
     {
-      address = "2a01:4f8:a0:8485::1";
+      address = "2a01:4f9:3051:48cd::1";
       prefixLength = 64;
     }
   ];
-  networking.defaultGateway = "213.239.207.129";
+  networking.defaultGateway = "65.109.94.129";
   networking.defaultGateway6 = { address = "fe80::1"; interface = "enp41s0"; };
   networking.nameservers = [ "8.8.8.8" ];
 
