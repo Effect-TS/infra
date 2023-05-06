@@ -65,7 +65,7 @@ spec:
             - --default-logical-gateway=false
             - --default-u2o-interconnection=false
             - --default-exclude-ips=
-            - --node-switch-cidr=0.2.0.0/16
+            - --node-switch-cidr=100.64.0.0/16
             - --service-cluster-ip-range=10.43.0.0/16
             - --network-type=geneve
             - --default-interface-name=gw0
