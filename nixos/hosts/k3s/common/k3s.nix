@@ -60,6 +60,9 @@
   };
 
   virtualisation = {
+    docker = {
+      enable = true;
+    };
     containerd = {
       enable = true;
       settings = {
