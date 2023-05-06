@@ -27,9 +27,9 @@ buildGoModule rec {
     "-X github.com/kubeovn/kube-ovn/versions.BUILDDATE=2023-05-06_10:08:08"
   ];
 
-  subPackages = [
-    "cmd"
-  ];
+  # subPackages = [
+  #   "cmd"
+  # ];
 
   meta = with lib; {
     description = "A Bridge between SDN and Cloud Native (Project under CNCF)";
