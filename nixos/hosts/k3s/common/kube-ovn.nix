@@ -30,7 +30,7 @@ buildGoModule rec {
   ];
 
   preBuild = ''
-    export GOPROXY=off
+    export GOPROXY=on
   '';
 
   meta = with lib; {
