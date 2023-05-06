@@ -73,8 +73,10 @@ in {
           "io.containerd.grpc.v1.cri" = {
             cni = {
               bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
+                echo "KubeOVN store path: ${kubeovn}"
                 mkdir -p $out
                 ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+                ln -sf ${kubeovn}/bin/* $out
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
