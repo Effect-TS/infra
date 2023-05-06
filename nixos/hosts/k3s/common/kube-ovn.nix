@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
-
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 buildGoModule rec {
   pname = "kube-ovn";
   version = "1.11.3";
@@ -11,8 +14,7 @@ buildGoModule rec {
     sha256 = "vFgrBnwVcHbkdUqN1oCUTPbKlDFGZ8dBLQ4Umw/4a2E=";
   };
 
-  deleteVendor = true;
-  # proxyVendor = true;
+  proxyVendor = true;
 
   vendorSha256 = null;
 
@@ -26,6 +28,10 @@ buildGoModule rec {
     "-X github.com/kubeovn/kube-ovn/versions.VERSION=v${version}"
     "-X github.com/kubeovn/kube-ovn/versions.BUILDDATE=2023-05-06_10:08:08"
   ];
+
+  preBuild = ''
+    export GOPROXY=off
+  '';
 
   meta = with lib; {
     description = "A Bridge between SDN and Cloud Native (Project under CNCF)";
