@@ -75,8 +75,6 @@ spec:
               mountPath: /host/etc/cni/net.d
             - name: cni-bin
               mountPath: /host/opt/cni/bin
-            - name: kubeconfig
-              mountPath: /etc/cni/net.d/multus.d/multus.kubeconfig
             - name: multus-cfg
               mountPath: /tmp/multus-conf
       terminationGracePeriodSeconds: 10
@@ -87,9 +85,6 @@ spec:
         - name: cni-bin
           hostPath:
             path: /var/lib/cni/bin
-        - name: kubeconfig
-          hostPath:
-            path: /etc/rancher/k3s/k3s.yaml
         - name: multus-cfg
           configMap:
             name: multus-cni-config
