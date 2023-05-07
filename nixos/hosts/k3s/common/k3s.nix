@@ -65,7 +65,7 @@ in {
         serviceConfig = {
           ExecStartPre = [
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/cni/bin"
-            "${pkgs.coreutils}/bin/cp ${cniBinDir}/* /var/lib/cni/bin/"
+            "${pkgs.coreutils}/bin/cp -r ${cniBinDir}/* /var/lib/cni/bin/"
           ];
         };
       };
