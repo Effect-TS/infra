@@ -58,7 +58,7 @@ spec:
             - --dpdk-tunnel-iface=br-phy
             - --network-type=geneve
             - --default-interface-name=gw0
-            - --cni-conf-name=01-kube-ovn.conflist
+            - --cni-conf-name=00-a.conf
             - --logtostderr=false
             - --alsologtostderr=true
             - --log_file=/var/log/kube-ovn/kube-ovn-cni.log
