@@ -65,12 +65,14 @@
         plugins = {
           "io.containerd.grpc.v1.cri" = let
             kubeovn = pkgs.callPackage ./kube-ovn.nix {};
+            multuscni = pkgs.callPackage ./multus-cni.nix {};
           in {
             cni = {
               bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
                 mkdir -p $out
                 ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
                 ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
+                ln -sf ${multuscni}/bin/* $out
               ''}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
