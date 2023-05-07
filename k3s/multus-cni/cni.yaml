@@ -85,7 +85,7 @@ spec:
             - name: cni
               mountPath: /host/etc/cni/net.d
             - name: cni-bin
-              mountPath: /host/opt/cni/bin
+              mountPath: /opt/cni/bin
             - name: nix
               mountPath: /nix
             - name: multus-cfg
