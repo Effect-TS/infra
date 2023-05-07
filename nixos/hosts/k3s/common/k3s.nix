@@ -62,11 +62,12 @@ in {
       k3s = {
         wants = ["containerd.service"];
         after = ["containerd.service"];
-        serviceConfig = {
-          ExecStartPre = [
-            "${pkgs.coreutils}/bin/mkdir -p /var/lib/cni/bin"
-            "${pkgs.rsync}/bin/rsync -a -L ${cniBinDir}/ /var/lib/cni/bin/"
-          ];
+        preStart = ''
+          ${pkgs.coreutils}/bin/mkdir -p /var/lib/cni/bin
+          for binary in ${cniBinDir}/*; do
+            ${pkgs.coreutils}/bin/ln -sf "\${binary}" "/var/lib/cni/bin/$(basename \${binary})"
+          done
+        '';
         };
       };
     };
