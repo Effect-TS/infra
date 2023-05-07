@@ -14,7 +14,7 @@ buildGoModule rec {
     sha256 = "AYFECNwoajd4mGAwNnFSBhfXjLfmJEtt1Iuv1xyMqbY=";
   };
 
-  subPackages = ["multus"];
+  subPackages = ["cmd/multus"];
 
   vendorSha256 = null;
 
