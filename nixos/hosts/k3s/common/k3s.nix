@@ -62,9 +62,11 @@ in {
       k3s = {
         wants = ["containerd.service"];
         after = ["containerd.service"];
-        ExecStartPre = [
-          "ln -sf /var/lib/cni ${cniBinDir}"
-        ];
+        serviceConfig = {
+          ExecStartPre = [
+            "ln -sf /var/lib/cni ${cniBinDir}"
+          ];
+        };
       };
     };
   };
