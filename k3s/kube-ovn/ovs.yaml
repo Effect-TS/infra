@@ -152,7 +152,7 @@ spec:
             path: /var/run/netns
         - name: cni-conf
           hostPath:
-            path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+            path: /var/lib/rancher/k3s/agent/etc/cni/net.d/ovn
         - name: host-config-openvswitch
           hostPath:
             path: /etc/origin/openvswitch
