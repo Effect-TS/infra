@@ -64,7 +64,7 @@ in {
         after = ["containerd.service"];
         serviceConfig = {
           ExecStartPre = [
-            "ln -sf /var/lib/cni ${cniBinDir}"
+            "ln -sf ${cniBinDir} /var/lib/cni"
           ];
         };
       };
