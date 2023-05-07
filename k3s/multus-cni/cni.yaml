@@ -84,7 +84,7 @@ spec:
             path: /var/lib/rancher/k3s/agent/etc/cni/net.d
         - name: cni-bin
           hostPath:
-            mountPath: /var/lib/cni/bin
+            path: /var/lib/cni/bin
         - name: multus-cfg
           configMap:
             name: multus-cni-config
