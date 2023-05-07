@@ -16,7 +16,7 @@ buildGoModule rec {
 
   subPackages = ["multus"];
 
-  vendorSha256 = lib.fakeSha256;
+  vendorSha256 = null;
 
   doCheck = false;
 
