@@ -68,7 +68,6 @@ in {
             ${pkgs.coreutils}/bin/ln -sf "\${binary}" "/var/lib/cni/bin/$(basename \${binary})"
           done
         '';
-        };
       };
     };
   };
