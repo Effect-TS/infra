@@ -65,7 +65,7 @@ in {
         preStart = ''
           ${pkgs.coreutils}/bin/mkdir -p /var/lib/cni/bin
           for binary in ${cniBinDir}/*; do
-            ${pkgs.coreutils}/bin/ln -sf "\${binary}" "/var/lib/cni/bin/$(basename \${binary})"
+            ${pkgs.coreutils}/bin/ln -sf "''${binary}" "/var/lib/cni/bin/$(basename ''${binary})"
           done
         '';
       };
