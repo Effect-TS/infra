@@ -64,7 +64,8 @@ in {
         after = ["containerd.service"];
         serviceConfig = {
           ExecStartPre = [
-            "${pkgs.coreutils}/bin/ln -sf ${cniBinDir} /var/lib/cni/bin"
+            "${pkgs.coreutils}/bin/mkdir -p /var/lib/cni/bin"
+            "${pkgs.coreutils}/bin/cp ${cniBinDir}/multus /var/lib/cni/bin/multus"
           ];
         };
       };
