@@ -20,7 +20,18 @@ data:
       "capabilities": {
         "portMappings": true
       },
-      "delegates": [],
+      "delegates": [
+        {
+            "type":"kube-ovn",
+            "server_socket":"/run/openvswitch/kube-ovn-daemon.sock"
+        },
+        {
+            "type":"portmap",
+            "capabilities":{
+                "portMappings":true
+            }
+        }
+      ],
       "kubeconfig": "/etc/rancher/k3s/k3s.yaml"
     }
 ---
