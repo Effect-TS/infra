@@ -6,7 +6,16 @@
   pkgs,
   serverAddr ? "",
   ...
-}: {
+}: let
+  kubeovn = pkgs.callPackage ./kube-ovn.nix {};
+  multuscni = pkgs.callPackage ./multus-cni.nix {};
+  cniBinDir = pkgs.runCommand "cni-bin-dir" {} ''
+    mkdir -p $out
+    ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+    ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
+    ln -sf ${multuscni}/bin/* $out
+  '';
+in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     pkgs.wireguard-tools
@@ -53,6 +62,9 @@
       k3s = {
         wants = ["containerd.service"];
         after = ["containerd.service"];
+        ExecStartPre = [
+          "ln -sf /var/lib/cni ${cniBinDir}"
+        ];
       };
     };
   };
@@ -63,17 +75,9 @@
       settings = {
         version = 2;
         plugins = {
-          "io.containerd.grpc.v1.cri" = let
-            kubeovn = pkgs.callPackage ./kube-ovn.nix {};
-            multuscni = pkgs.callPackage ./multus-cni.nix {};
-          in {
+          "io.containerd.grpc.v1.cri" = {
             cni = {
-              bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
-                mkdir -p $out
-                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
-                ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
-                ln -sf ${multuscni}/bin/* $out
-              ''}";
+              bin_dir = "${cniBinDir}";
               conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
             };
           };

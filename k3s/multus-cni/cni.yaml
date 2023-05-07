@@ -75,11 +75,16 @@ spec:
           mountPath: /host/etc/cni/net.d
         - name: multus-cfg
           mountPath: /tmp/multus-conf
+        - name: cni-bin
+          mountPath: /host/opt/cni/bin
       terminationGracePeriodSeconds: 10
       volumes:
         - name: cni
           hostPath:
             path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+        - name: cni-bin
+          hostPath:
+            mountPath: /var/lib/cni
         - name: multus-cfg
           configMap:
             name: multus-cni-config
