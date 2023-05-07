@@ -70,8 +70,8 @@ spec:
           command: ["/thin_entrypoint"]
           args:
             - "--multus-conf-file=auto"
-            - "--multus-autoconfig-dir=/host/etc/cni/net.d"
-            - "--cni-conf-dir=/host/etc/cni/net.d"
+            - "--multus-autoconfig-dir=/etc/cni/net.d"
+            - "--cni-conf-dir=/etc/cni/net.d"
           resources:
             requests:
               cpu: "100m"
@@ -83,7 +83,7 @@ spec:
             privileged: true
           volumeMounts:
             - name: cni
-              mountPath: /host/etc/cni/net.d
+              mountPath: /etc/cni/net.d
             - name: cni-bin
               mountPath: /opt/cni/bin
             - name: nix
