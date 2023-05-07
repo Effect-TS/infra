@@ -11,7 +11,7 @@ buildGoModule rec {
     owner = "k8snetworkplumbingwg";
     repo = "multus-cni";
     rev = "v${version}";
-    sha256 = "77aac95dfc67ae7662fdab8f406b15330c9b44a6";
+    sha256 = lib.fakeSha256;
   };
 
   subPackages = ["multus"];
