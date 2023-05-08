@@ -59,7 +59,7 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - /kube-ovn/start-controller.sh
-            - --default-cidr=10.4.0.0/1
+            - --default-cidr=10.4.0.0/16
             - --default-gateway=10.4.0.1
             - --default-gateway-check=true
             - --default-logical-gateway=false
