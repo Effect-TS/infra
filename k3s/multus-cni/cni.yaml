@@ -38,7 +38,7 @@ spec:
           image: ghcr.io/k8snetworkplumbingwg/multus-cni:snapshot
           command: ["/thin_entrypoint"]
           args:
-            - "--multus-conf-file=/host/etc/cni/net.d/00-multus.conf"
+            - "--multus-conf-file=/host/etc/cni/net.d/02-multus.conf"
             - "--multus-autoconfig-dir=/host/etc/cni/net.d"
             - "--cni-conf-dir=/host/etc/cni/net.d"
           resources:
@@ -55,11 +55,13 @@ spec:
               mountPath: /host/etc/cni/net.d
             - name: cni-bin
               mountPath: /host/opt/cni/bin
+            - name: cni-bin
+              mountPath: /opt/cni/bin
       terminationGracePeriodSeconds: 10
       volumes:
         - name: cni
           hostPath:
-            path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+            path: /var/lib/rancher/k3s/agent/etc/cni/net.d/multus
         - name: cni-bin
           hostPath:
             path: /var/lib/cni/bin
