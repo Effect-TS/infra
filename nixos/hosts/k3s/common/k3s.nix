@@ -80,8 +80,6 @@ in {
     services = {
       containerd = {
         preStart = ''
-          # Setup ZFS Dataset
-          -${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd
           # Setup CNI Config
           if [[ ! -d "${cniConfDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
@@ -91,6 +89,11 @@ in {
           fi
           ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
         '';
+        serviceConfig = {
+          ExecStartPre = [
+            "-${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd"
+          ];
+        }
       };
 
       k3s = {
