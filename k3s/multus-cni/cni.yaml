@@ -86,8 +86,6 @@ spec:
               mountPath: /host/etc/cni/net.d
             - name: cni-bin
               mountPath: /host/opt/cni/bin
-            - name: nix
-              mountPath: /host/nix
             - name: multus-cfg
               mountPath: /tmp/multus-conf
       terminationGracePeriodSeconds: 10
@@ -98,9 +96,6 @@ spec:
         - name: cni-bin
           hostPath:
             path: /var/lib/cni/bin
-        - name: nix
-          hostPath:
-            path: /nix
         - name: multus-cfg
           configMap:
             name: multus-cni-config
