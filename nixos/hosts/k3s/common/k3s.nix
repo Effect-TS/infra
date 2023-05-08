@@ -80,7 +80,7 @@ in {
           ExecStartPost = [
             "[[ ! -d ${cniConfDir} ]] && ${pkgs.coreutils}/bin/mkdir -p ${cniConfDir}"
             "${pkgs.coreutils}/bin/ln -sf ${multusConf} ${cniConfDir}/02-multus.conf"
-          ]
+          ];
         };
       };
 
