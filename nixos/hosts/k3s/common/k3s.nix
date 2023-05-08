@@ -28,7 +28,7 @@
             type = "portmap";
             capabilities = {
               portMappings = true;
-            }
+            };
           }
         ];
       }

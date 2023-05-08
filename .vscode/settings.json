@@ -18,7 +18,6 @@
   "[nix]": {
     "editor.formatOnSave": true
   },
-  "nix.enableLanguageServer": false,
   "nix.formatterPath": [
     "nix",
     "fmt",
