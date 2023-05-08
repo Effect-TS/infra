@@ -1,6 +1,7 @@
 #!/bin/sh
 # THIS IS DANGEROUS BECAUSE IT DELETES SECRETS/CERTS e.g. in /var/lib/rancher.
 set -eux -o pipefail
+should_restart="${1:-}"
 shopt -s nullglob
 systemctl stop containerd k3s
 find /sys/fs/cgroup/systemd/system.slice/containerd.service* /sys/fs/cgroup/systemd/kubepods* /sys/fs/cgroup/kubepods* -name cgroup.procs | \
@@ -10,5 +11,17 @@ dataset=$((grep /var/lib/containerd/io.containerd.snapshotter.v1.zfs /proc/mount
 if [[ -n "$dataset" ]]; then
     zfs destroy -R "$dataset"
 fi
-rm -rf /var/lib/rancher/ /var/lib/containerd /etc/rancher /run/containerd/ /var/lib/cni/ /opt/cni/
-systemctl start k3s
+rm -rf \
+    /var/lib/rancher/ \
+    /var/lib/containerd \
+    /etc/rancher \
+    /run/containerd/ \
+    /var/lib/cni/ \
+    /var/lib/ovn \
+    /var/lib/openvswitch \
+    /opt/cni/ \
+    /etc/origin/ovn \
+    /etc/origin/openvswitch
+if [[ -n "${should_restart}" ]]; then
+    systemctl start k3s
+fi
