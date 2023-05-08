@@ -73,7 +73,7 @@ data:
           fallthrough
         }
         prometheus :9153
-        forward . 1.1.1.1
+        forward . 2001:4860:4860::8888
         cache 30
         loop
         reload
