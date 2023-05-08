@@ -10,5 +10,5 @@ dataset=$((grep /var/lib/containerd/io.containerd.snapshotter.v1.zfs /proc/mount
 if [[ -n "$dataset" ]]; then
     zfs destroy -R "$dataset"
 fi
-rm -rf /var/lib/rancher/ /var/lib/containerd /etc/rancher /run/containerd/ /var/lib/cni/
+rm -rf /var/lib/rancher/ /var/lib/containerd /etc/rancher /run/containerd/ /var/lib/cni/ /opt/cni/
 systemctl start k3s
