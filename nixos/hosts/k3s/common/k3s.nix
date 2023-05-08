@@ -7,11 +7,9 @@
   serverAddr ? "",
   ...
 }: let
-
   kubeovn = pkgs.callPackage ./kube-ovn.nix {};
   multuscni = pkgs.callPackage ./multus-cni.nix {};
-  settingsFile = settingsFormat.generate "starship.toml" cfg.settings
-  multusConf = (pkgs.formats.json { }).generate "02-multus.conf" {
+  multusConf = (pkgs.formats.json {}).generate "02-multus.conf" {
     name = "multus-cni-network";
     type = "multus";
     kubeconfig = "/etc/rancher/k3s/k3s.yaml";
