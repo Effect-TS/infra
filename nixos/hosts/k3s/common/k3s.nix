@@ -59,10 +59,10 @@ in {
         "--flannel-backend=none"
         "--disable=coredns"
         "--secrets-encryption"
-        "--node-ip=${networkingConfig.vlanPrivateIPv4}"
-        "--node-external-ip=${networkingConfig.ipv4Address}"
-        "--cluster-cidr=10.4.0.0/16"
-        "--service-cidr=0.3.0.0/16"
+        "--node-ip=${networkingConfig.vlanPrivateIPv6}"
+        "--node-external-ip=${networkingConfig.ipv6Address}"
+        "--cluster-cidr=fdc9:d2b1:7bc2:08e7::/64"
+        "--service-cidr=fdbc:eb0a:5189:84e2::/64"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
