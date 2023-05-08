@@ -54,9 +54,9 @@ metadata:
   namespace: kube-system
 data:
   NodeHosts: |
-    10.0.0.1 host-01
-    10.0.0.2 host-02
-    10.0.0.3 host-03
+    fd24:d191:5c51:b4b6::1 host-01
+    fd24:d191:5c51:b4b6::2 host-02
+    fd24:d191:5c51:b4b6::3 host-03
   Corefile: |
     .:53 {
         errors
@@ -209,7 +209,7 @@ metadata:
 spec:
   selector:
     k8s-app: kube-dns
-  clusterIP: fdbc:eb0a:5189:84e2::10
+  clusterIP: fdbc:eb0a:5189:84e2::a
   ports:
     - name: dns
       port: 53
