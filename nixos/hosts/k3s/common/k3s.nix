@@ -75,7 +75,7 @@ in {
       containerd = {
         postStart = ''
           if [[ ! -d "${cniConfDir}" ]]; then
-            ${pkgs.coreutils}/bin/mkdir -p ${cniConfDir}"
+            ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
           fi
           ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
         '';
