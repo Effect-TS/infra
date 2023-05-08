@@ -62,7 +62,7 @@ in {
         "--node-ip=${networkingConfig.vlanPrivateIPv4}"
         "--node-external-ip=${networkingConfig.ipv4Address}"
         "--cluster-cidr=10.4.0.0/16"
-        "--service-cidr=10.3.0.0/16"
+        "--service-cidr=0.3.0.0/16"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
