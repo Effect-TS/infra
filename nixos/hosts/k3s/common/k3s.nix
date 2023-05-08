@@ -77,6 +77,9 @@ in {
           if [[ ! -d "${cniConfDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
           fi
+          if [[ ! -f "${cniConfDir}/02-multus.conf" ]]; then
+            ${pkgs.coreutils}/bin/touch "${cniConfDir}/02-multus.conf"
+          fi
           ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
         '';
         serviceConfig = {
