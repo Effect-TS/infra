@@ -53,7 +53,7 @@ spec:
           args:
             - --enable-mirror=false
             - --encap-checksum=true
-            - --service-cluster-ip-range=0.128.0.0/12
+            - --service-cluster-ip-range=10.3.0.0/16
             - --iface=gw0
             - --dpdk-tunnel-iface=br-phy
             - --network-type=geneve

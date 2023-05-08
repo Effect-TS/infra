@@ -59,14 +59,14 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - /kube-ovn/start-controller.sh
-            - --default-cidr=0.192.0.0/12
-            - --default-gateway=0.192.0.1
+            - --default-cidr=10.4.0.0/1
+            - --default-gateway=10.4.0.1
             - --default-gateway-check=true
             - --default-logical-gateway=false
             - --default-u2o-interconnection=false
             - --default-exclude-ips=
-            - --node-switch-cidr=0.64.0.0/12
-            - --service-cluster-ip-range=0.128.0.0/12
+            - --node-switch-cidr=10.2.0.0/16
+            - --service-cluster-ip-range=10.3.0.0/13
             - --network-type=geneve
             - --default-interface-name=gw0
             - --default-exchange-link-name=false
@@ -103,7 +103,7 @@ spec:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: OVN_DB_IPS
-              value: 0.32.0.1
+              value: 10.1.0.1
             - name: POD_IPS
               valueFrom:
                 fieldRef:
