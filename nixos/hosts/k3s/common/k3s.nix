@@ -46,6 +46,7 @@ in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     pkgs.wireguard-tools
+    (pkgs.callPackage ./kubectl-ko.nix {})
   ];
 
   services = {
