@@ -63,7 +63,6 @@ in {
         "--node-external-ip=${networkingConfig.ipv6Address}"
         "--cluster-cidr=fdc9:d2b1:7bc2:08e7::/112"
         "--service-cidr=fdbc:eb0a:5189:84e2::/112"
-        "--node-cidr-mask-size-ipv6=112"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;
