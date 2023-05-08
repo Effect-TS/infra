@@ -78,7 +78,7 @@ in {
             "-${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd"
           ];
           ExecStartPost = [
-            "[[ ! -d "${cniConfDir}" ]] && ${pkgs.coreutils}/bin/mkdir -p ${cniConfDir}"
+            "[[ ! -d ${cniConfDir} ]] && ${pkgs.coreutils}/bin/mkdir -p ${cniConfDir}"
             "${pkgs.coreutils}/bin/ln -sf ${multusConf} ${cniConfDir}/02-multus.conf"
           ]
         };
