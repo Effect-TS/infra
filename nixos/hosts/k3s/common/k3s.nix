@@ -99,14 +99,12 @@ in {
       k3s = {
         wants = ["containerd.service"];
         after = ["containerd.service"];
-        serviceConfig = {
-          ExecStartPre = ''
-            if [[ ! -d /opt/cni/bin ]]; then
-              ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
-            fi
-            ${pkgs.coreutils}/bin/ln -sf ${cniBinDir}/* /opt/cni/bin
-          '';
-        };
+        preStart = ''
+          if [[ ! -d /opt/cni/bin ]]; then
+            ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
+          fi
+          ${pkgs.coreutils}/bin/ln -sf ${cniBinDir}/* /opt/cni/bin
+        '';
       };
     };
   };
