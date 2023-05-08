@@ -4,37 +4,6 @@ metadata:
   name: multus
   namespace: kube-system
 ---
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: multus-cni-config
-  namespace: kube-system
-  labels:
-    tier: node
-    app: multus
-data:
-  cni-conf.json: |
-    {
-      "name": "multus-cni-network",
-      "type": "multus",
-      "capabilities": {
-        "portMappings": true
-      },
-      "delegates": [
-        {
-            "type":"kube-ovn",
-            "server_socket":"/run/openvswitch/kube-ovn-daemon.sock"
-        },
-        {
-            "type":"portmap",
-            "capabilities":{
-                "portMappings":true
-            }
-        }
-      ],
-      "kubeconfig": "/etc/rancher/k3s/k3s.yaml"
-    }
----
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -69,7 +38,7 @@ spec:
           image: ghcr.io/k8snetworkplumbingwg/multus-cni:snapshot
           command: ["/thin_entrypoint"]
           args:
-            - "--multus-conf-file=auto"
+            - "--multus-conf-file=/host/etc/cni/net.d/00-multus.conf"
             - "--multus-autoconfig-dir=/host/etc/cni/net.d"
             - "--cni-conf-dir=/host/etc/cni/net.d"
           resources:
@@ -86,8 +55,6 @@ spec:
               mountPath: /host/etc/cni/net.d
             - name: cni-bin
               mountPath: /host/opt/cni/bin
-            - name: multus-cfg
-              mountPath: /tmp/multus-conf
       terminationGracePeriodSeconds: 10
       volumes:
         - name: cni
@@ -96,9 +63,3 @@ spec:
         - name: cni-bin
           hostPath:
             path: /var/lib/cni/bin
-        - name: multus-cfg
-          configMap:
-            name: multus-cni-config
-            items:
-              - key: cni-conf.json
-                path: 70-multus.conf
