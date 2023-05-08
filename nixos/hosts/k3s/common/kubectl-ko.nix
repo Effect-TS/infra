@@ -19,5 +19,6 @@ pkgs.stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp $src $out/bin/kubectl-ko
     chmod +x $out/bin/kubectl-ko
+    sed "1 s/.*/#!\/usr\/bin\/env bash/" $out/bin/kubectl-ko
   '';
 }
