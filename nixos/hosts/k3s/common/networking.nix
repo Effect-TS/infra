@@ -8,7 +8,7 @@
   ipv4Address,
   ipv6Address,
   lib,
-  vlanPrivateIPv4,
+  vlanPrivateIPv6,
   config,
   ...
 }: {
@@ -79,7 +79,7 @@
     wireguard = {
       interfaces = {
         gw0 = {
-          ips = ["${vlanPrivateIPv4}"];
+          ips = ["${vlanPrivateIPv6}/128"];
           listenPort = 51821;
           privateKeyFile = "${config.sops.secrets."wireguard/${hostName}".path}";
           peers = [
