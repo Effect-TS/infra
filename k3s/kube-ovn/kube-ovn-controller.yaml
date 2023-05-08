@@ -103,7 +103,7 @@ spec:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: OVN_DB_IPS
-              value: 0.32.0.1,0.32.0.2,0.32.0.3
+              value: 0.32.0.1
             - name: POD_IPS
               valueFrom:
                 fieldRef:

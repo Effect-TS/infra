@@ -69,7 +69,7 @@ spec:
             - name: ENABLE_SSL
               value: "false"
             - name: NODE_IPS
-              value: 0.32.0.1,0.32.0.2,0.32.0.3
+              value: 0.32.0.1
             - name: POD_IP
               valueFrom:
                 fieldRef:
