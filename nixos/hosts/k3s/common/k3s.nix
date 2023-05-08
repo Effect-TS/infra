@@ -12,22 +12,28 @@
   multusConf = (pkgs.formats.json {}).generate "02-multus.conf" {
     name = "multus-cni-network";
     type = "multus";
-    kubeconfig = "/etc/rancher/k3s/k3s.yaml";
     capabilities = {
       portMappings = true;
     };
     delegates = [
       {
-        type = "kube-ovn";
-        server_socket = "/run/openvswitch/kube-ovn-daemon.sock";
-      }
-      {
-        type = "portmap";
-        capabilities = {
-          portMappings = true;
-        };
+        name = "kube-ovn";
+        cniVersion = "0.3.1";
+        plugins: [
+          {
+            type = "kube-ovn";
+            server_socket = "/run/openvswitch/kube-ovn-daemon.sock";
+          }
+          {
+            type = "portmap";
+            capabilities = {
+              portMappings = true;
+            }
+          }
+        ];
       }
     ];
+    kubeconfig = "/etc/rancher/k3s/k3s.yaml";
   };
   cniBinDir = pkgs.runCommand "cni-bin-dir" {} ''
     mkdir -p $out
@@ -73,7 +79,10 @@ in {
   systemd = {
     services = {
       containerd = {
-        postStart = ''
+        preStart = ''
+          # Setup ZFS Dataset
+          ${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd
+          # Setup CNI Config
           if [[ ! -d "${cniConfDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
           fi
@@ -82,11 +91,6 @@ in {
           fi
           ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
         '';
-        serviceConfig = {
-          ExecStartPre = [
-            "-${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd"
-          ];
-        };
       };
 
       k3s = {
