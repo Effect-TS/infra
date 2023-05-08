@@ -35,7 +35,7 @@
     ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
     ln -sf ${multuscni}/bin/* $out
   '';
-  cniConfDir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+  cniConfDir = "/var/lib/rancher/k3s/agent/etc/cni/net.d";
 in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
@@ -73,13 +73,15 @@ in {
   systemd = {
     services = {
       containerd = {
+        postStart = ''
+          if [[ ! -d "${cniConfDir}" ]]; then
+            ${pkgs.coreutils}/bin/mkdir -p ${cniConfDir}"
+          fi
+          ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
+        '';
         serviceConfig = {
           ExecStartPre = [
             "-${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd"
-          ];
-          ExecStartPost = [
-            "[[ ! -d ${cniConfDir} ]] && ${pkgs.coreutils}/bin/mkdir -p ${cniConfDir}"
-            "${pkgs.coreutils}/bin/ln -sf ${multusConf} ${cniConfDir}/02-multus.conf"
           ];
         };
       };
