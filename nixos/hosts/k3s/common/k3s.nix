@@ -19,7 +19,7 @@
       {
         name = "kube-ovn";
         cniVersion = "0.3.1";
-        plugins: [
+        plugins = [
           {
             type = "kube-ovn";
             server_socket = "/run/openvswitch/kube-ovn-daemon.sock";
