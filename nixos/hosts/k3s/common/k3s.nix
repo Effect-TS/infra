@@ -81,7 +81,7 @@ in {
       containerd = {
         preStart = ''
           # Setup ZFS Dataset
-          ${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd
+          -${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd
           # Setup CNI Config
           if [[ ! -d "${cniConfDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
