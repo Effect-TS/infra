@@ -45,9 +45,7 @@
     defaultGateway = "167.235.103.193";
     defaultGatewayIPv6 = "fe80::1";
 
-    vlanPrivateIPv4 = "10.0.0.2";
-
-    wireguardPrivateKeyPath = config.sops.secrets."wireguard/host-02".path;
+    vlanPrivateIPv4 = "0.32.0.2";
   };
 in {
   imports = [
