@@ -55,6 +55,8 @@ spec:
               mountPath: /host/etc/cni/net.d
             - name: cni-bin
               mountPath: /host/opt/cni/bin
+            - name: nix
+              mountPath: /nix
       terminationGracePeriodSeconds: 10
       volumes:
         - name: cni
@@ -63,3 +65,6 @@ spec:
         - name: cni-bin
           hostPath:
             path: /opt/cni/bin
+        - name: nix
+          hostPath:
+            path: /nix
