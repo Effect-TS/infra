@@ -209,7 +209,13 @@ metadata:
 spec:
   selector:
     k8s-app: kube-dns
-  clusterIP: fdbc:eb0a:5189:84e2::a
+  clusterIPs:
+  - 10.64.0.10
+  - fdbc:eb0a:5189:84e2::a
+  ipFamilies:
+  - IPv4
+  - IPv6
+  ipFamilyPolicy: DualStack
   ports:
     - name: dns
       port: 53
