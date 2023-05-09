@@ -209,10 +209,10 @@ metadata:
 spec:
   selector:
     k8s-app: kube-dns
-  clusterIP: 10.64.0.10
+  clusterIP: fdbc:eb0a:5189:84e2::a
   clusterIPs:
-  - 10.64.0.10
   - fdbc:eb0a:5189:84e2::a
+  - 10.64.0.10
   ipFamilies:
   - IPv4
   - IPv6
