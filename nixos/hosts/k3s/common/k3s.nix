@@ -63,7 +63,7 @@ in {
         "--node-ip=${networkingConfig.vlanPrivateIPv6},${networkingConfig.vlanPrivateIPv4}"
         "--node-external-ip=${networkingConfig.ipv6Address},${networkingConfig.ipv4Address}"
         "--cluster-cidr=10.32.0.0/11,fdc9:d2b1:7bc2:08e7::/64"
-        "--service-cidr=10.64.0.0/11,fdbc:eb0a:5189:84e2::/108"
+        "--service-cidr=10.64.0.0/12,fdbc:eb0a:5189:84e2::/108"
         "--kube-controller-manager-arg 'node-cidr-mask-size=64'"
         "--disable-network-policy"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
