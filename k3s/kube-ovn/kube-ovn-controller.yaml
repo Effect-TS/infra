@@ -62,8 +62,8 @@ spec:
             - --default-cidr=10.32.0.0/11,fdc9:d2b1:7bc2:08e7::/64
             - --default-gateway=10.32.0.1,fdc9:d2b1:7bc2:08e7::1
             - --default-gateway-check=true
-            - --default-logical-gateway=true
-            - --default-u2o-interconnection=true
+            - --default-logical-gateway=false
+            - --default-u2o-interconnection=false
             - --default-exclude-ips=
             - --node-switch-cidr=100.64.0.0/16,fd01:a159:f3e7:c9d1::/64
             - --service-cluster-ip-range=10.64.0.0/12,fdbc:eb0a:5189:84e2::/108

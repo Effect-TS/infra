@@ -15,4 +15,4 @@ metadata:
   name: ovn-vpc-nat-gw-config
   namespace: kube-system
 data:
-  enable-vpc-nat-gw: "false"
+  enable-vpc-nat-gw: "true"
