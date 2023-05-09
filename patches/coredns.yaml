@@ -215,7 +215,7 @@ spec:
   ipFamilies:
   - IPv4
   - IPv6
-  ipFamilyPolicy: DualStack
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: dns
       port: 53
