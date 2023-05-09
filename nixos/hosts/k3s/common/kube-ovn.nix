@@ -5,13 +5,13 @@
 }:
 buildGoModule rec {
   pname = "kube-ovn";
-  version = "1.11.3";
+  version = "master";
 
   src = fetchFromGitHub {
     owner = "kubeovn";
     repo = "kube-ovn";
     rev = "v${version}";
-    sha256 = "vFgrBnwVcHbkdUqN1oCUTPbKlDFGZ8dBLQ4Umw/4a2E=";
+    sha256 = lib.fakeSha256;
   };
 
   vendorSha256 = "sha256-EuguNTSKMmNBATkyvLCmgl55Sv5oaoQQXVY+u2xonCM=";
@@ -22,9 +22,9 @@ buildGoModule rec {
     "-w"
     "-s"
     "-extldflags '-z now'"
-    "-X github.com/kubeovn/kube-ovn/versions.COMMIT=9fe900f"
-    "-X github.com/kubeovn/kube-ovn/versions.VERSION=v${version}"
-    "-X github.com/kubeovn/kube-ovn/versions.BUILDDATE=2023-05-06_10:08:08"
+    "-X github.com/mikearnaldi/kube-ovn/versions.COMMIT=a2b789c"
+    "-X github.com/mikearnaldi/kube-ovn/versions.VERSION=v${version}"
+    "-X github.com/mikearnaldi/kube-ovn/versions.BUILDDATE=2023-05-09_23:12:00"
   ];
 
   meta = with lib; {
