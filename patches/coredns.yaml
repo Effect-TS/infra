@@ -214,8 +214,8 @@ spec:
   - fdbc:eb0a:5189:84e2::a
   - 10.64.0.10
   ipFamilies:
-  - IPv4
   - IPv6
+  - IPv4
   ipFamilyPolicy: PreferDualStack
   ports:
     - name: dns
