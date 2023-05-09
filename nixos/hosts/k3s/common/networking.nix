@@ -9,6 +9,7 @@
   ipv6Address,
   lib,
   vlanPrivateIPv6,
+  vlanPrivateIPv4,
   config,
   ...
 }: {
@@ -69,25 +70,25 @@
     wireguard = {
       interfaces = {
         gw0 = {
-          ips = ["${vlanPrivateIPv6}/128"];
+          ips = ["${vlanPrivateIPv6}/128" "${vlanPrivateIPv4}/32"];
           listenPort = 51821;
           privateKeyFile = "${config.sops.secrets."wireguard/${hostName}".path}";
           peers = [
             {
               publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
-              allowedIPs = ["fd24:d191:5c51:b4b6::1/128"];
+              allowedIPs = ["fd24:d191:5c51:b4b6::1/128" "10.0.0.1"];
               endpoint = "2a01:4f8:a0:8485::1:51821";
               persistentKeepalive = 5;
             }
             {
               publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
-              allowedIPs = ["fd24:d191:5c51:b4b6::2/128"];
+              allowedIPs = ["fd24:d191:5c51:b4b6::2/128" "10.0.0.2"];
               endpoint = "2a01:4f8:2200:141e::1:51821";
               persistentKeepalive = 5;
             }
             {
               publicKey = "9/wGoxeVz8F3yXqx1KYapmHRgvV0OkKeLBSthYvc1nw=";
-              allowedIPs = ["fd24:d191:5c51:b4b6::3/128"];
+              allowedIPs = ["fd24:d191:5c51:b4b6::3/128" "10.0.0.3"];
               endpoint = "2a01:4f9:3051:48cd::1:51821";
               persistentKeepalive = 5;
             }
