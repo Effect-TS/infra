@@ -8,9 +8,9 @@ buildGoModule rec {
   version = "master";
 
   src = fetchFromGitHub {
-    owner = "kubeovn";
+    owner = "mikearnaldi";
     repo = "kube-ovn";
-    rev = "v${version}";
+    rev = "${version}";
     sha256 = lib.fakeSha256;
   };
 
