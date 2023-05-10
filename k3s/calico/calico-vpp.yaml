@@ -160,6 +160,9 @@ data:
     buffers {
       buffers-per-numa 131072
     }
+    dpdk {
+      dev 0000:29:00.0 { num-rx-queues 1 num-tx-queues 1 tag main-enp41s0 }
+    }
   CALICOVPP_INITIAL_CONFIG: |-
     {
       "vppStartupSleepSeconds": 1,
