@@ -108,6 +108,7 @@ in {
             ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
           fi
           ${pkgs.coreutils}/bin/ln -sf ${cniBinDir}/* /opt/cni/bin
+          ${pkgs.coreutils}/bin/mkdir -p /etc/vpp
         '';
       };
     };

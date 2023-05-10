@@ -422,6 +422,8 @@ spec:
               mountPath: /host/usr/local/bin
             - name: vpp-cfg
               mountPath: /host/etc/vpp
+            - name: etc-static
+              mountPath: /etc/static
             - name: shm
               mountPath: /dev/shm
             - name: vpp-run
@@ -516,6 +518,8 @@ spec:
               mountPath: /etc/etcd
             - name: vpp-cfg
               mountPath: /etc/vpp
+            - name: etc-static
+              mountPath: /etc/static
             - name: shm
               mountPath: /dev/shm
             - name: dev
@@ -563,6 +567,9 @@ spec:
         - name: vpp-cfg
           hostPath:
             path: /etc/vpp
+        - name: etc-static
+          hostPath:
+            path: /etc/static
         # To install vppctl.
         - name: usr-local-bin
           hostPath:
