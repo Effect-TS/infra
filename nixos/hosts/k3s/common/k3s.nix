@@ -9,6 +9,12 @@
 }: let
   cniBinDir = "/opt/cni/bin";
   cniConfDir = "/etc/cni/net.d";
+  cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
+    mkdir -p $out
+    ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+    ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
+    ln -sf ${multuscni}/bin/* $out
+  '';
 in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
@@ -55,7 +61,7 @@ in {
           if [[ ! -d "${cniBinDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
           fi
-          ${pkgs.rsync}/bin/rsync -a -L ${cniBinDir} /opt/cni/bin
+          ${pkgs.rsync}/bin/rsync -a -L ${cniOriginalBin} /opt/cni/bin
         '';
         serviceConfig = {
           ExecStartPre = [
