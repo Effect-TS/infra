@@ -83,16 +83,16 @@ in {
   systemd = {
     services = {
       containerd = {
-        preStart = ''
-          # Setup CNI Config
-          if [[ ! -d "${cniConfDir}" ]]; then
-            ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
-          fi
-          if [[ ! -f "${cniConfDir}/02-multus.conf" ]]; then
-            ${pkgs.coreutils}/bin/touch "${cniConfDir}/02-multus.conf"
-          fi
-          ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
-        '';
+        # preStart = ''
+        #   # Setup CNI Config
+        #   if [[ ! -d "${cniConfDir}" ]]; then
+        #     ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
+        #   fi
+        #   if [[ ! -f "${cniConfDir}/02-multus.conf" ]]; then
+        #     ${pkgs.coreutils}/bin/touch "${cniConfDir}/02-multus.conf"
+        #   fi
+        #   ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
+        # '';
         serviceConfig = {
           ExecStartPre = [
             "-${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd"
