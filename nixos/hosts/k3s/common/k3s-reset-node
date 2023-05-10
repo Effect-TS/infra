@@ -16,6 +16,7 @@ rm -rf \
     /var/lib/containerd \
     /etc/rancher \
     /run/containerd/ \
+    /var/etcd/ \
     /var/lib/cni/ \
     /var/lib/ovn \
     /var/lib/openvswitch \
