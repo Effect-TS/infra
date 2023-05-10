@@ -30,7 +30,7 @@ in {
         "--disable=traefik"
         "--flannel-backend=none"
         "--secrets-encryption"
-        "--node-ip=${networkingConfig.ipv4Address}"
+        "--node-ip=${networkingConfig.ipv4Address},${networkingConfig.ipv6Address}"
         "--cluster-cidr=10.32.0.0/11,fd01:c26e:7c96:4a4c::/64"
         "--service-cidr=10.64.0.0/12,fdb6:5037:f7b9:190a::/108"
         "--disable-network-policy"
