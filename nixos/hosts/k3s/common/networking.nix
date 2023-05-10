@@ -13,6 +13,46 @@
   config,
   ...
 }: {
+  environment = {
+    etc = {
+      "vpp/contiv-vswitch.conf" = {
+        text = ''
+          unix {
+              nodaemon
+              cli-listen /run/vpp/cli.sock
+              cli-no-pager
+              coredump-size unlimited
+              full-coredump
+              poll-sleep-usec 100
+          }
+          nat {
+              endpoint-dependent
+              translation hash buckets 1048576
+              translation hash memory 268435456
+              user hash buckets 1024
+              max translations per user 10000
+          }
+          acl-plugin {
+            use tuple merge 0
+          }
+          dpdk {
+              dev 0000:29:00.0
+          }
+          api-trace {
+            on
+            nitems 5000
+          }
+          socksvr {
+            default
+          }
+          statseg {
+            default
+          }
+        '';
+      };
+    };
+  };
+
   sops = {
     secrets = {
       "wireguard/${hostName}" = {
