@@ -4,7 +4,6 @@
   defaultGatewayIPv6,
   hostName,
   hostId,
-  networkInterface,
   ipv4Address,
   ipv6Address,
   lib,
@@ -67,11 +66,11 @@
     defaultGateway = "${defaultGateway}";
     defaultGateway6 = {
       address = "${defaultGatewayIPv6}";
-      interface = "${networkInterface}";
+      interface = "eth0";
     };
 
     interfaces = {
-      "${networkInterface}" = {
+      "eth0" = {
         ipv4 = {
           addresses = [
             {

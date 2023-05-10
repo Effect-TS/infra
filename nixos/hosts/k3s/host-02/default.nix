@@ -38,8 +38,6 @@
     hostName = "host-02";
     hostId = "bbb7d16a";
 
-    networkInterface = "enp5s0";
-
     ipv4Address = "167.235.103.220";
     ipv6Address = "2a01:4f8:2200:141e::1";
     defaultGateway = "167.235.103.193";

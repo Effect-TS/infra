@@ -60,5 +60,9 @@
     cpuFreqGovernor = lib.mkDefault "ondemand";
   };
 
+  services.udev.extraRules = ''
+    KERNEL=="enp*", NAME="eth0"
+  '';
+
   swapDevices = [];
 }
