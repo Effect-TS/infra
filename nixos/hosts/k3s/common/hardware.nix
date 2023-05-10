@@ -26,7 +26,7 @@
       };
     };
 
-    kernelModules = ["kvm-amd" "ceph"];
+    kernelModules = ["kvm-amd" "vfio-pci"];
 
     loader = {
       grub = {
