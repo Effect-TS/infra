@@ -183,7 +183,7 @@ data:
         }
       ]
     }
-  SERVICE_PREFIX: 10.64.0.0/12
+  SERVICE_PREFIX: 10.64.0.0/12,fdb6:5037:f7b9:190a::/108
 kind: ConfigMap
 metadata:
   name: calico-vpp-config
