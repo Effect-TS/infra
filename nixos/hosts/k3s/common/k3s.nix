@@ -128,5 +128,8 @@ in {
         };
       };
     };
+    docker = {
+      enable = true;
+    };
   };
 }
