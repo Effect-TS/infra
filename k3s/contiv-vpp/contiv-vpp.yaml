@@ -368,6 +368,8 @@ spec:
               name: contiv-cni-cfg
             - mountPath: /var/run/contiv
               name: contiv-run
+            - name: nix
+              mountPath: /nix
 
         # This init container extracts/copies default VPP config to the host and initializes VPP core dumps.
         - name: vpp-init
@@ -432,6 +434,8 @@ spec:
               mountPath: /etc/etcd
             - name: core-dumps
               mountPath: /var/contiv/dumps
+            - name: nix
+              mountPath: /nix
 
       containers:
         # Runs contiv-vswitch container on each Kubernetes node.
@@ -534,6 +538,8 @@ spec:
               mountPath: /var/run/docker.sock
             - name: kubelet-api
               mountPath: /var/lib/kubelet
+            - name: nix
+              mountPath: /nix
           resources:
             limits:
               hugepages-2Mi: 512Mi
@@ -552,7 +558,7 @@ spec:
             path: /opt/cni/bin
         - name: cni-net-dir
           hostPath:
-            path: /etc/cni/net.d
+            path: /var/lib/rancher/k3s/agent/etc/cni/net.d
         # VPP startup config folder.
         - name: vpp-cfg
           hostPath:
@@ -611,6 +617,9 @@ spec:
         - name: kubelet-api
           hostPath:
             path: /var/lib/kubelet
+        - name: nix
+          hostPath:
+            path: /nix
 
 ---
 # This installs the contiv-ksr (Kubernetes State Reflector) on the master node in a Kubernetes cluster.
