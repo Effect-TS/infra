@@ -17,6 +17,15 @@
       kernelModules = [];
     };
 
+    kernel = {
+      sysctl = {
+        "net.ipv4.ip_forward" = true;
+        "net.ipv4.conf.all.proxy_arp" = true;
+        "net.ipv6.conf.all.forwarding" = true;
+        "vm.nr_hugepages" = 512;
+      };
+    };
+
     kernelModules = ["kvm-amd" "ceph"];
 
     loader = {
@@ -30,7 +39,6 @@
       systemd-boot = {
         enable = false;
       };
-
     };
 
     supportedFilesystems = ["zfs" "nfs" "xfs" "ext4"];
