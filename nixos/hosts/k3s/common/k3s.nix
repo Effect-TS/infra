@@ -55,7 +55,7 @@ in {
           if [[ ! -d "${cniBinDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
           fi
-          ${pkgs.coreutils}/bin/ln -sf ${cniBinDir}/* /opt/cni/bin
+          ${pkgs.coreutils}/bin/ln -sfn ${cniBinDir}/* /opt/cni/bin
         '';
         serviceConfig = {
           ExecStartPre = [
