@@ -11,9 +11,7 @@
   cniConfDir = "/etc/cni/net.d";
   cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
     mkdir -p $out
-    ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
-    ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
-    ln -sf ${multuscni}/bin/* $out
+    ln -sf ${pkgs.cni-plugins}/bin/* $out
   '';
 in {
   environment.systemPackages = [
