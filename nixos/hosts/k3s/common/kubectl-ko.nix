@@ -4,7 +4,7 @@
   buildGoModule,
   pkgs,
 }:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation {
   name = "kubectl-ko";
   version = "1.11.3";
 
