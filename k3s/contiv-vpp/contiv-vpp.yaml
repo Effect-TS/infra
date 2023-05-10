@@ -27,6 +27,7 @@ data:
     useSRv6ForServiceFunctionChaining: false
     useDX6ForSrv6NodetoNodeTransport: false
     useTAPInterfaces: true
+    stealFirstNIC: True
     tapInterfaceVersion: 2
     tapv2RxRingSize: 256
     tapv2TxRingSize: 256
