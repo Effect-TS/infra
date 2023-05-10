@@ -207,8 +207,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: PATH
-          value: /run/wrappers/bin:/root/.nix-profile/bin:/etc/profiles/per-user/root/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin
         - name: DATASTORE_TYPE
           value: kubernetes
         - name: WAIT_FOR_DATASTORE
