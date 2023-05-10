@@ -42,16 +42,13 @@
     ipv6Address = "2a01:4f8:a0:8485::1";
     defaultGateway = "213.239.207.129";
     defaultGatewayIPv6 = "fe80::1";
-
-    vlanPrivateIPv6 = "fd24:d191:5c51:b4b6::1";
-    vlanPrivateIPv4 = "10.0.0.1";
   };
 in {
   imports = [
     inputs.sops-nix.nixosModules.sops
 
     "${modulesPath}/installer/scan/not-detected.nix"
-    (import ../common/hardware.nix ({inherit config lib;} // hardwareConfig))
+    (import ../common/hardware.nix ({inherit config lib pkgs;} // hardwareConfig))
     (import ../common/k3s.nix ({inherit config lib pkgs networkingConfig;} // k3sConfig))
     (import ../common/networking.nix ({inherit lib pkgs config;} // networkingConfig))
     ../common/nixos.nix

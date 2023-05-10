@@ -3,6 +3,7 @@
   config,
   fileSystems,
   lib,
+  pkgs,
   ...
 }: {
   inherit fileSystems;
@@ -16,6 +17,8 @@
       availableKernelModules = ["nvme" "ahci"];
       kernelModules = [];
     };
+
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernel = {
       sysctl = {
