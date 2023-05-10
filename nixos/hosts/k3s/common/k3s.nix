@@ -15,7 +15,7 @@
   '';
   calicoctl = builtins.fetchurl {
     url = "https://github.com/projectcalico/calico/releases/latest/download/calicoctl-linux-amd64";
-    sha256 = lib.fakeSha256;
+    sha256 = "0j7yfqqs2kw6qpsqzjjpc33ncfv2dwp75fpk7nlzm7r00i9mwmhk";
   };
 in {
   environment.systemPackages = [
