@@ -7,46 +7,12 @@
   serverAddr ? "",
   ...
 }: let
-  kubeovn = pkgs.callPackage ./kube-ovn.nix {};
-  multuscni = pkgs.callPackage ./multus-cni.nix {};
-  multusConf = (pkgs.formats.json {}).generate "02-multus.conf" {
-    name = "multus-cni-network";
-    type = "multus";
-    capabilities = {
-      portMappings = true;
-    };
-    delegates = [
-      {
-        name = "kube-ovn";
-        cniVersion = "0.3.1";
-        plugins = [
-          {
-            type = "kube-ovn";
-            server_socket = "/run/openvswitch/kube-ovn-daemon.sock";
-          }
-          {
-            type = "portmap";
-            capabilities = {
-              portMappings = true;
-            };
-          }
-        ];
-      }
-    ];
-    kubeconfig = "/etc/rancher/k3s/k3s.yaml";
-  };
-  cniBinDir = pkgs.runCommand "cni-bin-dir" {} ''
-    mkdir -p $out
-    ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
-    ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
-    ln -sf ${multuscni}/bin/* $out
-  '';
-  cniConfDir = "/var/lib/rancher/k3s/agent/etc/cni/net.d";
+  cniBinDir = "/opt/cni/bin";
+  cniConfDir = "/etc/cni/net.d";
 in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     pkgs.wireguard-tools
-    (pkgs.callPackage ./kubectl-ko.nix {})
   ];
 
   services = {
@@ -82,33 +48,24 @@ in {
   systemd = {
     services = {
       containerd = {
-        # preStart = ''
-        #   # Setup CNI Config
-        #   if [[ ! -d "${cniConfDir}" ]]; then
-        #     ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
-        #   fi
-        #   if [[ ! -f "${cniConfDir}/02-multus.conf" ]]; then
-        #     ${pkgs.coreutils}/bin/touch "${cniConfDir}/02-multus.conf"
-        #   fi
-        #   ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
-        # '';
+        preStart = ''
+          if [[ ! -d "${cniConfDir}" ]]; then
+            ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
+          fi
+          if [[ ! -d "${cniBinDir}" ]]; then
+            ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
+          fi
+          ${pkgs.coreutils}/bin/ln -sf ${cniBinDir}/* /opt/cni/bin
+        '';
         serviceConfig = {
           ExecStartPre = [
             "-${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd"
           ];
         };
       };
-
       k3s = {
         wants = ["containerd.service"];
         after = ["containerd.service"];
-        preStart = ''
-          if [[ ! -d /opt/cni/bin ]]; then
-            ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
-          fi
-          ${pkgs.coreutils}/bin/ln -sf ${cniBinDir}/* /opt/cni/bin
-          ${pkgs.coreutils}/bin/mkdir -p /etc/vpp
-        '';
       };
     };
   };
