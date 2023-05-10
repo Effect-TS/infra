@@ -61,7 +61,6 @@ in {
         "--disable=coredns"
         "--secrets-encryption"
         "--node-ip=${networkingConfig.ipv4Address}"
-        # "--node-external-ip=${networkingConfig.ipv4Address}"
         "--cluster-cidr=10.32.0.0/11"
         "--service-cidr=10.64.0.0/12"
         "--disable-network-policy"
@@ -128,9 +127,6 @@ in {
           };
         };
       };
-    };
-    docker = {
-      enable = true;
     };
   };
 }
