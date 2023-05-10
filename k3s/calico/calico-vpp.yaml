@@ -179,7 +179,7 @@ data:
       "uplinkInterfaces": [
         {
           "interfaceName": "eth0",
-          "vppDriver": ""
+          "vppDriver": "af_xdp"
         }
       ]
     }
