@@ -5,6 +5,7 @@
   networkingConfig,
   pkgs,
   serverAddr ? "",
+  fetchurl,
   ...
 }: let
   cniBinDir = "/opt/cni/bin";
@@ -13,7 +14,7 @@
     mkdir -p $out
     ln -sf ${pkgs.cni-plugins}/bin/* $out
   '';
-  calicoctl = fetchers.fetchurl {
+  calicoctl = fetchurl {
     url = "https://github.com/projectcalico/calico/releases/latest/download/calicoctl-linux-amd64";
     sha256 = lib.fakeSha256;
   };
