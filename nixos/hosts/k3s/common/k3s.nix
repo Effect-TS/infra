@@ -29,7 +29,6 @@ in {
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
         "--disable=traefik"
         "--flannel-backend=none"
-        "--disable=coredns"
         "--secrets-encryption"
         "--node-ip=${networkingConfig.ipv4Address}"
         "--cluster-cidr=10.32.0.0/11"
