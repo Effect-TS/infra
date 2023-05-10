@@ -18,7 +18,7 @@
       kernelModules = [];
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_5_4;
 
     kernel = {
       sysctl = {
