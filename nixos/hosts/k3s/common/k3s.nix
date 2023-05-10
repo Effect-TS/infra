@@ -13,15 +13,11 @@
     mkdir -p $out
     ln -sf ${pkgs.cni-plugins}/bin/* $out
   '';
-  calicoctl = builtins.fetchurl {
-    url = "https://github.com/projectcalico/calico/releases/latest/download/calicoctl-linux-amd64";
-    sha256 = "0j7yfqqs2kw6qpsqzjjpc33ncfv2dwp75fpk7nlzm7r00i9mwmhk";
-  };
 in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     pkgs.wireguard-tools
-    calicoctl
+    (pkgs.callPackage ./calicoctl.nix {})
   ];
 
   services = {
