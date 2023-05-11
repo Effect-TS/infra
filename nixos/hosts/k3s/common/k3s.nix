@@ -10,7 +10,7 @@
   cniBinDir = "/opt/cni/bin";
   cniConfDir = "/etc/cni/net.d";
   kubeovn = pkgs.callPackage ./kube-ovn-cni.nix {};
-  multusConf = (pkgs.formats.json {}).generate "00-multus.conf" {
+  multusConf = (pkgs.formats.json {}).generate "01-multus.conf" {
     name = "multus-cni-network";
     type = "multus";
     capabilities = {
@@ -35,6 +35,22 @@
       }
     ];
     kubeconfig = "/etc/rancher/k3s/k3s.yaml";
+  };
+  kubeOvnCniConf = (pkgs.formats.json {}).generate "00-kubeovn.conf" {
+    name = "kube-ovn";
+    cniVersion = "0.3.1";
+    plugins = [
+      {
+        type = "kube-ovn";
+        server_socket = "/run/openvswitch/kube-ovn-daemon.sock";
+      }
+      {
+        type = "portmap";
+        capabilities = {
+          portMappings = true;
+        };
+      }
+    ];
   };
   cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
     mkdir -p $out
@@ -88,7 +104,8 @@ in {
           if [[ ! -d "${cniBinDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
           fi
-          ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/00-multus.conf"
+          ${pkgs.coreutils}/bin/ln -sf ${kubeOvnCniConf} "${cniConfDir}/00-kubeovn.conf"
+          ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/01-multus.conf"
           ${pkgs.rsync}/bin/rsync -a -L ${cniOriginalBin}/ /opt/cni/bin/
         '';
         serviceConfig = {
