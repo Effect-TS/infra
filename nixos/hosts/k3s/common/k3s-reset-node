@@ -21,6 +21,7 @@ rm -rf \
     /var/lib/ovn \
     /var/lib/openvswitch \
     /opt/cni/ \
+    /etc/cni/ \
     /etc/origin/ovn \
     /etc/origin/openvswitch
 if [[ -n "${should_restart}" ]]; then
