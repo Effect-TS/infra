@@ -12,6 +12,14 @@
   config,
   ...
 }: {
+  sops = {
+    secrets = {
+      "wireguard/${hostName}" = {
+        sopsFile = ../common/secrets.yaml;
+      };
+    };
+  };
+
   networking = {
     inherit hostName hostId;
 
