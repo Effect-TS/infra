@@ -9,7 +9,7 @@
 }: let
   cniBinDir = "/opt/cni/bin";
   cniConfDir = "/etc/cni/net.d";
-  kubeovn = pkgs.callPackage ./kube-ovn.nix {};
+  kubeovn = pkgs.callPackage ./kube-ovn-cni.nix {};
   multusConf = (pkgs.formats.json {}).generate "00-multus.conf" {
     name = "multus-cni-network";
     type = "multus";
