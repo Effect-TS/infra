@@ -55,7 +55,7 @@ spec:
       hostNetwork: true
       containers:
         - name: kube-ovn-controller
-          image: "kubeovn/kube-ovn:v1.12.0"
+          image: "ghcr.io/mikearnaldi/kube-ovn:chore-modifications"
           imagePullPolicy: IfNotPresent
           args:
             - /kube-ovn/start-controller.sh
@@ -65,7 +65,7 @@ spec:
             - --default-logical-gateway=false
             - --default-u2o-interconnection=false
             - --default-exclude-ips=
-            - --node-switch-cidr=100.64.0.0/16
+            - --node-switch-cidr=10.96.0.0/11
             - --service-cluster-ip-range=10.64.0.0/12
             - --network-type=geneve
             - --default-interface-name=gw0

@@ -57,7 +57,7 @@ spec:
       hostNetwork: true
       containers:
         - name: kube-ovn-monitor
-          image: "kubeovn/kube-ovn:v1.12.0"
+          image: "ghcr.io/mikearnaldi/kube-ovn:chore-modifications"
           imagePullPolicy: IfNotPresent
           command: ["/kube-ovn/start-ovn-monitor.sh"]
           args:

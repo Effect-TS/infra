@@ -11,8 +11,8 @@ pkgs.stdenv.mkDerivation {
   phases = ["installPhase" "patchPhase"];
 
   src = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/kubeovn/kube-ovn/v1.11.3/dist/images/kubectl-ko";
-    sha256 = "sha256-y0qavhhPpkHKuZHhiysmI1v9mkH83KNNYeLc0fgNQ0A=";
+    url = "https://raw.githubusercontent.com/mikearnaldi/kube-ovn/master/dist/images/kubectl-ko";
+    sha256 = lib.fakeSha256;
   };
 
   installPhase = ''

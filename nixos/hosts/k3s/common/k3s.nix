@@ -8,16 +8,42 @@
   ...
 }: let
   cniBinDir = "/opt/cni/bin";
-  cniConfDir = "/etc/cni/net.d";
   cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
     mkdir -p $out
     ln -sf ${pkgs.cni-plugins}/bin/* $out
   '';
+  cniConfDir = "/etc/cni/net.d";
+  multusConf = (pkgs.formats.json {}).generate "00-multus.conf" {
+    name = "multus-cni-network";
+    type = "multus";
+    capabilities = {
+      portMappings = true;
+    };
+    delegates = [
+      {
+        name = "kube-ovn";
+        cniVersion = "0.3.1";
+        plugins = [
+          {
+            type = "kube-ovn";
+            server_socket = "/run/openvswitch/kube-ovn-daemon.sock";
+          }
+          {
+            type = "portmap";
+            capabilities = {
+              portMappings = true;
+            };
+          }
+        ];
+      }
+    ];
+    kubeconfig = "/etc/rancher/k3s/k3s.yaml";
+  };
 in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     pkgs.wireguard-tools
-    (pkgs.callPackage ./calicoctl.nix {})
+    (pkgs.callPackage ./kubectl-ko.nix {})
   ];
 
   services = {
@@ -30,7 +56,7 @@ in {
         "--disable=traefik"
         "--flannel-backend=none"
         "--secrets-encryption"
-        "--node-ip=${networkingConfig.ipv4Address},${networkingConfig.ipv6Address}"
+        "--node-ip=${networkingConfig.vlanPrivateIPv4},${networkingConfig.vlanPrivateIPv6}"
         "--cluster-cidr=10.32.0.0/11,fd01:c26e:7c96:4a4c::/64"
         "--service-cidr=10.64.0.0/12,fdb6:5037:f7b9:190a::/108"
         "--disable-network-policy"
@@ -59,6 +85,7 @@ in {
           if [[ ! -d "${cniBinDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
           fi
+          ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
           ${pkgs.rsync}/bin/rsync -a -L ${cniOriginalBin} /opt/cni/bin
         '';
         serviceConfig = {
