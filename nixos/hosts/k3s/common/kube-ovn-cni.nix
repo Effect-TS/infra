@@ -14,7 +14,7 @@ buildGoModule rec {
     sha256 = "sha256-Nj5ewMJWKpS5jBMGA6cmVkuzckAndjjOn64uVhhOg1k=";
   };
 
-  vendorSha256 = lib.fakeSha256;
+  vendorSha256 = "sha256-neUbMrVMBVvbRsqP4b8CLYuwQEnAFWrpoRdhs6R88RE=";
 
   doCheck = false;
 
