@@ -12,7 +12,7 @@ pkgs.stdenv.mkDerivation {
 
   src = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/mikearnaldi/kube-ovn/master/dist/images/kubectl-ko";
-    sha256 = lib.fakeSha256;
+    sha256 = "sha256-dZ6rKsBOnxzqzIDveg8QGKF80cbCpzvFqy2DunWupcI=";
   };
 
   installPhase = ''
