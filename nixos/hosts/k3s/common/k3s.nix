@@ -86,7 +86,7 @@ in {
             ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
           fi
           ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/00-multus.conf"
-          ${pkgs.rsync}/bin/rsync -a -L ${cniOriginalBin} /opt/cni/bin
+          ${pkgs.rsync}/bin/rsync -a -L ${cniOriginalBin}/bin /opt/cni/bin
         '';
         serviceConfig = {
           ExecStartPre = [
