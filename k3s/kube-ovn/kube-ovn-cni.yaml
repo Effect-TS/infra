@@ -183,7 +183,7 @@ spec:
             path: /run/ovn
         - name: cni-conf
           hostPath:
-            path: /var/lib/rancher/k3s/agent/etc/cni/net.d/ovn
+            path: /etc/cni/net.d/ovn
         - name: host-ns
           hostPath:
             path: /var/run/netns

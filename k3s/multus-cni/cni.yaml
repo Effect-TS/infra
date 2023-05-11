@@ -61,7 +61,7 @@ spec:
       volumes:
         - name: cni
           hostPath:
-            path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+            path: /etc/cni/net.d
         - name: cni-bin
           hostPath:
             path: /opt/cni/bin
