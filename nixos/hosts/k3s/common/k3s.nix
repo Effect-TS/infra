@@ -85,7 +85,7 @@ in {
           if [[ ! -d "${cniBinDir}" ]]; then
             ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
           fi
-          ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/02-multus.conf"
+          ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/00-multus.conf"
           ${pkgs.rsync}/bin/rsync -a -L ${cniOriginalBin} /opt/cni/bin
         '';
         serviceConfig = {
