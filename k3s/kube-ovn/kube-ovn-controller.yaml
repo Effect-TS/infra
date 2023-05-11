@@ -59,14 +59,14 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - /kube-ovn/start-controller.sh
-            - --default-cidr=10.32.0.0/11
-            - --default-gateway=10.32.0.1
+            - --default-cidr=10.32.0.0/11,fd01:c26e:7c96:4a4c::/64
+            - --default-gateway=10.32.0.1,fd01:c26e:7c96:4a4c::1
             - --default-gateway-check=true
             - --default-logical-gateway=false
             - --default-u2o-interconnection=false
             - --default-exclude-ips=
-            - --node-switch-cidr=10.96.0.0/11
-            - --service-cluster-ip-range=10.64.0.0/12
+            - --node-switch-cidr=10.96.0.0/11,fd67:d165:e492:f898::/64
+            - --service-cluster-ip-range=10.64.0.0/12,fdb6:5037:f7b9:190a::/108
             - --network-type=geneve
             - --default-interface-name=gw0
             - --default-exchange-link-name=false
