@@ -16,7 +16,24 @@
     capabilities = {
       portMappings = true;
     };
-    delegates = [];
+    delegates = [
+      {
+        name = "kube-ovn";
+        cniVersion = "0.3.1";
+        plugins = [
+          {
+            type = "kube-ovn";
+            server_socket = "/run/openvswitch/kube-ovn-daemon.sock";
+          }
+          {
+            type = "portmap";
+            capabilities = {
+              portMappings = true;
+            };
+          }
+        ];
+      }
+    ];
     kubeconfig = "/etc/rancher/k3s/k3s.yaml";
   };
   cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
