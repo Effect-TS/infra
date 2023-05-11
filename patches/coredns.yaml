@@ -209,6 +209,7 @@ metadata:
 spec:
   selector:
     k8s-app: kube-dns
+  ipFamilyPolicy: "PreferDualStack"
   clusterIP: 10.64.0.10
   clusterIPs:
   - 10.64.0.10
