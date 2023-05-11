@@ -8,11 +8,8 @@
   ...
 }: let
   cniBinDir = "/opt/cni/bin";
-  cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
-    mkdir -p $out
-    ln -sf ${pkgs.cni-plugins}/bin/* $out
-  '';
   cniConfDir = "/etc/cni/net.d";
+  kubeovn = pkgs.callPackage ./kube-ovn.nix {};
   multusConf = (pkgs.formats.json {}).generate "00-multus.conf" {
     name = "multus-cni-network";
     type = "multus";
@@ -39,6 +36,11 @@
     ];
     kubeconfig = "/etc/rancher/k3s/k3s.yaml";
   };
+  cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
+    mkdir -p $out
+    ln -sf ${pkgs.cni-plugins}/bin/* $out
+    ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
+  '';
 in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))

@@ -43,21 +43,6 @@ spec:
       serviceAccountName: ovn
       hostNetwork: true
       hostPID: true
-      initContainers:
-        - name: install-cni
-          image: "ghcr.io/mikearnaldi/kube-ovn:chore-modifications"
-          imagePullPolicy: IfNotPresent
-          command: ["/kube-ovn/install-cni.sh"]
-          securityContext:
-            runAsUser: 0
-            privileged: true
-          volumeMounts:
-            - mountPath: /opt/cni/bin
-              name: cni-bin
-            - mountPath: /usr/local/bin
-              name: local-bin
-            - mountPath: /nix
-              name: host-nix
       containers:
         - name: cni-server
           image: "ghcr.io/mikearnaldi/kube-ovn:chore-modifications"
@@ -202,12 +187,6 @@ spec:
         - name: localtime
           hostPath:
             path: /etc/localtime
-        - name: cni-bin
-          hostPath:
-            path: /opt/cni/bin
-        - name: local-bin
-          hostPath:
-            path: /usr/local/bin
         - name: tmp
           hostPath:
             path: /tmp
