@@ -168,7 +168,7 @@ spec:
             path: /run/ovn
         - name: cni-conf
           hostPath:
-            path: /etc/cni/net.d/ovn
+            path: /etc/cni/net.d
         - name: host-ns
           hostPath:
             path: /var/run/netns
