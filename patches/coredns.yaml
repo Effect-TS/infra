@@ -210,6 +210,12 @@ spec:
   selector:
     k8s-app: kube-dns
   clusterIP: 10.64.0.10
+  clusterIPs:
+  - 10.64.0.10
+  - fdb6:5037:f7b9:190a::a
+  ipFamilies:
+  - IPv4
+  - IPv6
   ports:
     - name: dns
       port: 53

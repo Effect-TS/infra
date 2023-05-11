@@ -56,6 +56,7 @@ in {
       extraFlags = toString [
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
         "--disable=traefik"
+        "--disable=coredns"
         "--flannel-backend=none"
         "--secrets-encryption"
         "--node-ip=${networkingConfig.vlanPrivateIPv4},${networkingConfig.vlanPrivateIPv6}"
