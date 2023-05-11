@@ -11,7 +11,7 @@ buildGoModule rec {
     owner = "mikearnaldi";
     repo = "kube-ovn";
     rev = "${version}";
-    sha256 = lib.fakeSha256;
+    sha256 = "sha256-Nj5ewMJWKpS5jBMGA6cmVkuzckAndjjOn64uVhhOg1k=";
   };
 
   vendorSha256 = lib.fakeSha256;
