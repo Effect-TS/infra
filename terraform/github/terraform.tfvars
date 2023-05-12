@@ -20,6 +20,12 @@ repositories = {
     collaborators = [{ username = "enricopolanski", permission = "push" }]
     homepage_url  = "https://effect-ts.github.io/data"
   }
+  discord-bot = {
+    description       = "The Effect Community's custom Discord bot, built with Effect"
+    collaborators     = [{ username = "tim-smart", permission = "push" }]
+    enable_changesets = false
+    enable_pages      = false
+  }
   effect = {
     description = "A fully-fledged functional effect system for TypeScript with a rich standard library"
     collaborators = [
