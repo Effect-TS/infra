@@ -110,8 +110,7 @@ repositories = {
     enable_pages = false
   }
   printer = {
-    description  = "An easy to use, extensible pretty-printer for rendering documents"
-    enable_pages = false
+    description = "An easy to use, extensible pretty-printer for rendering documents"
   }
   # process = {
   #   description = "A simple library for interacting with external processes and command-line programs via Effect"
