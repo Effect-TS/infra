@@ -85,7 +85,6 @@ repositories = {
     collaborators = [{ username = "tim-smart", permission = "maintain" }]
     homepage_url  = "https://effect-ts.github.io/match"
     topics        = ["functional-programming", "pattern-matching", "typescript"]
-    enable_pages  = false
   }
   misc = {
     description  = ""
@@ -110,7 +109,8 @@ repositories = {
     enable_pages = false
   }
   printer = {
-    description = "An easy to use, extensible pretty-printer for rendering documents"
+    description  = "An easy to use, extensible pretty-printer for rendering documents"
+    homepage_url = "https://effect-ts.github.io/printer"
   }
   # process = {
   #   description = "A simple library for interacting with external processes and command-line programs via Effect"
