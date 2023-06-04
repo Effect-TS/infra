@@ -29,7 +29,7 @@
       };
     };
 
-    kernelModules = ["kvm-amd" "vfio-pci"];
+    kernelModules = ["kvm-amd" "kvm-intel" "vfio-pci"];
 
     loader = {
       grub = {

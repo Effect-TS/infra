@@ -1,0 +1,7 @@
+{...}: {
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+    };
+  };
+}
