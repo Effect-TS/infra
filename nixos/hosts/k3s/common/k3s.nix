@@ -59,16 +59,13 @@ in {
       role = "server";
       extraFlags = toString [
         "--container-runtime-endpoint=unix:///run/containerd/containerd.sock"
-        "--disable=traefik"
-        "--disable=coredns"
+        # "--disable=traefik"
+        # "--disable=coredns"
         # "--flannel-backend=none"
         "--secrets-encryption"
         # "--node-ip=${networkingConfig.vlanPrivateIPv4},${networkingConfig.vlanPrivateIPv6}"
         # "--cluster-cidr=10.32.0.0/11,fd01:c26e:7c96:4a4c::/64"
         # "--service-cidr=10.64.0.0/12,fdb6:5037:f7b9:190a::/108"
-        "--node-ip=${networkingConfig.vlanPrivateIPv4}"
-        "--cluster-cidr=10.32.0.0/11"
-        "--service-cidr=10.64.0.0/12"
         # "--disable-network-policy"
         "--kube-apiserver-arg 'allow-privileged=true'"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
