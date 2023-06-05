@@ -46,10 +46,12 @@
   #   ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
   # '';
 in {
-  environment.systemPackages = [
-    (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
-    pkgs.wireguard-tools
-    (pkgs.callPackage ./kubectl-ko.nix {})
+  environment.systemPackages = with pkgs; [
+    (writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
+    (callPackage ./kubectl-ko.nix {})
+    krew
+    virtctl
+    wireguard-tools
   ];
 
   services = {
