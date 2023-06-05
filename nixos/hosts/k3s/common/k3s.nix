@@ -41,10 +41,10 @@
   #   ln -sf ${pkgs.cni-plugins}/bin/* $out
   #   ln -sf ${kubeovn}/bin/cmd $out/kube-ovn
   # '';
-  cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
-    mkdir -p $out
-    ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
-  '';
+  # cniOriginalBin = pkgs.runCommand "cni-bin-dir" {} ''
+  #   mkdir -p $out
+  #   ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+  # '';
 in {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
@@ -97,14 +97,14 @@ in {
         #   ${pkgs.coreutils}/bin/ln -sf ${multusConf} "${cniConfDir}/00-multus.conf"
         #   ${pkgs.rsync}/bin/rsync -a -L ${cniOriginalBin}/ /opt/cni/bin/
         # '';
-        preStart = ''
-          if [[ ! -d "${cniConfDir}" ]]; then
-            ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
-          fi
-          if [[ ! -d "${cniBinDir}" ]]; then
-            ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
-          fi
-        '';
+        # preStart = ''
+        #   if [[ ! -d "${cniConfDir}" ]]; then
+        #     ${pkgs.coreutils}/bin/mkdir -p "${cniConfDir}"
+        #   fi
+        #   if [[ ! -d "${cniBinDir}" ]]; then
+        #     ${pkgs.coreutils}/bin/mkdir -p /opt/cni/bin
+        #   fi
+        # '';
         serviceConfig = {
           ExecStartPre = [
             "-${pkgs.zfs}/bin/zfs create -o mountpoint=/var/lib/containerd/io.containerd.snapshotter.v1.zfs zroot/containerd"
@@ -126,8 +126,13 @@ in {
         plugins = {
           "io.containerd.grpc.v1.cri" = {
             cni = {
-              bin_dir = "${cniBinDir}";
-              conf_dir = "${cniConfDir}";
+              # bin_dir = "${cniBinDir}";
+              # conf_dir = "${cniConfDir}";
+              conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+              bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
+                mkdir -p $out
+                ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
+              ''}";
             };
           };
         };
