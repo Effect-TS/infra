@@ -46,7 +46,7 @@
   #   ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
   # '';
 in {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.unstable; [
     (writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     (callPackage ./kubectl-ko.nix {})
     krew
