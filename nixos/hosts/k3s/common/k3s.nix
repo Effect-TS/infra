@@ -50,7 +50,7 @@ in {
     (writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     (callPackage ./kubectl-ko.nix {})
     krew
-    virtctl
+    kubevirt
     wireguard-tools
   ];
 
