@@ -62,6 +62,7 @@ in {
         # "--disable=traefik"
         # "--disable=coredns"
         # "--flannel-backend=none"
+        "--flannel-backend=host-gw"
         "--secrets-encryption"
         # "--node-ip=${networkingConfig.vlanPrivateIPv4},${networkingConfig.vlanPrivateIPv6}"
         # "--cluster-cidr=10.32.0.0/11,fd01:c26e:7c96:4a4c::/64"
