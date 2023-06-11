@@ -22,7 +22,7 @@ repositories = {
   }
   docgen = {
     description  = "An opinionated documentation generator for Effect projects"
-    enable_pages = false
+    homepage_url = "https://effect-ts.github.io/docgen"
   }
   discord-bot = {
     description       = "The Effect Community's custom Discord bot, built with Effect"
