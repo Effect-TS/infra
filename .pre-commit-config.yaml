@@ -20,7 +20,7 @@ repos:
       - id: terraform_fmt
 
   - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt.git
-    rev: 0.2.2
+    rev: 0.2.3
     hooks:
       - id: yamlfmt
         args:
