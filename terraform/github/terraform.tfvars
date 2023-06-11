@@ -118,7 +118,7 @@ repositories = {
   # }
   platform = {
     description  = "Unified interfaces for common platform-specific services"
-    enable_pages = false
+    homepage_url = "https://effect-ts.github.io/platform"
   }
   printer = {
     description  = "An easy to use, extensible pretty-printer for rendering documents"
