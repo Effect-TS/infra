@@ -8,7 +8,7 @@ repositories = {
     homepage_url = "https://effect-ts.github.io/babel-plugin"
   }
   build-utils = {
-    description  = "Customize utilities used to assist with building and packaging Effect libraries"
+    description  = "Custom utilities used to assist with building and packaging Effect libraries"
     homepage_url = "https://effect-ts.github.io/build-utils"
   }
   cache = {
