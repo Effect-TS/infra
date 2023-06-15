@@ -46,6 +46,10 @@
   #   ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
   # '';
 in {
+  imports = [
+    ./kata-containers.nix
+  ];
+
   environment.systemPackages = with pkgs.unstable; [
     (writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     (callPackage ./kubectl-ko.nix {})
