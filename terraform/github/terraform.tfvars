@@ -7,6 +7,10 @@ repositories = {
     description  = "A babel plugin purpose-built for the Effect ecosystem"
     homepage_url = "https://effect-ts.github.io/babel-plugin"
   }
+  build-utils = {
+    description  = "Custom utilities used to assist with building and packaging Effect libraries"
+    homepage_url = "https://effect-ts.github.io/build-utils"
+  }
   cache = {
     description  = "An Effect native cache with a simple and compositional interface"
     homepage_url = "https://effect-ts.github.io/cache"
@@ -20,11 +24,19 @@ repositories = {
     collaborators = [{ username = "enricopolanski", permission = "push" }]
     homepage_url  = "https://effect-ts.github.io/data"
   }
+  docgen = {
+    description  = "An opinionated documentation generator for Effect projects"
+    homepage_url = "https://effect-ts.github.io/docgen"
+  }
   discord-bot = {
     description       = "The Effect Community's custom Discord bot, built with Effect"
     collaborators     = [{ username = "tim-smart", permission = "push" }]
     enable_changesets = false
     enable_pages      = false
+  }
+  dtslint = {
+    description  = "Effect's custom fork of dtslint used to lint TypeScript declaration (.d.ts) files"
+    enable_pages = false
   }
   effect = {
     description = "A fully-fledged functional effect system for TypeScript with a rich standard library"
@@ -106,7 +118,7 @@ repositories = {
   # }
   platform = {
     description  = "Unified interfaces for common platform-specific services"
-    enable_pages = false
+    homepage_url = "https://effect-ts.github.io/platform"
   }
   printer = {
     description  = "An easy to use, extensible pretty-printer for rendering documents"
