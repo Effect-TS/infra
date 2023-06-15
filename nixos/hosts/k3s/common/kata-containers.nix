@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: let
-  kata-runtime = pkgs.callPackage ./kata-runtime {};
-  kata-images = pkgs.callPackage ./kata-images {};
+  kata-runtime = pkgs.callPackage ./kata-runtime.nix {};
+  kata-images = pkgs.callPackage ./kata-images.nix {};
   settingsFormat = pkgs.formats.toml {};
   cfg = config.virtualisation.kata-containers;
   configFile = settingsFormat.generate "configuration.toml" cfg.settings;
