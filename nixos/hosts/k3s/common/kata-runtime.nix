@@ -4,7 +4,8 @@
   buildGoModule,
   fetchFromGitHub,
   go,
-  qemu,
+  qemu_kvm,
+  virtiofsd,
   makeWrapper,
   yq,
 }: let
@@ -41,7 +42,7 @@ in
       "PREFIX=${placeholder "out"}"
       "DEFAULT_HYPERVISOR=qemu"
       "HYPERVISORS=qemu"
-      "QEMUPATH=${qemu}/bin/qemu-system-x86_64"
+      "QEMUPATH=${qemu_kvm}/bin/qemu-system-x86_64"
     ];
 
     buildPhase = ''
@@ -61,8 +62,8 @@ in
       # qemu images don't work on read-only mounts, we need to put it into a mutable directory
       sed -i \
         -e "s!$out/share/kata-containers!/var/lib/kata-containers!" \
-        -e "s!^virtio_fs_daemon.*!virtio_fs_daemon=\"${qemu}/libexec/virtiofsd\"!" \
-        -e "s!^valid_virtio_fs_daemon_paths.*!valid_virtio_fs_daemon_paths=[\"${qemu}/libexec/virtiofsd\"]!" \
+        -e "s!^virtio_fs_daemon.*!virtio_fs_daemon=\"${qemu_kvm}/libexec/virtiofsd\"!" \
+        -e "s!^valid_virtio_fs_daemon_paths.*!valid_virtio_fs_daemon_paths=[\"${virtiofsd}\"]!" \
         "$out/share/defaults/kata-containers/"*.toml
 
       runHook postInstall
