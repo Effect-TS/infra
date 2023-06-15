@@ -22,7 +22,7 @@ in {
         dates = ["daily"];
       };
 
-      package = pkgs.nix;
+      package = pkgs.nixVersions.nix_2_16;
 
       # Add each flake input as a registry
       # To make nix3 commands consistent with the flake

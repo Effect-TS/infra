@@ -26,7 +26,7 @@ in
           home-manager
           kubectl
           kubernetes-helm
-          nix
+          nixVersions.nix_2_16
           nil
           nixos-rebuild
           pre-commit

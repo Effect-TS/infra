@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-22.11";
+      url = "github:nixos/nixpkgs/nixos-23.05";
     };
 
     nixpkgs-master = {
@@ -14,11 +14,6 @@
 
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
-    };
-
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
@@ -42,7 +37,6 @@
     nixpkgs-master,
     nixpkgs-unstable,
     nixos-hardware,
-    deploy-rs,
     home-manager,
     nix-colors,
     sops-nix,
