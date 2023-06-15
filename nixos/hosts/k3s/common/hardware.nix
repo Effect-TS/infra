@@ -11,6 +11,8 @@
   # Use GRUB2 as the boot loader - don't use `systemd-boot` because Hetzner uses
   # BIOS legacy boot
   boot = {
+    extraModprobeConfig = "options kvm_intel nested=1";
+
     extraModulePackages = [];
 
     initrd = {
@@ -29,7 +31,7 @@
       };
     };
 
-    kernelModules = ["kvm-amd" "kvm-intel" "vfio-pci" "virtio_pci" "virtio_blk"];
+    kernelModules = ["kvm-intel" "vfio-pci" "virtio_pci" "virtio_blk"];
 
     loader = {
       grub = {
