@@ -74,7 +74,9 @@ in {
   services = {
     openssh = {
       enable = true;
-      permitRootLogin = "prohibit-password";
+      settings = {
+        PermitRootLogin = "prohibit-password";
+      };
     };
     openiscsi = {
       enable = true;
