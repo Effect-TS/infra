@@ -46,7 +46,7 @@ in {
             "io.containerd.grpc.v1.cri" = {
               containerd = {
                 untrusted_workload_runtime = {
-                  runtime_type = "io.containerd.kata.v2";
+                  runtime_type = "io.containerd.kata-qemu.v2";
                   privileged_without_host_devices = true;
                 };
                 runtimes = {
@@ -54,8 +54,8 @@ in {
                     runtime_type = "io.containerd.runc.v2";
                     privileged_without_host_devices = false;
                   };
-                  kata = {
-                    runtime_type = "io.containerd.kata.v2";
+                  kata-qemu = {
+                    runtime_type = "io.containerd.kata-qemu.v2";
                     privileged_without_host_devices = true;
                     pod_annotations = ["io.katacontainers.*"];
                     container_annotations = ["io.katacontainers.*"];
