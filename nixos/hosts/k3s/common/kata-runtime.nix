@@ -15,9 +15,9 @@
       owner = "mikefarah";
       repo = "yq";
       rev = version;
-      sha256 = lib.faSha256;
+      sha256 = lib.fakeSha256;
     };
-    vendorSha256 = lib.faSha256;
+    vendorSha256 = lib.fakeSha256;
   };
 in
   buildGoModule rec {
