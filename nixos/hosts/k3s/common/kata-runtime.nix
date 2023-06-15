@@ -15,9 +15,9 @@
       owner = "mikefarah";
       repo = "yq";
       rev = version;
-      sha256 = lib.fakeSha256;
+      sha256 = "sha256-K3mWo5wFKWxSel8y/b6N02/BoB/KuTbHhVJrVYLCbCY=";
     };
-    vendorSha256 = lib.fakeSha256;
+    vendorSha256 = "sha256-K3mWo5wFKWxSel8y/b6N02/BoB/KuTbHhVJrVYLCbCY=";
   };
 in
   buildGoModule rec {
@@ -28,7 +28,7 @@ in
       owner = "kata-containers";
       repo = "kata-containers";
       rev = version;
-      sha256 = "sha256-K3mWo5wFKWxSel8y/b6N02/BoB/KuTbHhVJrVYLCbCY=";
+      sha256 = lib.fakeSha256;
     };
 
     sourceRoot = "source/src/runtime";
