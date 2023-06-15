@@ -12,8 +12,8 @@
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
     };
 
     home-manager = {
@@ -25,8 +25,17 @@
       url = "github:misterio77/nix-colors";
     };
 
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -36,68 +45,60 @@
     nixpkgs,
     nixpkgs-master,
     nixpkgs-unstable,
-    nixos-hardware,
+    flake-utils,
     home-manager,
+    nixos-hardware,
     nix-colors,
     sops-nix,
+    treefmt-nix,
     ...
   }: let
-    supportedSystems = [
-      "x86_64-darwin"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "aarch64-linux"
-    ];
-
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-
-    pkgsFor = system: nixpkgs.legacyPackages.${system};
-    unstablePkgsFor = system: nixpkgs-unstable.legacyPackages.${system};
-
     inherit (self) outputs;
     specialArgs = {inherit inputs outputs;};
-  in {
-    homeManagerModules = import "${self}/nixos/modules/home-manager";
-
-    formatter = forAllSystems (
-      system: let
-        pkgs = pkgsFor system;
-      in
-        pkgs.alejandra
-    );
-
-    devShells = forAllSystems (system: let
-      pkgs = unstablePkgsFor system;
+  in
+    flake-utils.lib.eachDefaultSystem
+    (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+      unstablePkgs = nixpkgs-unstable.legacyPackages.${system};
     in {
-      default = pkgs.callPackage "${self}/shell.nix" {inherit pkgs;};
-    });
-
-    nixosConfigurations = {
-      # On actual machine:
-      #   nixos-rebuild switch --flake .#devbox
-      # On other machine:
-      #   nixos-rebuild --build-host user@host --target-host user@host --use-remote-sudo switch --flake .#devbox
-      # On other machine with dry activation:
-      #   nixos-rebuild --build-host user@host --target-host user@host --use-remote-sudo dry-activate --flake .#devbox
-      devbox = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = ["${self}/nixos/hosts/devbox"];
+      formatter = treefmt-nix.lib.mkWrapper pkgs {
+        projectRootFile = "flake.nix";
+        programs.alejandra.enable = true;
       };
 
-      k3s-host-01 = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = ["${self}/nixos/hosts/k3s/host-01"];
+      devShells = {
+        default = pkgs.callPackage "${self}/shell.nix" {pkgs = unstablePkgs;};
       };
+    })
+    // {
+      homeManagerModules = import "${self}/nixos/modules/home-manager";
 
-      k3s-host-02 = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = ["${self}/nixos/hosts/k3s/host-02"];
-      };
+      nixosConfigurations = {
+        # On actual machine:
+        #   nixos-rebuild switch --flake .#devbox
+        # On other machine:
+        #   nixos-rebuild --build-host user@host --target-host user@host --use-remote-sudo switch --flake .#devbox
+        # On other machine with dry activation:
+        #   nixos-rebuild --build-host user@host --target-host user@host --use-remote-sudo dry-activate --flake .#devbox
+        devbox = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = ["${self}/nixos/hosts/devbox"];
+        };
 
-      k3s-host-03 = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = ["${self}/nixos/hosts/k3s/host-03"];
+        k3s-host-01 = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = ["${self}/nixos/hosts/k3s/host-01"];
+        };
+
+        k3s-host-02 = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = ["${self}/nixos/hosts/k3s/host-02"];
+        };
+
+        k3s-host-03 = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = ["${self}/nixos/hosts/k3s/host-03"];
+        };
       };
     };
-  };
 }
