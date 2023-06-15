@@ -53,6 +53,7 @@ in {
   environment.systemPackages = with pkgs.unstable; [
     (writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     (callPackage ./kubectl-ko.nix {})
+    cri-tools
     kubevirt
     wireguard-tools
   ];
