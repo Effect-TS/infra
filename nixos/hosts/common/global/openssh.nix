@@ -9,7 +9,6 @@
     openssh = {
       enable = true;
       passwordAuthentication = false;
-      permitRootLogin = "no";
       ports = [22];
       # disable rsa keys
       hostKeys = [
@@ -18,6 +17,9 @@
           type = "ed25519";
         }
       ];
+      settings = {
+        PermitRootLogin = "no";
+      };
       # Automatically remove stale sockets
       extraConfig = ''
         StreamLocalBindUnlink yes

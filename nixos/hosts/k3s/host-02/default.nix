@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   modulesPath,
   pkgs,
@@ -18,7 +19,7 @@
       };
 
       "/boot/efi" = {
-        device = "/dev/disk/by-uuid/09AE-4AEE";
+        device = "/dev/disk/by-uuid/257C-AC50";
         fsType = "vfat";
       };
 
@@ -29,28 +30,77 @@
     };
   };
 
+  k3sConfig = {
+    serverAddr = "https://213.239.207.149:6443";
+  };
+
   networkingConfig = {
     hostName = "host-02";
     hostId = "bbb7d16a";
-
-    networkInterface = "enp5s0";
 
     ipv4Address = "167.235.103.220";
     ipv6Address = "2a01:4f8:2200:141e::1";
     defaultGateway = "167.235.103.193";
     defaultGatewayIPv6 = "fe80::1";
 
-    vlan = "vlan4000";
-    vlanPrivateIPv4 = "192.168.100.2";
-    vlanBroadcastIPv4 = "192.168.100.255";
+    vlanPrivateIPv4 = "10.0.0.2";
+    vlanPrivateIPv6 = "fd8d:d848:4ba5:aa91::2";
   };
 in {
   imports = [
+    inputs.sops-nix.nixosModules.sops
+
     "${modulesPath}/installer/scan/not-detected.nix"
-    (import ../common/hardware.nix ({inherit config lib;} // hardwareConfig))
-    (import ../common/networking.nix ({inherit lib;} // networkingConfig))
+    (import ../common/hardware.nix ({inherit config lib pkgs;} // hardwareConfig))
+    # (import ../common/k3s.nix ({inherit config lib pkgs networkingConfig;} // k3sConfig))
+    (import ../common/networking.nix ({inherit lib pkgs config;} // networkingConfig))
     ../common/nixos.nix
   ];
+
+  environment = {
+    etc = {
+      "mdadm.conf" = {
+        text = ''
+          MAILADDR root
+        '';
+      };
+    };
+    sessionVariables = {
+      KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+    };
+  };
+
+  services = {
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "prohibit-password";
+      };
+    };
+    openiscsi = {
+      enable = true;
+      name = "iqn.2020-08.org.linux-iscsi.initiatorhost:host-02";
+    };
+    kubernetes = {
+      apiserver = {
+        allowPrivileged = true;
+      };
+    };
+  };
+
+  sops = {
+    age = {
+      sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    };
+  };
+
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system = {
+    stateVersion = "22.11"; # Did you read the comment?
+  };
 
   users = {
     users = {
@@ -68,20 +118,5 @@ in {
         };
       };
     };
-  };
-
-  services = {
-    openssh = {
-      enable = true;
-      permitRootLogin = "prohibit-password";
-    };
-  };
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system = {
-    stateVersion = "22.11"; # Did you read the comment?
   };
 }

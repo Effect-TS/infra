@@ -1,28 +1,36 @@
 {
+  pkgs,
   defaultGateway,
   defaultGatewayIPv6,
   hostName,
   hostId,
-  networkInterface,
   ipv4Address,
   ipv6Address,
-  lib,
-  vlan,
+  vlanPrivateIPv6,
   vlanPrivateIPv4,
-  vlanBroadcastIPv4,
+  lib,
+  config,
   ...
 }: {
+  sops = {
+    secrets = {
+      "wireguard/${hostName}" = {
+        sopsFile = ../common/secrets.yaml;
+      };
+    };
+  };
+
   networking = {
     inherit hostName hostId;
 
     defaultGateway = "${defaultGateway}";
     defaultGateway6 = {
       address = "${defaultGatewayIPv6}";
-      interface = "${networkInterface}";
+      interface = "eth0";
     };
 
     interfaces = {
-      "${networkInterface}" = {
+      "eth0" = {
         ipv4 = {
           addresses = [
             {
@@ -42,21 +50,44 @@
       };
     };
 
-    localCommands = ''
-      # Check if the link already exists, remove it if so
-      if ip link show ${vlan} >/dev/null 2>&1; then
-        ip link set dev ${vlan} down
-        ip link delete ${vlan}
-      fi
-      ip link add link ${networkInterface} name ${vlan} type vlan id 4000
-      ip link set ${vlan} mtu 1400
-      ip link set dev ${vlan} up
-      ip addr add ${vlanPrivateIPv4}/24 brd ${vlanBroadcastIPv4} dev ${vlan}
-    '';
-
     nameservers = ["1.1.1.1" "8.8.8.8"];
 
-    # Network (Hetzner uses static IP assignments, and we don't use DHCP here)
     useDHCP = lib.mkDefault false;
+
+    firewall = {
+      allowedUDPPorts = [51820 51821];
+      allowedTCPPorts = [2379 2380 6443 10250];
+      trustedInterfaces = ["gw0"];
+    };
+
+    # wireguard = {
+    #   interfaces = {
+    #     gw0 = {
+    #       ips = ["${vlanPrivateIPv6}/128" "${vlanPrivateIPv4}/32"];
+    #       listenPort = 51821;
+    #       privateKeyFile = "${config.sops.secrets."wireguard/${hostName}".path}";
+    #       peers = [
+    #         {
+    #           publicKey = "1YdF6SByNDgtOIvRVBisPS4szmKCd71+khLUFDzywmI=";
+    #           allowedIPs = ["fd8d:d848:4ba5:aa91::1/128" "10.0.0.1"];
+    #           endpoint = "2a01:4f8:a0:8485::1:51821";
+    #           persistentKeepalive = 5;
+    #         }
+    #         {
+    #           publicKey = "KEpjawqDUrxMQv88totW51SAOOpA/K0srCncUPOjdiE=";
+    #           allowedIPs = ["fd8d:d848:4ba5:aa91::2/128" "10.0.0.2"];
+    #           endpoint = "2a01:4f8:2200:141e::1:51821";
+    #           persistentKeepalive = 5;
+    #         }
+    #         {
+    #           publicKey = "9/wGoxeVz8F3yXqx1KYapmHRgvV0OkKeLBSthYvc1nw=";
+    #           allowedIPs = ["fd8d:d848:4ba5:aa91::3/128" "10.0.0.3"];
+    #           endpoint = "2a01:4f9:3051:48cd::1:51821";
+    #           persistentKeepalive = 5;
+    #         }
+    #       ];
+    #     };
+    #   };
+    # };
   };
 }

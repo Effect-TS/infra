@@ -3,6 +3,7 @@
   config,
   fileSystems,
   lib,
+  pkgs,
   ...
 }: {
   inherit fileSystems;
@@ -10,6 +11,8 @@
   # Use GRUB2 as the boot loader - don't use `systemd-boot` because Hetzner uses
   # BIOS legacy boot
   boot = {
+    extraModprobeConfig = "options kvm_intel nested=1";
+
     extraModulePackages = [];
 
     initrd = {
@@ -17,7 +20,18 @@
       kernelModules = [];
     };
 
-    kernelModules = ["kvm-amd"];
+    kernelPackages = pkgs.linuxPackages_6_1;
+
+    kernel = {
+      sysctl = {
+        "net.ipv4.ip_forward" = true;
+        "net.ipv4.conf.all.proxy_arp" = true;
+        "net.ipv6.conf.all.forwarding" = true;
+        "vm.nr_hugepages" = 512;
+      };
+    };
+
+    kernelModules = ["kvm-intel" "vfio-pci" "virtio_pci" "virtio_blk"];
 
     loader = {
       grub = {
@@ -30,10 +44,9 @@
       systemd-boot = {
         enable = false;
       };
-
     };
 
-    supportedFilesystems = ["zfs"];
+    supportedFilesystems = ["zfs" "nfs" "xfs" "ext4"];
   };
 
   hardware = {
@@ -51,6 +64,10 @@
   powerManagement = {
     cpuFreqGovernor = lib.mkDefault "ondemand";
   };
+
+  services.udev.extraRules = ''
+    KERNEL=="enp*", NAME="eth0"
+  '';
 
   swapDevices = [];
 }

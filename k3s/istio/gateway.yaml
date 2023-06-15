@@ -1,0 +1,29 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: k3s-effectful-co-internal
+  namespace: istio-system
+spec:
+  selector:
+    istio: istio-internal
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+      hosts:
+        - '*.k3s.effectful.co'
+        - k3s.effectful.co
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: k3s-effectful-co-tls
+      hosts:
+        - '*.k3s.effectful.co'
+        - k3s.effectful.co

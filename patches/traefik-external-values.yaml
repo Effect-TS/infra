@@ -1,0 +1,7 @@
+---
+deployment:
+  replicas: 3
+ingressClass:
+  isDefaultClass: false
+service:
+  type: NodePort

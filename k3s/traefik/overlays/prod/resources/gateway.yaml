@@ -1,0 +1,112 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-effectful-co
+spec:
+  dnsNames:
+    - '*.effectful.co'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-effectful-co
+  secretName: wildcard-effectful-co
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-effect-website
+spec:
+  dnsNames:
+    - '*.effect.website'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-effect-website
+  secretName: wildcard-effect-website
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-k3s-effectful-co
+spec:
+  dnsNames:
+    - '*.k3s.effectful.co'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-effectful-co
+  secretName: wildcard-k3s-effectful-co
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: Gateway
+metadata:
+  name: traefik-external
+spec:
+  gatewayClassName: traefik-external
+  listeners:
+    - name: effectful-co
+      port: 8000
+      protocol: HTTP
+      hostname: '*.effectful.co'
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: effectful-co-tls
+      port: 8443
+      protocol: HTTPS
+      hostname: '*.effectful.co'
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: wildcard-effectful-co
+            kind: Secret
+    - name: effect-website
+      port: 8000
+      protocol: HTTP
+      hostname: '*.effect.website'
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: effect-website-tls
+      port: 8443
+      protocol: HTTPS
+      hostname: '*.effect.website'
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: wildcard-effect-website
+            kind: Secret
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: traefik-internal
+spec:
+  gatewayClassName: traefik-internal
+  listeners:
+    - name: effectful-co
+      port: 8000
+      protocol: HTTP
+      hostname: '*.k3s.effectful.co'
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: effectful-co-tls
+      port: 8443
+      protocol: HTTPS
+      hostname: '*.k3s.effectful.co'
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: wildcard-k3s-effectful-co
+            kind: Secret

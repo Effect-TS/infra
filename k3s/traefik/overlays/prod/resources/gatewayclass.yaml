@@ -1,0 +1,18 @@
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: GatewayClass
+metadata:
+  name: traefik-external
+  labels:
+    gatewayclass.effectful.io/type: traefik-external
+spec:
+  controllerName: traefik.io/gateway-controller
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: GatewayClass
+metadata:
+  name: traefik-internal
+  labels:
+    gatewayclass.effectful.io/type: traefik-internal
+spec:
+  controllerName: traefik.io/gateway-controller

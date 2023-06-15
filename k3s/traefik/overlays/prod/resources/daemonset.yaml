@@ -1,0 +1,224 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: traefik-external
+  labels:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik-external
+spec:
+  minReadySeconds: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+      app.kubernetes.io/instance: traefik-external
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9100'
+      labels:
+        app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik-external
+    spec:
+      serviceAccountName: traefik
+      securityContext:
+        runAsUser: 65532
+        runAsGroup: 65532
+        runAsNonRoot: true
+        fsGroupChangePolicy: OnRootMismatch
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: traefik
+          image: docker.io/traefik:v2.10.1
+          imagePullPolicy: IfNotPresent
+          args:
+            - --global.checknewversion
+            - --global.sendanonymoususage
+            - --entrypoints.metrics.address=:9100/tcp
+            - --entrypoints.traefik.address=:9000/tcp
+            - --entrypoints.web.address=:8000/tcp
+            - --entrypoints.websecure.address=:8443/tcp
+            - --api.dashboard=true
+            - --ping=true
+            - --metrics.prometheus=true
+            - --metrics.prometheus.entrypoint=metrics
+            - --providers.kubernetescrd
+            - --providers.kubernetesingress
+            - --providers.kubernetesgateway
+            - --providers.kubernetesgateway.labelselector=gatewayclass.effectful.io/type=traefik-external
+            - --experimental.kubernetesgateway
+            - --entrypoints.websecure.http.tls=true
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          ports:
+            - name: metrics
+              containerPort: 9100
+              protocol: TCP
+            - name: traefik
+              containerPort: 9000
+              protocol: TCP
+            - name: web
+              containerPort: 8000
+              protocol: TCP
+            - name: websecure
+              containerPort: 8443
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /ping
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          resources:
+            requests:
+              cpu: 0.125
+              memory: 128Mi
+            limits:
+              cpu: 0.25
+              memory: 256Mi
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: traefik-internal
+  labels:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik-internal
+spec:
+  minReadySeconds: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+      app.kubernetes.io/instance: traefik-internal
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: /metrics
+        prometheus.io/port: '9100'
+      labels:
+        app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik-internal
+    spec:
+      serviceAccountName: traefik
+      securityContext:
+        runAsUser: 65532
+        runAsGroup: 65532
+        runAsNonRoot: true
+        fsGroupChangePolicy: OnRootMismatch
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: traefik
+          image: docker.io/traefik:v2.10.1
+          imagePullPolicy: IfNotPresent
+          args:
+            - --global.checknewversion
+            - --global.sendanonymoususage
+            - --entrypoints.metrics.address=:9100/tcp
+            - --entrypoints.traefik.address=:9000/tcp
+            - --entrypoints.web.address=:8000/tcp
+            - --entrypoints.websecure.address=:8443/tcp
+            - --api.dashboard=true
+            - --ping=true
+            - --metrics.prometheus=true
+            - --metrics.prometheus.entrypoint=metrics
+            - --providers.kubernetescrd
+            - --providers.kubernetesingress
+            - --providers.kubernetesgateway
+            - --providers.kubernetesgateway.labelselector=gatewayclass.effectful.io/type=traefik-internal
+            - --experimental.kubernetesgateway
+            - --entrypoints.websecure.http.tls=true
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          ports:
+            - name: metrics
+              containerPort: 9100
+              protocol: TCP
+            - name: traefik
+              containerPort: 9000
+              protocol: TCP
+            - name: web
+              containerPort: 8000
+              protocol: TCP
+            - name: websecure
+              containerPort: 8443
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /ping
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          resources:
+            requests:
+              cpu: 0.125
+              memory: 128Mi
+            limits:
+              cpu: 0.25
+              memory: 256Mi
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
