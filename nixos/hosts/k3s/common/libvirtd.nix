@@ -12,12 +12,9 @@
   virtualisation = {
     libvirtd = {
       enable = true;
-      onBoot = "start";
-      onShutdown = "suspend";
       qemu = {
         ovmf = {
           enable = true;
-          packages = [pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd];
         };
       };
     };
