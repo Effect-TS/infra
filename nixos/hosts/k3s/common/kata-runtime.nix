@@ -28,7 +28,7 @@ in
       owner = "kata-containers";
       repo = "kata-containers";
       rev = version;
-      sha256 = lib.faSha256;
+      sha256 = lib.fakeSha256;
     };
 
     sourceRoot = "source/src/runtime";
