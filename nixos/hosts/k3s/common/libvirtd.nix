@@ -17,7 +17,7 @@
       qemu = {
         ovmf = {
           enable = true;
-          packages = [pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVFM.fd];
+          packages = [pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd];
         };
       };
     };
