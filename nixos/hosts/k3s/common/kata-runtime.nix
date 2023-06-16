@@ -42,7 +42,6 @@ in
       "PREFIX=${placeholder "out"}"
       "DEFAULT_HYPERVISOR=qemu"
       "HYPERVISORS=qemu"
-      # "QEMUPATH=${qemu_kvm}/bin/qemu-system-x86_64"
       "QEMUPATH=${qemu_kvm}/bin/qemu-virtiofs-system-x86_64"
     ];
 
@@ -57,7 +56,7 @@ in
     installPhase = ''
       runHook preInstall
       HOME=$TMPDIR GOPATH=$TMPDIR/gopath make ${toString makeFlags} install
-      ln -s $out/bin/containerd-shim-kata-v2 $out/bin/containerd-shim-kata-qemu-v2
+      # ln -s $out/bin/containerd-shim-kata-v2 $out/bin/containerd-shim-kata-qemu-v2
       # qemu images don't work on read-only mounts, we need to put it into a mutable directory
       sed -i \
         -e "s!$out/share/kata-containers!/var/lib/kata-containers!" \
