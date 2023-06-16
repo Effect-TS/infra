@@ -9,6 +9,26 @@
   settingsFormat = pkgs.formats.toml {};
   cfg = config.virtualisation.kata-containers;
   configFile = settingsFormat.generate "configuration.toml" cfg.settings;
+  flannel = builtins.toJSON {
+    name = "cbr0";
+    cniVersion = "1.1.2";
+    plugins = [
+      {
+        type = "flannel";
+        delegate = {
+          hairpinMode = true;
+          forceAddress = true;
+          isDefaultGateway = true;
+        };
+      }
+      {
+        type = "portmap";
+        capabilities = {
+          portMappings = true;
+        };
+      }
+    ];
+  };
 in {
   options = {
     virtualisation = {
@@ -45,6 +65,9 @@ in {
           debug.level = "debug";
           plugins = {
             "io.containerd.grpc.v1.cri" = {
+              cni = {
+                conf_dir = "${pkgs.writeTextDir "net.d/10-flannel.conflist" flannel}/net.d";
+              };
               containerd = {
                 untrusted_workload_runtime = {
                   runtime_type = "io.containerd.kata-qemu.v2";
