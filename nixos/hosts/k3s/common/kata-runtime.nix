@@ -5,7 +5,7 @@
   fetchFromGitHub,
   go,
   qemu_kvm,
-  virtiofsd,
+  # virtiofsd,
   makeWrapper,
   yq,
 }: let
@@ -62,8 +62,8 @@ in
       # qemu images don't work on read-only mounts, we need to put it into a mutable directory
       sed -i \
         -e "s!$out/share/kata-containers!/var/lib/kata-containers!" \
-        -e "s!^virtio_fs_daemon.*!virtio_fs_daemon=\"${virtiofsd}/bin/virtiofsd\"!" \
-        -e "s!^valid_virtio_fs_daemon_paths.*!valid_virtio_fs_daemon_paths=[\"${virtiofsd}/bin/virtiofsd\"]!" \
+        -e "s!^virtio_fs_daemon.*!virtio_fs_daemon=\"${qemu_kvm}/bin/virtiofsd\"!" \
+        -e "s!^valid_virtio_fs_daemon_paths.*!valid_virtio_fs_daemon_paths=[\"${qemu_kvm}/bin/virtiofsd\"]!" \
         "$out/share/defaults/kata-containers/"*.toml
 
       runHook postInstall
