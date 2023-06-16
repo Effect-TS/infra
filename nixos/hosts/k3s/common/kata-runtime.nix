@@ -42,7 +42,7 @@ in
       "PREFIX=${placeholder "out"}"
       "DEFAULT_HYPERVISOR=qemu"
       "HYPERVISORS=qemu"
-      "QEMUPATH=${qemu_kvm}/bin/qemu-virtiofs-system-x86_64"
+      "QEMUPATH=${qemu_kvm}/bin/qemu-system-x86_64"
     ];
 
     buildPhase = ''
