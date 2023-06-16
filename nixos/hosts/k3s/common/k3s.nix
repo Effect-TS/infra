@@ -53,8 +53,6 @@ in {
   environment.systemPackages = with pkgs.unstable; [
     (writeShellScriptBin "k3s-reset-node" (builtins.readFile ./k3s-reset-node))
     (callPackage ./kubectl-ko.nix {})
-    cri-tools
-    kubevirt
     wireguard-tools
   ];
 
@@ -74,7 +72,6 @@ in {
         # "--cluster-cidr=10.32.0.0/11,fd01:c26e:7c96:4a4c::/64"
         # "--service-cidr=10.64.0.0/12,fdb6:5037:f7b9:190a::/108"
         # "--disable-network-policy"
-        "--kube-apiserver-arg 'allow-privileged=true'"
         "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
       ];
       tokenFile = lib.mkDefault config.sops.secrets.k3s-server-token.path;

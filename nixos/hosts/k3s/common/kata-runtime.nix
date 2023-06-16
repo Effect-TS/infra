@@ -56,7 +56,7 @@ in
     installPhase = ''
       runHook preInstall
       HOME=$TMPDIR GOPATH=$TMPDIR/gopath make ${toString makeFlags} install
-      # ln -s $out/bin/containerd-shim-kata-v2 $out/bin/containerd-shim-kata-qemu-v2
+      ln -s $out/bin/containerd-shim-kata-v2 $out/bin/containerd-shim-kata-qemu-v2
       # qemu images don't work on read-only mounts, we need to put it into a mutable directory
       sed -i \
         -e "s!$out/share/kata-containers!/var/lib/kata-containers!" \
