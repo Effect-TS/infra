@@ -134,7 +134,7 @@ in {
             cni = {
               # bin_dir = "${cniBinDir}";
               # conf_dir = "${cniConfDir}";
-              conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
+              # conf_dir = "/var/lib/rancher/k3s/agent/etc/cni/net.d/";
               bin_dir = "${pkgs.runCommand "cni-bin-dir" {} ''
                 mkdir -p $out
                 ln -sf ${pkgs.cni-plugins}/bin/* ${pkgs.cni-plugin-flannel}/bin/* $out
