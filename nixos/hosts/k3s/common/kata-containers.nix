@@ -61,7 +61,7 @@ in {
                     pod_annotations = ["io.katacontainers.*"];
                     container_annotations = ["io.katacontainers.*"];
                     options = {
-                      ConfigPath = configFile.path;
+                      ConfigPath = "${configFile}";
                     };
                   };
                 };
