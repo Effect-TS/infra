@@ -11,7 +11,7 @@
   configFile = settingsFormat.generate "configuration.toml" cfg.settings;
   flannel = builtins.toJSON {
     name = "cbr0";
-    cniVersion = "1.1.2";
+    cniVersion = "1.0.0";
     plugins = [
       {
         type = "flannel";
