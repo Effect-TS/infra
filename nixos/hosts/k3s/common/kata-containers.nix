@@ -83,7 +83,7 @@ in {
                     privileged_without_host_devices = true;
                     pod_annotations = ["io.katacontainers.*"];
                     container_annotations = ["io.katacontainers.*"];
-                    options = lib.optionalAttrs (cfg.settings == {}) {
+                    options = lib.optionalAttrs (cfg.settings != {}) {
                       ConfigPath = "${configFile}";
                     };
                   };
