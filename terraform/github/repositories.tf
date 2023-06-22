@@ -46,6 +46,8 @@ resource "github_branch_default" "main" {
 resource "github_branch_protection" "main" {
   for_each = {
     for repository in github_repository.repository :
+    # Branch protection can only be enabled on private repositories with a paid
+    # GitHub plan
     repository.name => repository.node_id if repository.visibility == "public"
   }
 
@@ -65,12 +67,12 @@ resource "github_branch_protection" "main" {
 }
 
 resource "github_repository_collaborators" "collaborators" {
-  for_each = var.repositories
+  for_each = github_repository.repository
 
-  repository = each.key
+  repository = each.value.name
 
   dynamic "user" {
-    for_each = each.value.collaborators
+    for_each = var.repositories[each.value.name].collaborators
 
     content {
       username   = user.value.username
