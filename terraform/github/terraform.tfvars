@@ -28,6 +28,12 @@ repositories = {
     description  = "An opinionated documentation generator for Effect projects"
     homepage_url = "https://effect-ts.github.io/docgen"
   }
+  docs-ai = {
+    description       = "Experimentation with artificial intelligence for augmenting Effect's documentation"
+    enable_changesets = false
+    enable_pages      = false
+    visibility        = "private"
+  }
   discord-bot = {
     description       = "The Effect Community's custom Discord bot, built with Effect"
     collaborators     = [{ username = "tim-smart", permission = "push" }]
