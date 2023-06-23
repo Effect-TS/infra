@@ -35,6 +35,25 @@ resource "aws_iam_policy" "read_write_terraform_state" {
   policy      = data.aws_iam_policy_document.read_write_terraform_state.json
 }
 
+data "aws_iam_policy_document" "terraform_enforcement" {
+  version = "2012-10-17"
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "iam:GetOpenIDConnectProvider",
+      "iam:GetPolicy",
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "terraform_enforcement" {
+  name        = "terraform-enforcement"
+  description = "Grant the least privileged access required for Terraform in AWS"
+  policy      = data.aws_iam_policy_document.terraform_enforcement.json
+}
+
 ################################################################################
 # IAM Role - GitHub Actions OIDC
 ################################################################################
@@ -75,11 +94,16 @@ data "aws_iam_policy_document" "github_actions" {
 }
 
 resource "aws_iam_role" "github_actions" {
-  name               = "github-actions"
+  name               = "GitHubAction-AssumeRoleWithAction"
   assume_role_policy = data.aws_iam_policy_document.github_actions.json
 }
 
 resource "aws_iam_role_policy_attachment" "github_actions" {
   role       = aws_iam_role.github_actions.name
   policy_arn = aws_iam_policy.read_write_terraform_state.arn
+}
+
+resource "aws_iam_role_policy_attachment" "terraform_enforcement" {
+  role       = aws_iam_role.github_actions.name
+  policy_arn = aws_iam_policy.terraform_enforcement.arn
 }

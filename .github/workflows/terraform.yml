@@ -38,9 +38,8 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions
-          role-session-name: github-actions-session
           aws-region: ${{ secrets.DEFAULT_AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
