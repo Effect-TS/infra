@@ -86,10 +86,10 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.type === 'Bot' &&
-                comment.body.includes('Terraform Enforcement Summary (${process.env.TF_ENVIRONMENT})')
+                comment.body.includes('Terraform Enforcement Summary (${{ env.TF_ENVIRONMENT }})')
             )
 
-            const output = `## Terraform Enforcement Summary (${process.env.TF_ENVIRONMENT})
+            const output = `## Terraform Enforcement Summary (${{ env.TF_ENVIRONMENT }})
             #### Terraform Format and Style: 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization: ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation: 🤖\`${{ steps.validate.outcome }}\`
@@ -103,7 +103,7 @@ jobs:
 
             </details>
 
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${process.env.TF_ENVIRONMENT}\`, Workflow: \`${{ github.workflow }}\`*`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.TF_ENVIRONMENT }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
             if (botComment) {
               github.rest.issues.updateComment({
