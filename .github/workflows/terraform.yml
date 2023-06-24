@@ -63,7 +63,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false -out=terraform-${{ matrix.terraform_module }}.tfplan
+        run: terraform plan -no-color -input=false
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         continue-on-error: true
@@ -125,4 +125,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false terraform-${{ matrix.terraform_module }}.tfplan
+        run: terraform apply -auto-approve -input=false
