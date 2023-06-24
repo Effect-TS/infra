@@ -14,10 +14,6 @@ on:
     paths:
       - terraform/**
 
-env:
-  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-  TF_LOG: INFO
-
 permissions:
   contents: read
   id-token: write
@@ -68,6 +64,8 @@ jobs:
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         continue-on-error: true
 
       - uses: actions/github-script@v6
