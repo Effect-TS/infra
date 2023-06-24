@@ -25,12 +25,12 @@ jobs:
 
     strategy:
       matrix:
-        terraform_environment: [aws, github]
+        terraform_module: [aws, github]
 
     defaults:
       run:
         shell: bash
-        working-directory: terraform/${{ matrix.terraform_environment }}
+        working-directory: terraform/${{ matrix.terraform_module }}
 
     steps:
       - uses: actions/checkout@v3
@@ -63,7 +63,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false
+        run: terraform plan -no-color -input=false -out=terraform-${{ matrix.terraform_module }}.tfplan
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         continue-on-error: true
@@ -73,7 +73,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-          TF_ENVIRONMENT: ${{ matrix.terraform_environment }}
+          TERRAFORM_MODULE: ${{ matrix.terraform_module }}
         with:
           script: |
             const { data: comments } = await github.rest.issues.listComments({
@@ -84,10 +84,10 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.type === 'Bot' &&
-                comment.body.includes('Terraform Enforcement Summary (${{ env.TF_ENVIRONMENT }})')
+                comment.body.includes('Terraform Enforcement Summary (${{ env.TERRAFORM_MODULE }})')
             )
 
-            const output = `## Terraform Enforcement Summary (${{ env.TF_ENVIRONMENT }})
+            const output = `## Terraform Enforcement Summary (${{ env.TERRAFORM_MODULE }})
             #### Terraform Format and Style: 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization: ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation: 🤖\`${{ steps.validate.outcome }}\`
@@ -101,7 +101,7 @@ jobs:
 
             </details>
 
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.TF_ENVIRONMENT }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.TERRAFORM_MODULE }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
             if (botComment) {
               github.rest.issues.updateComment({
@@ -125,4 +125,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false terraform-${{ matrix.terraform_module }}.tfplan
