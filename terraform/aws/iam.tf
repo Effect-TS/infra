@@ -44,7 +44,8 @@ data "aws_iam_policy_document" "terraform_enforcement" {
       "iam:GetOpenIDConnectProvider",
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
-      "iam:GetRole"
+      "iam:GetRole",
+      "iam:ListRolePolicies",
     ]
     resources = ["*"]
   }
