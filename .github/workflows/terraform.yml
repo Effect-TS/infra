@@ -18,8 +18,9 @@ env:
   TF_LOG: INFO
 
 permissions:
-  id-token: write
   contents: read
+  id-token: write
+  issues: write
 
 jobs:
   terraform_aws:
