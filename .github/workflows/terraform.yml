@@ -28,7 +28,7 @@ jobs:
 
     strategy:
       matrix:
-        terraform_environment: [aws]
+        terraform_environment: [aws, github]
 
     defaults:
       run:
