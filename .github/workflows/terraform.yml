@@ -15,6 +15,7 @@ on:
       - terraform/**
 
 env:
+  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
   TF_LOG: INFO
 
 permissions:
