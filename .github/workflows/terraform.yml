@@ -23,20 +23,25 @@ permissions:
   pull-requests: write
 
 jobs:
-  terraform_aws:
+  terraform_enforcement:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        terraform_environment: [aws, github]
 
     defaults:
       run:
         shell: bash
-        working-directory: ./terraform/aws
+        working-directory: terraform/${{ matrix.terraform_environment }}
 
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: configure aws credentials
+      - name: Configure AWS Credentials
+        if: matrix.terraform_environment == 'aws'
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: ${{ secrets.DEFAULT_AWS_REGION }}
@@ -70,12 +75,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+          TF_ENVIRONMENT: ${{ matrix.terraform_environment }}
         with:
           script: |
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+                comment.body.includes('Terraform Enforcement Summary (${process.env.TF_ENVIRONMENT})')
+            )
+
+            const output = `## Terraform Enforcement Summary (${process.env.TF_ENVIRONMENT})
+            #### Terraform Format and Style: 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization: ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation: 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan: 📖\`${{ steps.plan.outcome }}\`
 
             <details><summary>Show Plan</summary>
 
@@ -84,14 +102,24 @@ jobs:
             \`\`\`
 
             </details>
-            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+            if (botComment) {
+              github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              })
+            } else {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              })
+            }
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
