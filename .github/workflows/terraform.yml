@@ -41,7 +41,6 @@ jobs:
           fetch-depth: 0
 
       - name: Configure AWS Credentials
-        if: matrix.terraform_environment == 'aws'
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: ${{ secrets.DEFAULT_AWS_REGION }}
