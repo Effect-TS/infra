@@ -7,6 +7,8 @@ keys:
   - &host_devbox age1cd8stpd83v0zwfk7ke80nag65mxvxgc8rfjx86a4rk35wevymfwq747zwx
   # K3s
   - &k3s_sops_operator age1pwu309yva6z9qs5z4n5dytns3jze850das6y2qntqq5yc8wzc52sk4nufy
+  # Effect-TS GitHub Organization
+  - &github_organization age14ge7pvpta4u03gygnz5jcw4lqra4f2txg2emwtu2qlywhxzu59uq92avw8
 creation_rules:
   - encrypted_regex: ^(data|stringData)$
     path_regex: k3s/.*/secrets/.*\.ya?ml$
@@ -26,3 +28,4 @@ creation_rules:
       - age:
           - *admin_maxwellbrown
           - *admin_mikearnaldi
+          - *github_organization
