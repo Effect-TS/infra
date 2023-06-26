@@ -52,7 +52,7 @@ repositories = {
       { username = "remiguittaut", permission = "push" },
       { username = "rzeigler", permission = "push" },
     ]
-    homepage_url = "https://effect-ts.github.io/effect"
+    homepage_url = "https://www.effect.website"
     topics       = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
   }
   eslint-plugin = {
