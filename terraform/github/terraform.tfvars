@@ -170,6 +170,10 @@ repositories = {
     description  = ""
     homepage_url = "https://effect-ts.github.io/test"
   }
+  typeclass = {
+    description  = "A collection of re-usable typeclasses for the Effect ecosystem"
+    homepage_url = "https://effect-ts.github.io/typeclass"
+  }
   vite-plugin = {
     description  = ""
     enable_pages = false
