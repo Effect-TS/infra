@@ -22,6 +22,7 @@
               config.home-manager.users.mikearnaldi.sshKeys.personal.keys
               ++ [
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBY2vg6JN45hpcl9HH279/ityPEGGOrDjY3KdyulOUmX"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ4R7xrSS+QLuEVqFGgdsIRSc+KINQ2nCJpTTBYfEq8t michaelarnaldi@MacBook-Pro.station"
               ];
           };
         };
