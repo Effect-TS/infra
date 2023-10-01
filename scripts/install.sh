@@ -28,20 +28,20 @@ apt install -y dpkg-dev "linux-headers-$(uname -r)" linux-image-amd64 sudo parte
 echo 'AUTO -all
 ARRAY <ignore> UUID=00000000:00000000:00000000:00000000' > /etc/mdadm/mdadm.conf
 
-parted --script --align optimal "/dev/disk/by-id/${DISK1}" -- \
+parted --script --align optimal "${DISK1}" -- \
   mklabel gpt \
-  mkpart 'BIOS-boot' 1MiB 2MiB set 1 bios_grub on \
-  mkpart 'boot' 2MiB 512MiB set 2 esp on \
-  mkpart 'zfs-pool' 512MiB '100%'
+  mkpart 'bios-boot' 1MiB 2MiB set 1 bios_grub on \
+  mkpart 'efi-system' 2MiB 256MiB set 2 esp on \
+  mkpart 'zfs' 256MiB '100%'
 
-parted --script --align optimal "/dev/disk/by-id/nvme-SAMSUNG_MZVL2512HCJQ-00B00_S675NE0T501620" -- \
+parted --script --align optimal "${DISK2}" -- \
   mklabel gpt \
-  mkpart 'BIOS-boot' 1MiB 2MiB set 1 bios_grub on \
-  mkpart 'boot' 2MiB 512MiB set 2 esp on \
-  mkpart 'data' 512MiB '100%'
+  mkpart 'bios-boot' 1MiB 2MiB set 1 bios_grub on \
+  mkpart 'efi-system' 2MiB 256MiB set 2 esp on \
+  mkpart 'ceph' 256MiB '100%'
 
-mdadm --zero-superblock --force
-mdadm --zero-superblock --force
+mdadm --zero-superblock --force "${DISK1}-part2" || true
+mdadm --zero-superblock --force "${DISK2}-part2" || true
 
 # Reload partitions
 partprobe
@@ -53,17 +53,26 @@ zpool create -O mountpoint=none \
     -O acltype=posixacl \
     -o ashift=12 \
     -f \
-    zroot "${DISK1}-part3" "${DISK2}-part3"
+    zroot "${DISK1}-part3"
 
-zfs create -o mountpoint=legacy zroot/root
-zfs create -o mountpoint=legacy zroot/root/nixos
-zfs create -o mountpoint=legacy zroot/home
+# Create "local" dataset to hold datasets that should almost never be snapshotted
+zfs create -o mountpoint=legacy zroot/local
+zfs create -o mountpoint=legacy zroot/local/nix
+# Create "nixos" dataset to hold nixos system files, periodically snapshotted
+zfs create -o mountpoint=legacy zroot/nixos
+zfs create -o mountpoint=legacy zroot/nixos/root
+# Create "user" dataset to hold user data, regularly snapshotted
+zfs create -o mountpoint=legacy zroot/user
+zfs create -o mountpoint=legacy zroot/user/home
+# Create "reserved" dataset to ensure we do not run out of disk space
 zfs create -o refreservation=1G -o mountpoint=none zroot/reserved
-zfs create zroot/longhorn
 
-mount -t zfs zroot/root/nixos /mnt
+mkdir /mnt/nix
 mkdir /mnt/home
-mount -t zfs zroot/home /mnt/home
+
+mount -t zfs zroot/nixos/root /mnt
+mount -t zfs zroot/local/nix /mnt/nix
+mount -t zfs zroot/user/home /mnt/home
 
 # Create a raid mirror for the efi boot
 # see https://docs.hetzner.com/robot/dedicated-server/operating-systems/efi-system-partition/
@@ -73,9 +82,9 @@ mdadm --create --run --verbose /dev/md127 \
     --level 1 \
     --raid-disks 2 \
     --metadata 1.0 \
-    --homehost=host-01 \
+    --homehost=k3s-host-01 \
     --name=boot_efi \
-    "/dev/disk/by-id/nvme-SAMSUNG_MZVL2512HCJQ-00B00_S675NE0T501629-part2" "/dev/disk/by-id/nvme-SAMSUNG_MZVL2512HCJQ-00B00_S675NE0T501620-part2"
+    "${DISK1}-part2" "${DISK2}-part2"
 
 # Assembling the RAID can result in auto-activation of previously-existing LVM
 # groups, preventing the RAID block device wiping below with
@@ -120,7 +129,7 @@ set -u -x
 # Discrepancies will be listed below:
 
 # Use latest NixOS version
-nix-channel --add https://nixos.org/channels/nixos-22.11 nixpkgs
+nix-channel --add https://nixos.org/channels/nixos-23.05 nixpkgs
 nix-channel --update
 
 nix-env -iE "_: with import <nixpkgs/nixos> { configuration = {}; }; with config.system.build; [ nixos-generate-config nixos-install nixos-enter manual.manpages ]"
@@ -202,10 +211,9 @@ cat > /mnt/etc/nixos/configuration.nix <<EOF
 }
 EOF
 
-# https://github.com/nix-community/home-manager/issues/2564#issuecomment-1001050504
-export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels
+nix shell --extra-experimental-features 'nix-command flakes' nixpkgs#coreutils
 
-PATH="$PATH" NIX_PATH="$NIX_PATH" $(which nixos-install) \
+PATH="$PATH" $(which nixos-install) \
   --no-root-passwd --root /mnt --max-jobs 40
 
 nix --extra-experimental-features flakes --extra-experimental-features nix-command shell nixpkgs#speedtest-cli
