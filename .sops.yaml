@@ -1,0 +1,33 @@
+keys:
+  # Personal SSH
+  - &admin_maxwellbrown age1usc2072gec0plj2q866m0uyeh2rly60xnxts4c3xxh50cwygte8s8avj8a
+  - &admin_michaelarnaldi age15umcap7zkzq5g32zykcywjk0l6cwldxqk7e46t2ynkkwy0eghuas5rs6t7
+  # Host SSH
+  - &k3s_node_01 age1cq0k4ew3nenyle3ym2dla736nncw4l0lnm84dfzn4hqakdqu6d6q2uv42y
+  - &k3s_node_02 age1revva34w77xczud6d7k3pf6pj8n5dwwpznvsd4y47emjkm2cpuxq35txln
+  - &k3s_node_03 age1fqgch9g65nhefcs6tm6vz49y9xck7uwk0cecj0gyx856gfl9p5zsupd3wu
+  # Effect-TS GitHub Organization
+  - &github_organization age14ge7pvpta4u03gygnz5jcw4lqra4f2txg2emwtu2qlywhxzu59uq92avw8
+creation_rules:
+  - path_regex: nixos/secrets.*\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
+          - *admin_michaelarnaldi
+          - *k3s_node_01
+          - *k3s_node_02
+          - *k3s_node_03
+  - path_regex: nixos/.*/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
+          - *admin_michaelarnaldi
+          - *k3s_node_01
+          - *k3s_node_02
+          - *k3s_node_03
+  - path_regex: terraform/.*/secrets\.ya?ml$
+    key_groups:
+      - age:
+          - *admin_maxwellbrown
+          - *admin_michaelarnaldi
+          - *github_organization

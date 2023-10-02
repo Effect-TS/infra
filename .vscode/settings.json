@@ -1,0 +1,43 @@
+{
+  "nix.enableLanguageServer": true,
+  "nix.formatterPath": [
+    "nix",
+    "fmt",
+    "--",
+    "-"
+  ],
+  "nix.serverPath": "nil",
+  "nix.serverSettings": {
+    "nil": {
+      "diagnostics": {
+        "ignored": [
+          "unused_binding",
+          "unused_with"
+        ]
+      },
+      "formatting": {
+        "command": [
+          "alejandra"
+        ]
+      }
+    }
+  },
+
+  "black-formatter.args": ["--config", "./pyproject.toml"],
+  "black-formatter.importStrategy": "fromEnvironment",
+  "ruff.args": ["--config=./pyproject.toml"],
+  "ruff.importStrategy": "fromEnvironment",
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
+  },
+  "python.formatting.provider": "none",
+  "python.linting.flake8Enabled": false,
+  "python.analysis.typeCheckingMode": "basic"
+}

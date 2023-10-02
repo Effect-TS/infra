@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "charliermarch.ruff",
+    "jnoortheen.nix-ide",
+    "mkhl.direnv",
+    "ms-python.black-formatter",
+    "ms-python.python",
+    "ms-python.vscode-pylance"
+  ]
+}

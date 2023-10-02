@@ -1,0 +1,3 @@
+.direnv
+.ruff_cache
+.pre-commit-config.yaml

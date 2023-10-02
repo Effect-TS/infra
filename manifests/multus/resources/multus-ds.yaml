@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-ds
+  namespace: kube-system
+  labels:
+    tier: node
+    app: multus
+    name: multus
+spec:
+  selector:
+    matchLabels:
+      name: multus
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        tier: node
+        app: multus
+        name: multus
+    spec:
+      hostNetwork: true
+      tolerations:
+        - operator: Exists
+          effect: NoSchedule
+        - operator: Exists
+          effect: NoExecute
+      serviceAccountName: multus
+      containers:
+        - name: kube-multus
+          image: ghcr.io/k8snetworkplumbingwg/multus-cni:snapshot
+          command: ["/thin_entrypoint"]
+          args:
+            - "--multus-conf-file=/tmp/multus-conf/00-multus.conf"
+            - "--multus-autoconfig-dir=/host/etc/cni/net.d"
+            - "--cni-conf-dir=/host/etc/cni/net.d"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "50Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: host-nix
+              mountPath: /nix
+              readOnly: true
+            - name: host-cni-conf
+              mountPath: /host/etc/cni/net.d
+            - name: host-cni-bin
+              mountPath: /host/opt/cni/bin
+            - name: multus-cfg
+              mountPath: /tmp/multus-conf
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: host-nix
+          hostPath:
+            path: /nix
+        - name: host-cni-conf
+          hostPath:
+            path: /etc/cni/net.d
+        - name: host-cni-bin
+          hostPath:
+            path: /opt/cni/bin
+        - name: multus-cfg
+          configMap:
+            name: multus-cni-config
+            items:
+              - key: cni-conf.json
+                path: 00-multus.conf
