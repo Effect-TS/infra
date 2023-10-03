@@ -1,6 +1,6 @@
 {...}: let
   maxwellbrownKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPsBd6asppvftBGAxsu2MutHRiFKQIsyMakAheN/2GzK"];
-  michaelarnaldiKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEzPT600TtIVU+Ch+sbkB2GuJb+ZScNkOHKhPb6Q8AHv ma@matechs.com"];
+  michaelarnaldiKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ4R7xrSS+QLuEVqFGgdsIRSc+KINQ2nCJpTTBYfEq8t michaelarnaldi@MacBook-Pro.station"];
   adminKeys = maxwellbrownKeys ++ michaelarnaldiKeys;
   extraGroups = ["wheel"];
 in {
