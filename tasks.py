@@ -109,6 +109,12 @@ def deploy_k3s(_: Context) -> None:
     deploy_nixos([k3s_host_01])
     # Then deploy the other servers
     deploy_nixos([k3s_host_02, k3s_host_03])
+
+
+@task
+def deploy_kubeovn(_: Context) -> None:
+    manifest_path = "/etc/nixos/manifests/kube-ovn"
+    output_file = "kubeovn"
     # Relabel the K3s nodes
     k3s_host_01.run(
         make_relabel_command("beta.kubernetes.io/os=linux", "kubernetes.io/os=linux")
@@ -118,12 +124,6 @@ def deploy_k3s(_: Context) -> None:
             "node-role.kubernetes.io/control-plane", "kube-ovn/role=master"
         )
     )
-
-
-@task
-def deploy_kubeovn(_: Context) -> None:
-    manifest_path = "/etc/nixos/manifests/kube-ovn"
-    output_file = "kubeovn"
     k3s_host_01.run(
         ["kubectl", "kustomize", manifest_path, "--enable-helm", "-o", output_file]
     )

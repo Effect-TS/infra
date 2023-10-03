@@ -2,6 +2,7 @@
   config,
   lib,
   options,
+  pkgs,
   ...
 }: let
   inherit (lib) concatStringsSep mapAttrsToList mkOption types;
@@ -42,6 +43,7 @@ in {
 
     ../../modules/k3s
     ../../modules/kata-containers
+    ../../modules/libvirtd
     ../../modules/wireguard
   ];
 
@@ -98,15 +100,23 @@ in {
   };
 
   config = {
-    # modules.kata-containers = {
-    #   enable = true;
-    #   version = "3.1.3";
-    # };
+    environment.systemPackages = with pkgs; [
+      kubevirt
+    ];
+
+    modules.kata-containers = {
+      enable = true;
+      version = "3.1.3";
+    };
 
     modules.k3s = {
       enable = true;
       clusterInit = cfg.k3sServerAddr == "";
       serverAddr = cfg.k3sServerAddr;
+    };
+
+    modules.libvirtd = {
+      enable = true;
     };
 
     modules.wireguard = {
@@ -169,6 +179,7 @@ in {
 
     time.timeZone = lib.mkDefault "UTC";
 
+    # Enable OpenVSwitch
     virtualisation.vswitch = {
       enable = true;
       resetOnStart = true;

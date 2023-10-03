@@ -28,10 +28,12 @@
     "--disable-network-policy"
     "--secrets-encryption"
     "--kube-apiserver-arg 'authorization-mode=Node,RBAC'"
+    "--kube-apiserver-arg 'allow-privileged=true'"
   ];
 
   kubeovn-cni = pkgs.callPackage ../../packages/kube-ovn {};
   kubectl-ko = pkgs.callPackage ../../packages/kubectl-ko {};
+  kubectl-virt = pkgs.callPackage ../../packages/kubectl-virt {};
 
   cni-conf-dir = "/etc/cni/net.d";
   cni-bin-dir = "/opt/cni/bin";
@@ -65,6 +67,7 @@ in {
       pkgs.kubectl
       pkgs.kubernetes-helm
       kubectl-ko
+      kubectl-virt
     ];
 
     networking.firewall = {

@@ -46,8 +46,6 @@
         perSystem = {inputs', ...}: {
           # make pkgs available to all `perSystem` functions
           _module.args.pkgs = inputs'.nixpkgs.legacyPackages;
-
-          # formatter = config.treefmt.build.wrapper;
         };
       }
     ))
