@@ -33,6 +33,7 @@
 
   kubeovn-cni = pkgs.callPackage ../../packages/kube-ovn {};
   kubectl-ko = pkgs.callPackage ../../packages/kubectl-ko {};
+  kubectl-rook-ceph = pkgs.callPackage ../../packages/kubectl-rook-ceph {};
   kubectl-virt = pkgs.callPackage ../../packages/kubectl-virt {};
 
   cni-conf-dir = "/etc/cni/net.d";
@@ -67,6 +68,7 @@ in {
       pkgs.kubectl
       pkgs.kubernetes-helm
       kubectl-ko
+      kubectl-rook-ceph
       kubectl-virt
     ];
 

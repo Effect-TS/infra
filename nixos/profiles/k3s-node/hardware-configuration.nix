@@ -8,6 +8,8 @@
   ];
 
   boot = {
+    kernelModules = ["rbd"];
+
     loader = {
       grub = {
         enable = true;

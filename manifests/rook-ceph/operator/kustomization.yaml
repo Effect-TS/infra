@@ -1,0 +1,46 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: rook-ceph
+
+resources:
+  - ./namespace.yaml
+
+helmCharts:
+  - name: rook-ceph
+    version: 1.12.4
+    repo: https://charts.rook.io/release
+    namespace: rook-ceph
+    includeCRDs: false
+    valuesInline:
+      csi:
+        # -- The volume of the CephCSI RBD plugin DaemonSet
+        csiRBDPluginVolume:
+          - name: lib-modules
+            hostPath:
+              path: /run/current-system/kernel-modules/lib/modules/
+          - name: host-nix
+            hostPath:
+              path: /nix
+
+        # -- The volume mounts of the CephCSI RBD plugin DaemonSet
+        csiRBDPluginVolumeMount:
+          - name: host-nix
+            mountPath: /nix
+            readOnly: true
+
+        # -- The volume of the CephCSI CephFS plugin DaemonSet
+        csiCephFSPluginVolume:
+          - name: lib-modules
+            hostPath:
+              path: /run/current-system/kernel-modules/lib/modules/
+          - name: host-nix
+            hostPath:
+              path: /nix
+
+        # -- The volume mounts of the CephCSI CephFS plugin DaemonSet
+        csiCephFSPluginVolumeMount:
+          - name: host-nix
+            mountPath: /nix
+            readOnly: true

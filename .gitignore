@@ -1,3 +1,6 @@
 .direnv
 .ruff_cache
 .pre-commit-config.yaml
+
+# Auto generated Helm charts
+manifests/rook-ceph/*/charts

@@ -21,18 +21,19 @@ if [[ -n "${dataset}" ]]; then
 fi
 
 rm -rf \
-    /var/lib/rancher/ \
-    /var/lib/containerd \
-    /etc/rancher \
-    /run/containerd/ \
-    /var/etcd/ \
-    /var/lib/cni/ \
-    /run/ovn \
-    /run/openvswitch \
-    /opt/cni/ \
     /etc/cni/ \
     /etc/origin/ovn \
-    /etc/origin/openvswitch
+    /etc/origin/openvswitch \
+    /etc/rancher \
+    /opt/cni/ \
+    /run/containerd/ \
+    /run/openvswitch \
+    /run/ovn \
+    /var/etcd/ \
+    /var/lib/cni/ \
+    /var/lib/containerd \
+    /var/lib/rancher/ \
+    /var/lib/rook 
 
 if [[ -n "${should_restart}" ]]; then
     systemctl start k3s

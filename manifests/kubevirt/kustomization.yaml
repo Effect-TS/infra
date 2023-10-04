@@ -5,7 +5,3 @@ kind: Kustomization
 resources:
   - https://github.com/kubevirt/kubevirt/releases/download/v1.0.0/kubevirt-operator.yaml
   - https://github.com/kubevirt/kubevirt/releases/download/v1.0.0/kubevirt-cr.yaml
-
-annotations:
-  k8s.v1.cni.cncf.io/networks: default/net1
-  net1.default.ovn.kubernetes.io/logical_switch: net1

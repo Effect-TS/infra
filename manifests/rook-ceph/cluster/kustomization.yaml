@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: rook-ceph
+
+helmCharts:
+  - name: rook-ceph-cluster
+    version: 1.12.4
+    repo: https://charts.rook.io/release
+    namespace: rook-ceph
+    includeCRDs: false
+    valuesInline:
+      useAllNodes: true
+      useAllDevices: true
+      deviceFilter: nvme1n1p3
