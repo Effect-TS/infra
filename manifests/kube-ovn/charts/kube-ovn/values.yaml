@@ -1,4 +1,3 @@
----
 # Default values for kubeovn.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -19,8 +18,11 @@ image:
   pullPolicy: IfNotPresent
 
 namespace: kube-system
-replicaCount: 3
-MASTER_NODES: "10.0.0.1,10.0.0.2,10.0.0.3,"
+replicaCount: 1
+MASTER_NODES: ""
+
+kernel:
+  modules_path: /lib/modules
 
 networking:
   # NET_STACK could be dual_stack, ipv4, ipv6
@@ -36,7 +38,7 @@ networking:
   POD_NIC_TYPE: "veth-pair"
   vlan:
     PROVIDER_NAME: "provider"
-    VLAN_INTERFACE_NAME: "wg0"
+    VLAN_INTERFACE_NAME: ""
     VLAN_NAME: "ovn-vlan"
     VLAN_ID: "100"
   EXCHANGE_LINK_NAME: false
@@ -54,9 +56,6 @@ networking:
   OVN_REMOTE_OPENFLOW_INTERVAL: 180
   OVN_NORTHD_N_THREADS: 1
 
-kernel:
-  modules_path: /run/current-system/kernel-modules/lib/modules
-
 func:
   ENABLE_LB: true
   ENABLE_NP: true
@@ -73,12 +72,12 @@ func:
   ENABLE_TPROXY: false
 
 ipv4:
-  POD_CIDR: "10.32.0.0/11"
-  POD_GATEWAY: "10.32.0.1"
-  SVC_CIDR: "10.64.0.0/12"
-  JOIN_CIDR: "10.96.0.0/11"
-  PINGER_EXTERNAL_ADDRESS: "8.8.8.8"
-  PINGER_EXTERNAL_DOMAIN: "google.com."
+  POD_CIDR: "10.16.0.0/16"
+  POD_GATEWAY: "10.16.0.1"
+  SVC_CIDR: "10.96.0.0/12"
+  JOIN_CIDR: "100.64.0.0/16"
+  PINGER_EXTERNAL_ADDRESS: "114.114.114.114"
+  PINGER_EXTERNAL_DOMAIN: "alauda.cn."
 
 ipv6:
   POD_CIDR: "fd00:10:16::/112"
@@ -130,8 +129,8 @@ HUGEPAGES: 1Gi
 # DPDK
 DPDK: false
 DPDK_VERSION: "19.11"
-DPDK_CPU: "1000m"
-DPDK_MEMORY: "2Gi"
+DPDK_CPU: "1000m"                        # Default CPU configuration
+DPDK_MEMORY: "2Gi"                       # Default Memory configuration
 
 ovn-central:
   requests:

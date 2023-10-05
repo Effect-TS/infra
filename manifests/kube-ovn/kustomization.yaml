@@ -4,3 +4,17 @@ kind: Kustomization
 
 helmCharts:
   - name: kube-ovn
+    valuesInline:
+      MASTER_NODES: "10.0.0.1,10.0.0.2,10.0.0.3,"
+      replicaCount: 3
+      kernel:
+        modules_path: /run/current-system/kernel-modules/lib/modules
+      func:
+        ENABLE_LB: false
+      ipv4:
+        POD_CIDR: "10.16.0.0/16"
+        POD_GATEWAY: "10.16.0.1"
+        SVC_CIDR: "10.96.0.0/12"
+        JOIN_CIDR: "100.64.0.0/16"
+        PINGER_EXTERNAL_ADDRESS: "8.8.8.8"
+        PINGER_EXTERNAL_DOMAIN: "google.com."
