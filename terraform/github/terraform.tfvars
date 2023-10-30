@@ -63,18 +63,6 @@ repositories = {
     description  = "A repository of examples showing how to use Effect"
     enable_pages = false
   }
-  # express = {
-  #   description = "Express integration with Effect"
-  # }
-  fastify = {
-    description = "Fastify integration with Effect"
-    collaborators = [
-      { username = "antoine-coulon", permission = "push" },
-      { username = "jbmusso", permission = "push" },
-      { username = "tarrsalah", permission = "push" }
-    ]
-    enable_pages = false
-  }
   # figlet = {
   #   description = "An implementation of a FIGlet font parser and renderer built with Effect"
   # }
@@ -109,19 +97,10 @@ repositories = {
     homepage_url = "https://effect-ts.github.io/misc"
     enable_pages = false
   }
-  node = {
-    description  = ""
-    homepage_url = "https://effect-ts.github.io/node"
-    topics       = ["functional", "node"]
-    enable_pages = false
-  }
   opentelemetry = {
     description  = "OpenTelemetry integration with Effect"
     homepage_url = "https://effect-ts.github.io/opentelemetry"
   }
-  # otel = {
-  #   description = ""
-  # }
   platform = {
     description  = "Unified interfaces for common platform-specific services"
     homepage_url = "https://effect-ts.github.io/platform"
@@ -133,17 +112,9 @@ repositories = {
   # process = {
   #   description = "A simple library for interacting with external processes and command-line programs via Effect"
   # }
-  query = {
-    description  = "Efficiently pipeline, batch, and cache requests to any data source"
-    homepage_url = "https://effect-ts.github.io/query"
-    topics       = ["batching", "caching", "functional", "pipelining", "query"]
-  }
-  remix-plugin = {
-    description  = ""
-    enable_pages = false
-  }
   rpc = {
-    description = ""
+    description  = ""
+    homepage_url = "https://effect-ts.github.io/rpc"
   }
   scala-playground = {
     description  = "A Scala playground for the Effect maintainers"
@@ -152,11 +123,6 @@ repositories = {
   schema = {
     description  = "Modeling the schema of data structures as first-class values"
     homepage_url = "https://effect-ts.github.io/schema"
-  }
-  sqlite = {
-    description   = ""
-    collaborators = [{ username = "lokhmakov", permission = "maintain" }]
-    enable_pages  = false
   }
   stm = {
     description  = "An implementation of software transactional memory built with Effect"
@@ -173,10 +139,6 @@ repositories = {
   typeclass = {
     description  = "A collection of re-usable typeclasses for the Effect ecosystem"
     homepage_url = "https://effect-ts.github.io/typeclass"
-  }
-  vite-plugin = {
-    description  = ""
-    enable_pages = false
   }
   website = {
     description       = "Source code for Effect's documentation website"
