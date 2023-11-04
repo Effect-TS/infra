@@ -12,11 +12,9 @@ resource "github_repository_webhook" "discord" {
 
   active = true
   events = [
-    "fork",
     "issues",
-    "release",
-    "star",
-    "watch"
+    "pull_request",
+    "release"
   ]
 
   configuration {

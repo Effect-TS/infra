@@ -33,7 +33,6 @@ in
           python310Packages.pre-commit-hooks
           sops
           ssh-to-age
-          terraform
         ];
 
         KUSTOMIZE_PLUGIN_HOME = pkgs.buildEnv {
