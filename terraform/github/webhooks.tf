@@ -11,7 +11,11 @@ resource "github_repository_webhook" "discord" {
   repository = each.key
 
   active = true
-  events = ["*"]
+  events = [
+    "issues",
+    "pull_request",
+    "release"
+  ]
 
   configuration {
     url          = data.sops_file.secrets.data["discord_webhook_url"]
