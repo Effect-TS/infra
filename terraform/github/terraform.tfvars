@@ -75,6 +75,10 @@ repositories = {
     description = "A repository of examples showing how to use Effect"
     has_pages   = false
   }
+  experimental = {
+    description = "A repository for experimental Effect libraries"
+    has_pages   = false
+  }
   figlet = {
     description = "An implementation of a FIGlet font parser and renderer built with Effect"
     has_pages   = false
