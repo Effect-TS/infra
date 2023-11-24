@@ -76,8 +76,8 @@ repositories = {
     has_pages   = false
   }
   experimental = {
-    description = "A repository for experimental Effect libraries"
-    has_pages   = false
+    description  = "A repository for experimental Effect libraries"
+    homepage_url = "https://effect-ts.github.io/experimental"
   }
   figlet = {
     description = "An implementation of a FIGlet font parser and renderer built with Effect"
