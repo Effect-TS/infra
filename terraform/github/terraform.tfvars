@@ -192,5 +192,6 @@ organization_members = [
   "steida",
   "tim-smart",
   "tstelzer",
-  "wesselvdv"
+  "wesselvdv",
+  "ssalbdivad"
 ]
