@@ -23,7 +23,7 @@ repositories = {
   cli = {
     description  = "Rapidly build powerful and composable command-line applications"
     homepage_url = "https://effect-ts.github.io/cli"
-    pages        = { build_type = "legacy" }
+    pages        = { build_type = "workflow" }
   }
   cluster = {}
   data = {
