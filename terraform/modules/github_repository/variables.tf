@@ -54,12 +54,6 @@ variable "has_issues" {
   default     = true
 }
 
-variable "has_pages" {
-  type        = bool
-  description = "Whether or not to enable GitHub pages for the repository."
-  default     = false
-}
-
 variable "has_projects" {
   type        = bool
   description = <<-EOF
@@ -81,6 +75,28 @@ variable "collaborators" {
   }))
   description = "The GitHub users who are authorized to collaborate on the repository."
   default     = []
+}
+
+variable "pages" {
+  type = object({
+    build_type    = string
+    source_branch = optional(string)
+    source_path   = optional(string)
+  })
+  description = "Attributes associated with the GitHub Pages environment for a repository"
+  default     = null
+
+  validation {
+    condition     = var.pages != null ? contains(["legacy", "workflow"], var.pages.build_type) : true
+    error_message = "The build type for GitHub pages must be one of: 'legacy', 'workflow'"
+  }
+}
+locals {
+  pages = var.pages == null ? null : {
+    build_type    = var.pages.build_type
+    source_branch = var.default_branch
+    source_path   = "/docs"
+  }
 }
 
 ################################################################################
