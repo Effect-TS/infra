@@ -7,7 +7,7 @@ module "github_repository" {
   homepage_url    = each.value.homepage_url
   visibility      = each.value.visibility
   collaborators   = each.value.collaborators
+  pages           = each.value.pages
   has_discussions = each.value.has_discussions
-  has_pages       = each.value.has_pages
   is_archived     = each.value.is_archived
 }

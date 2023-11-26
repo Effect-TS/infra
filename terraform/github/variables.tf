@@ -17,12 +17,16 @@ variable "repositories" {
     visibility        = optional(string, "public")
     is_archived       = optional(bool, false)
     has_discussions   = optional(bool, false)
-    has_pages         = optional(bool, true)
     enable_changesets = optional(bool, true)
     collaborators = optional(list(object({
       username   = string,
       permission = string
     })), [])
+    pages = optional(object({
+      build_type    = string
+      source_branch = optional(string)
+      source_path   = optional(string)
+    }))
   }))
 }
 

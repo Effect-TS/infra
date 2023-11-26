@@ -21,13 +21,18 @@ resource "github_repository" "repository" {
 
 
   dynamic "pages" {
-    for_each = var.has_pages ? [1] : []
+    for_each = local.pages != null ? [1] : []
 
     content {
-      build_type = "legacy"
-      source {
-        branch = var.default_branch
-        path   = "/docs"
+      build_type = local.pages.build_type
+
+      dynamic "source" {
+        for_each = local.pages.build_type == "legacy" ? [1] : [0]
+
+        content {
+          branch = local.pages.source_branch
+          path   = local.pages.source_path
+        }
       }
     }
   }
