@@ -62,7 +62,7 @@ repositories = {
       { username = "remiguittaut", permission = "push" },
       { username = "rzeigler", permission = "push" },
     ]
-    pages        = { build_type = "legacy" }
+    pages        = { build_type = "workflow" }
     homepage_url = "https://www.effect.website"
     topics       = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
   }
