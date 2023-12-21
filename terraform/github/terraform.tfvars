@@ -3,6 +3,10 @@ changeset_bot_installation_id = "35785996"
 default_branch = "main"
 
 repositories = {
+  ".github" = {
+    description       = "Organization-wide configuration for Effect-TS"
+    enable_changesets = false
+  }
   awesome-effect = {}
   babel-plugin = {
     description  = "A babel plugin purpose-built for the Effect ecosystem"
