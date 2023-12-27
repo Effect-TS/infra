@@ -28,6 +28,7 @@ repositories = {
     description  = "Rapidly build powerful and composable command-line applications"
     homepage_url = "https://effect-ts.github.io/cli"
     pages        = { build_type = "workflow" }
+    is_archived  = true
   }
   cluster = {}
   data = {
@@ -115,21 +116,25 @@ repositories = {
     description  = "OpenTelemetry integration with Effect"
     homepage_url = "https://effect-ts.github.io/opentelemetry"
     pages        = { build_type = "legacy" }
+    is_archived  = true
   }
   platform = {
     description  = "Unified interfaces for common platform-specific services"
     homepage_url = "https://effect-ts.github.io/platform"
     pages        = { build_type = "legacy" }
+    is_archived  = true
   }
   printer = {
     description  = "An easy to use, extensible pretty-printer for rendering documents"
     homepage_url = "https://effect-ts.github.io/printer"
     pages        = { build_type = "legacy" }
+    is_archived  = true
   }
   rpc = {
     description  = ""
     homepage_url = "https://effect-ts.github.io/rpc"
     pages        = { build_type = "legacy" }
+    is_archived  = true
   }
   scala-playground = {
     description = "A Scala playground for the Effect maintainers"
@@ -138,6 +143,7 @@ repositories = {
     description  = "Modeling the schema of data structures as first-class values"
     homepage_url = "https://effect-ts.github.io/schema"
     pages        = { build_type = "legacy" }
+    is_archived  = true
   }
   stm = {
     description  = "An implementation of software transactional memory built with Effect"
@@ -163,6 +169,7 @@ repositories = {
     description  = "A collection of re-usable typeclasses for the Effect ecosystem"
     homepage_url = "https://effect-ts.github.io/typeclass"
     pages        = { build_type = "legacy" }
+    is_archived  = true
   }
   vite-plugin-react = {}
   website = {
