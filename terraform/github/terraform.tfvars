@@ -108,9 +108,6 @@ repositories = {
     topics        = ["functional-programming", "pattern-matching", "typescript"]
     is_archived   = true
   }
-  monorepo-testing = {
-    collaborators = [{ username = "fubhy", permission = "push" }]
-  }
   opentelemetry = {
     description  = "OpenTelemetry integration with Effect"
     homepage_url = "https://effect-ts.github.io/opentelemetry"
