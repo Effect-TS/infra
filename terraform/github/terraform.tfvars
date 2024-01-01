@@ -143,7 +143,6 @@ repositories = {
     description  = "Modeling the schema of data structures as first-class values"
     homepage_url = "https://effect-ts.github.io/schema"
     pages        = { build_type = "legacy" }
-    is_archived  = true
   }
   stm = {
     description  = "An implementation of software transactional memory built with Effect"
