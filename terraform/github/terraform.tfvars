@@ -185,13 +185,13 @@ organization_owners = [
   "IMax153",
   "mikearnaldi",
   "mirepri",
-  "schickling"
+  "schickling",
+  "fubhy"
 ]
 
 organization_members = [
   "0x706b",
   "aniravi24",
-  "fubhy",
   "mattiamanzati",
   "patroza",
   "pigoz",
