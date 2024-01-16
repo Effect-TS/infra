@@ -11,13 +11,15 @@ variable "default_branch" {
 variable "repositories" {
   description = "The Effect-TS organization repositories whose configuration should be managed"
   type = map(object({
-    description       = optional(string, "")
-    topics            = optional(set(string), [])
-    homepage_url      = optional(string, "")
-    visibility        = optional(string, "public")
-    is_archived       = optional(bool, false)
-    has_discussions   = optional(bool, false)
-    enable_changesets = optional(bool, true)
+    description        = optional(string, "")
+    topics             = optional(set(string), [])
+    homepage_url       = optional(string, "")
+    visibility         = optional(string, "public")
+    is_archived        = optional(bool, false)
+    has_discussions    = optional(bool, false)
+    enable_changesets  = optional(bool, true)
+    allow_squash_merge = optional(bool, true)
+    allow_rebase_merge = optional(bool, false)
     collaborators = optional(list(object({
       username   = string,
       permission = string
