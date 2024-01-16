@@ -60,17 +60,17 @@ repositories = {
     description = "Effect's custom fork of dtslint used to lint TypeScript declaration (.d.ts) files"
   }
   effect = {
-    description = "A fully-fledged functional effect system for TypeScript with a rich standard library"
+    description        = "A fully-fledged functional effect system for TypeScript with a rich standard library"
+    allow_rebase_merge = true
     collaborators = [
       { username = "DenisFrezzato", permission = "push" },
       { username = "isthatcentered", permission = "push" },
       { username = "remiguittaut", permission = "push" },
       { username = "rzeigler", permission = "push" },
     ]
-    pages              = { build_type = "workflow" }
-    homepage_url       = "https://www.effect.website"
-    topics             = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
-    allow_rebase_merge = true
+    pages        = { build_type = "workflow" }
+    homepage_url = "https://www.effect.website"
+    topics       = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
   }
   eslint-plugin = {
     description = "A set of ESlint and TypeScript rules to work with Effect"
