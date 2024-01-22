@@ -40,6 +40,7 @@ resource "github_branch_protection" "next-release" {
   required_linear_history = false
   allows_deletions        = false
   allows_force_pushes     = true
+  blocks_creations        = false
 
   required_status_checks {
     strict   = true
