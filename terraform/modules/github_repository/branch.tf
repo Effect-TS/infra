@@ -46,8 +46,4 @@ resource "github_branch_protection" "next-release" {
     strict   = true
     contexts = null
   }
-
-  required_pull_request_reviews {
-    required_approving_review_count = 0
-  }
 }
