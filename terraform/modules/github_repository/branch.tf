@@ -32,7 +32,7 @@ resource "github_branch_protection" "main" {
 resource "github_branch_protection" "next-release" {
   # Branch protection can only be enabled on private repositories if using a
   # paid GitHub plan
-  count = var.visibility == "public" ? var.has_release_branches ? 1 : 0 : 0
+  count = var.visibility == "public" && var.has_release_branches ? 1 : 0
 
   repository_id           = github_repository.repository.node_id
   pattern                 = "next-*"
