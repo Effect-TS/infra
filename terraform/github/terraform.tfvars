@@ -68,9 +68,10 @@ repositories = {
       { username = "remiguittaut", permission = "push" },
       { username = "rzeigler", permission = "push" },
     ]
-    pages        = { build_type = "workflow" }
-    homepage_url = "https://www.effect.website"
-    topics       = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
+    pages                = { build_type = "workflow" }
+    homepage_url         = "https://www.effect.website"
+    topics               = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
+    has_release_branches = true
   }
   eslint-plugin = {
     description = "A set of ESlint and TypeScript rules to work with Effect"

@@ -132,3 +132,9 @@ variable "delete_branch_on_merge" {
   description = "Automatically delete head branch after a pull request is merged. Defaults to 'true'."
   default     = true
 }
+
+variable "has_release_branches" {
+  type        = bool
+  description = "Has next-* branches for releases"
+  default     = false
+}
