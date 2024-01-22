@@ -38,6 +38,8 @@ resource "github_branch_protection" "next-release" {
   pattern                 = "next-*"
   enforce_admins          = true
   required_linear_history = false
+  allows_deletions        = false
+  allows_force_pushes     = true
 
   required_status_checks {
     strict   = true
