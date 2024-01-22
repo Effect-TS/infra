@@ -36,4 +36,25 @@ resource "github_repository" "repository" {
       }
     }
   }
+
+  dynamic "github_branch_protection" {
+    for_each = var.has_release_branches ? [1] : []
+
+    content {
+      count = var.visibility == "public" ? 1 : 0
+
+      repository_id           = github_repository.repository.node_id
+      pattern                 = "next-*"
+      enforce_admins          = true
+      required_linear_history = false
+      allows_deletions        = false
+      allows_force_pushes     = true
+      blocks_creations        = false
+
+      required_status_checks {
+        strict   = true
+        contexts = null
+      }
+    }
+  }
 }

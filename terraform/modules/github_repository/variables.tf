@@ -109,6 +109,12 @@ variable "default_branch" {
   default     = "main"
 }
 
+variable "has_release_branches" {
+  type        = bool
+  description = "Has next-* branches for releases"
+  default     = false
+}
+
 variable "allow_merge_commit" {
   type        = bool
   description = "Set to 'false' to disable merge commits to be created within the repository."
