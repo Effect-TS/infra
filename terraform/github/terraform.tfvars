@@ -38,9 +38,6 @@ repositories = {
     pages         = { build_type = "legacy" }
     is_archived   = true
   }
-  discord-bot = {
-    description = "The Effect Community's custom Discord bot, built with Effect"
-  }
   docgen = {
     description  = "An opinionated documentation generator for Effect projects"
     homepage_url = "https://effect-ts.github.io/docgen"
@@ -119,7 +116,7 @@ repositories = {
     is_archived   = true
   }
   monorepo-testing = {
-    collaborators = [{ username = "fubhy", permission = "push" }]
+    collaborators = [{ username = "fubhy", permission = "admin" }]
   }
   opentelemetry = {
     description  = "OpenTelemetry integration with Effect"
