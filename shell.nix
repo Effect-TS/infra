@@ -26,6 +26,7 @@ in
           home-manager
           kubectl
           kubernetes-helm
+          opentofu
           nix
           nil
           nixos-rebuild
