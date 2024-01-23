@@ -1,5 +1,5 @@
 ---
-name: Terraform Enforcement
+name: OpenTofu Enforcement
 
 on:
   push:
@@ -23,17 +23,17 @@ permissions:
   pull-requests: write
 
 jobs:
-  terraform_enforcement:
+  opentofu_enforcement:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        terraform_module: [aws, github]
+        opentofu_module: [aws, github]
 
     defaults:
       run:
         shell: bash
-        working-directory: terraform/${{ matrix.terraform_module }}
+        working-directory: terraform/${{ matrix.opentofu_module }}
 
     steps:
       - uses: actions/checkout@v3
@@ -46,27 +46,27 @@ jobs:
           aws-region: ${{ secrets.DEFAULT_AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
         with:
-          terraform_version: 1.5.0
+          tofu_version: 1.6.0-alpha1
 
-      - name: Terraform Init
+      - name: OpenTofu Init
         id: init
-        run: terraform init
+        run: tofu init
 
-      - name: Terraform Format
+      - name: OpenTofu Format
         id: fmt
-        run: terraform fmt -check
+        run: tofu fmt -check
 
-      - name: Terraform Validate
+      - name: OpenTofu Validate
         id: validate
-        run: terraform validate
+        run: tofu validate
 
-      - name: Terraform Plan
+      - name: OpenTofu Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false
+        run: otfu plan -no-color -input=false
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         continue-on-error: true
@@ -75,8 +75,8 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-          TERRAFORM_MODULE: ${{ matrix.terraform_module }}
+          PLAN: "tofu\n${{ steps.plan.outputs.stdout }}"
+          TERRAFORM_MODULE: ${{ matrix.opentofu_module }}
         with:
           script: |
             const { data: comments } = await github.rest.issues.listComments({
@@ -87,14 +87,14 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.type === 'Bot' &&
-                comment.body.includes('Terraform Enforcement Summary (${{ env.TERRAFORM_MODULE }})')
+                comment.body.includes('OpenTofu Enforcement Summary (${{ env.TERRAFORM_MODULE }})')
             )
 
-            const output = `## Terraform Enforcement Summary (${{ env.TERRAFORM_MODULE }})
-            #### Terraform Format and Style: 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization: ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation: 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan: 📖\`${{ steps.plan.outcome }}\`
+            const output = `## OpenTofu Enforcement Summary (${{ env.TERRAFORM_MODULE }})
+            #### OpenTofu Format and Style: 🖌\`${{ steps.fmt.outcome }}\`
+            #### OpenTofu Initialization: ⚙️\`${{ steps.init.outcome }}\`
+            #### OpenTofu Validation: 🤖\`${{ steps.validate.outcome }}\`
+            #### OpenTofu Plan: 📖\`${{ steps.plan.outcome }}\`
 
             <details><summary>Show Plan</summary>
 
@@ -122,12 +122,12 @@ jobs:
               })
             }
 
-      - name: Terraform Plan Status
+      - name: OpenTofu Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Apply
+      - name: OpenTofu Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-        run: terraform apply -auto-approve -input=false
+        run: tofu apply -auto-approve -input=false
