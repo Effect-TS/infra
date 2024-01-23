@@ -209,5 +209,6 @@ organization_members = [
   "tim-smart",
   "tstelzer",
   "wesselvdv",
-  "ssalbdivad"
+  "ssalbdivad",
+  "DadeSko"
 ]
