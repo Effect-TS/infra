@@ -61,6 +61,9 @@ repositories = {
   }
   effect = {
     description        = "A fully-fledged functional effect system for TypeScript with a rich standard library"
+    homepage_url       = "https://www.effect.website"
+    topics             = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
+    pages              = { build_type = "workflow" }
     allow_rebase_merge = true
     collaborators = [
       { username = "DenisFrezzato", permission = "push" },
@@ -68,10 +71,14 @@ repositories = {
       { username = "remiguittaut", permission = "push" },
       { username = "rzeigler", permission = "push" },
     ]
-    pages                = { build_type = "workflow" }
-    homepage_url         = "https://www.effect.website"
-    topics               = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
-    has_release_branches = true
+    branch_protection_rules = {
+      "next-*" = {
+        allows_force_pushes = true
+        required_status_checks = {
+          strict = true
+        }
+      }
+    }
   }
   eslint-plugin = {
     description = "A set of ESlint and TypeScript rules to work with Effect"

@@ -30,6 +30,31 @@ variable "repositories" {
       source_branch = optional(string)
       source_path   = optional(string)
     }))
+    branch_protection_rules = optional(map(object({
+      allows_deletions                = optional(bool)
+      allows_force_pushes             = optional(bool)
+      blocks_creations                = optional(bool)
+      enforce_admins                  = optional(bool)
+      lock_branch                     = optional(bool)
+      require_signed_commits          = optional(bool)
+      require_conversation_resolution = optional(bool)
+      push_restrictions               = optional(list(string))
+      force_push_bypassers            = optional(list(string))
+      required_linear_history         = optional(bool)
+      required_pull_request_reviews = optional(object({
+        dismiss_stale_reviews           = optional(bool)
+        dismissal_restrictions          = optional(list(string))
+        restrict_dismissals             = optional(bool)
+        pull_request_bypassers          = optional(list(string))
+        require_code_owner_reviews      = optional(bool)
+        required_approving_review_count = optional(number)
+        require_last_push_approval      = optional(bool)
+      }))
+      required_status_checks = optional(object({
+        strict   = optional(bool)
+        contexts = optional(list(string))
+      }))
+    })))
   }))
 }
 

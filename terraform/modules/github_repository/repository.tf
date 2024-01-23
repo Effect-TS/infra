@@ -19,7 +19,6 @@ resource "github_repository" "repository" {
   has_projects    = var.has_projects
   has_wiki        = var.visibility == "public"
 
-
   dynamic "pages" {
     for_each = local.pages != null ? [1] : []
 
