@@ -31,6 +31,11 @@ repositories = {
     is_archived  = true
   }
   cluster = {}
+  codemod = {
+    description  = "Code mod's for the Effect ecosystem"
+    homepage_url = "https://effect-ts.github.io/codemod"
+    pages        = { build_type = "legacy" }
+  }
   data = {
     description   = "Custom built data types leveraged by the Effect ecosystem"
     collaborators = [{ username = "enricopolanski", permission = "push" }]
