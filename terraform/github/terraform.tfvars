@@ -183,6 +183,9 @@ repositories = {
     is_archived  = true
   }
   vite-plugin-react = {}
+  vscode-extension = {
+    description = "Tools to assist development with the Effect Typescript framework"
+  }
   website = {
     description       = "Source code for Effect's documentation website"
     collaborators     = [{ username = "lukaswiesehan", permission = "push" }]
