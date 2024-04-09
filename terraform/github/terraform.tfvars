@@ -30,7 +30,10 @@ repositories = {
     pages        = { build_type = "workflow" }
     is_archived  = true
   }
-  cluster = {}
+  cluster = {
+    homepage_url = "https://effect-ts.github.io/cluster"
+    pages        = { build_type = "workflow" }
+  }
   codemod = {
     description  = "Code mod's for the Effect ecosystem"
     homepage_url = "https://effect-ts.github.io/codemod"
