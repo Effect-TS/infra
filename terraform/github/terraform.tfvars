@@ -66,9 +66,9 @@ repositories = {
     description = "Effect's custom fork of dtslint used to lint TypeScript declaration (.d.ts) files"
   }
   effect = {
-    description        = "A fully-fledged functional effect system for TypeScript with a rich standard library"
-    homepage_url       = "https://www.effect.website"
-    topics             = ["effect-system", "fp", "framework", "stack-safe", "typescript", "zio"]
+    description        = "An ecosystem of tools to build robust applications in TypeScript"
+    homepage_url       = "https://effect.website"
+    topics             = ["javascript", "cli", "platform", "typescript", "schema", "effect", "opentelemetry"]
     pages              = { build_type = "workflow" }
     allow_rebase_merge = true
     collaborators = [
