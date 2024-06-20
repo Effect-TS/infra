@@ -95,7 +95,7 @@ locals {
   pages = var.pages == null ? null : {
     build_type    = var.pages.build_type
     source_branch = var.default_branch
-    source_path   = "/docs"
+    source_path   = var.pages.build_type == "legacy" ? "/docs" : "/"
   }
 }
 
