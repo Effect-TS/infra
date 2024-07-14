@@ -224,5 +224,6 @@ organization_members = [
   "ssalbdivad",
   "DadeSko",
   "Andarist",
-  "datner"
+  "datner",
+  "ecyrbe"
 ]
