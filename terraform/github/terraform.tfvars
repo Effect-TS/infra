@@ -62,12 +62,7 @@ repositories = {
     topics             = ["javascript", "cli", "platform", "typescript", "schema", "effect", "opentelemetry"]
     pages              = { build_type = "workflow" }
     allow_rebase_merge = true
-    collaborators = [
-      { username = "DenisFrezzato", permission = "push" },
-      { username = "isthatcentered", permission = "push" },
-      { username = "remiguittaut", permission = "push" },
-      { username = "rzeigler", permission = "push" },
-    ]
+    collaborators      = []
     branch_protection_rules = {
       "next-*" = {
         allows_force_pushes = true
@@ -179,19 +174,9 @@ organization_owners = [
 ]
 
 organization_members = [
-  "0x706b",
-  "aniravi24",
   "mattiamanzati",
   "patroza",
-  "pigoz",
-  "qlonik",
-  "r-cyr",
-  "sledorze",
-  "steida",
   "tim-smart",
-  "tstelzer",
-  "wesselvdv",
-  "ssalbdivad",
   "DadeSko",
   "Andarist",
   "datner",
