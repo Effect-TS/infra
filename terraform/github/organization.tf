@@ -1,7 +1,7 @@
 resource "github_organization_settings" "effect_ts" {
   name             = "Effect"
   description      = "A set of libraries to write better TypeScript"
-  billing_email    = "ma@matechs.com"
+  billing_email    = "michael.arnaldi@effectful.co"
   blog             = "https://www.effect.website"
   email            = "ma@matechs.com"
   twitter_username = "EffectTS_"

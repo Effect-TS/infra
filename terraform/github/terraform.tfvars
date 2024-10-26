@@ -19,15 +19,18 @@ repositories = {
     pages        = { build_type = "legacy" }
   }
   cache = {
-    description = "An Effect native cache with a simple and compositional interface"
-    is_archived = true
+    description  = "An Effect native cache with a simple and compositional interface"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   cli = {
-    description = "Rapidly build powerful and composable command-line applications"
-    is_archived = true
+    description  = "Rapidly build powerful and composable command-line applications"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   cluster = {
-    is_archived = true
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   codemod = {
     description  = "Code mod's for the Effect ecosystem"
@@ -36,6 +39,7 @@ repositories = {
   data = {
     description   = "Custom built data types leveraged by the Effect ecosystem"
     collaborators = [{ username = "enricopolanski", permission = "push" }]
+    homepage_url  = "https://effect.website"
     is_archived   = true
   }
   docgen = {
@@ -79,8 +83,9 @@ repositories = {
     description = "A repository of examples showing how to use Effect"
   }
   experimental = {
-    description = "A repository for experimental Effect libraries"
-    is_archived = true
+    description  = "A repository for experimental Effect libraries"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   figlet = {
     description = "An implementation of a FIGlet font parser and renderer built with Effect"
@@ -95,49 +100,61 @@ repositories = {
     enable_changesets = false
   }
   io = {
-    description = "Effect's core runtime, a fiber-based implementation of structured concurrency"
-    is_archived = true
+    description  = "Effect's core runtime, a fiber-based implementation of structured concurrency"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   language-service = {}
   match = {
     description   = "Functional pattern matching with the full power of TypeScript"
     collaborators = [{ username = "tim-smart", permission = "maintain" }]
     topics        = ["functional-programming", "pattern-matching", "typescript"]
+    homepage_url  = "https://effect.website"
     is_archived   = true
+  }
+  monaco-editor = {
+    description = "A custom fork of Monaco Editor maintained for the Effect Playground"
   }
   monorepo-testing = {
     collaborators = [{ username = "fubhy", permission = "admin" }]
   }
   opentelemetry = {
-    description = "OpenTelemetry integration with Effect"
-    is_archived = true
+    description  = "OpenTelemetry integration with Effect"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   platform = {
-    description = "Unified interfaces for common platform-specific services"
-    is_archived = true
+    description  = "Unified interfaces for common platform-specific services"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   printer = {
-    description = "An easy to use, extensible pretty-printer for rendering documents"
-    is_archived = true
+    description  = "An easy to use, extensible pretty-printer for rendering documents"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   rpc = {
-    description = ""
-    is_archived = true
+    description  = ""
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   scala-playground = {
     description = "A Scala playground for the Effect maintainers"
   }
   schema = {
-    description = "Modeling the schema of data structures as first-class values"
-    is_archived = true
+    description  = "Modeling the schema of data structures as first-class values"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   stm = {
-    description = "An implementation of software transactional memory built with Effect"
-    is_archived = true
+    description  = "An implementation of software transactional memory built with Effect"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   stream = {
-    description = "An implementation of pull-based streams built with Effect"
-    is_archived = true
+    description  = "An implementation of pull-based streams built with Effect"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   team = {
     visibility        = "private"
@@ -148,8 +165,9 @@ repositories = {
     pages        = { build_type = "legacy" }
   }
   typeclass = {
-    description = "A collection of re-usable typeclasses for the Effect ecosystem"
-    is_archived = true
+    description  = "A collection of re-usable typeclasses for the Effect ecosystem"
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   vite-plugin-react = {}
   vscode-extension = {
