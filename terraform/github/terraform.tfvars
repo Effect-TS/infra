@@ -105,10 +105,10 @@ repositories = {
   }
   language-service = {}
   match = {
-    description   = "Functional pattern matching with the full power of TypeScript"
-    topics        = ["functional-programming", "pattern-matching", "typescript"]
-    homepage_url  = "https://effect.website"
-    is_archived   = true
+    description  = "Functional pattern matching with the full power of TypeScript"
+    topics       = ["functional-programming", "pattern-matching", "typescript"]
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   monaco-editor = {
     description = "A custom fork of Monaco Editor maintained for the Effect Playground"
