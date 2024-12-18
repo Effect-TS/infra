@@ -54,7 +54,6 @@ repositories = {
   }
   discord-bot = {
     description       = "The Effect Community's custom Discord bot, built with Effect"
-    collaborators     = [{ username = "tim-smart", permission = "push" }]
     enable_changesets = false
   }
   dtslint = {
@@ -106,11 +105,10 @@ repositories = {
   }
   language-service = {}
   match = {
-    description   = "Functional pattern matching with the full power of TypeScript"
-    collaborators = [{ username = "tim-smart", permission = "maintain" }]
-    topics        = ["functional-programming", "pattern-matching", "typescript"]
-    homepage_url  = "https://effect.website"
-    is_archived   = true
+    description  = "Functional pattern matching with the full power of TypeScript"
+    topics       = ["functional-programming", "pattern-matching", "typescript"]
+    homepage_url = "https://effect.website"
+    is_archived  = true
   }
   monaco-editor = {
     description = "A custom fork of Monaco Editor maintained for the Effect Playground"
@@ -188,15 +186,14 @@ organization_owners = [
   "mikearnaldi",
   "mirepri",
   "schickling",
-  "fubhy"
+  "fubhy",
+  "tim-smart"
 ]
 
 organization_members = [
   "mattiamanzati",
   "patroza",
-  "tim-smart",
   "DadeSko",
   "Andarist",
-  "datner",
-  "ecyrbe"
+  "datner"
 ]
