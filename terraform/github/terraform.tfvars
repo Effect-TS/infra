@@ -110,6 +110,10 @@ repositories = {
     homepage_url = "https://effect.website"
     is_archived  = true
   }
+  meetups = {
+    description = "Effect Meetup Group. Submit a talk proposal as an issue."
+    enable_changesets = false
+  }
   monaco-editor = {
     description = "A custom fork of Monaco Editor maintained for the Effect Playground"
   }
