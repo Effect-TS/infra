@@ -111,7 +111,7 @@ repositories = {
     is_archived  = true
   }
   meetups = {
-    description = "Effect Meetup Group. Submit a talk proposal as an issue."
+    description       = "Effect Meetup Group. Submit a talk proposal as an issue."
     enable_changesets = false
   }
   monaco-editor = {
